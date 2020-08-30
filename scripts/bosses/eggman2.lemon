@@ -1,0 +1,20 @@
+global u8 EggmanBlue.disableHurtLaugh
+global u8 EggmanBlue.disableDeadLaugh
+global u8 EggmanBlue.cdStyledGoal
+global u8 EggmanBlue.spritesType
+
+//For Compability with Misc Fixes & Teaks
+global s16 Config_Robotnik_scared
+global s16 Config_Robotnik_shine
+
+//Keep code here for easier changes in the future
+function s16 EggmanBlue.getScaredConfig()
+{
+	return Config_Robotnik_scared
+}
+
+function s16 EggmanBlue.getShineConfig()
+{
+	return Config_Robotnik_shine
+}
+

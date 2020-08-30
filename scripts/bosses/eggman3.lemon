@@ -1,0 +1,5 @@
+function bool EggmanBlue.isMiscFixesHere()
+{
+	return Renderer.hasCustomSprite("robotnik_dataselect_d8")
+}
+
