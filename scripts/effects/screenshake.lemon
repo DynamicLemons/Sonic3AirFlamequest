@@ -1,0 +1,158 @@
+//-------------------------------------------------------//
+// Small explosion                                       //
+//-------------------------------------------------------//
+
+//# address-hook(0x01e61a) end(0x01e622)
+function void SmallExplosion.Init2()
+{
+	if (VisualScreenShakeEffects == 1)
+	{
+		UpdateScreenShake()
+	camera.hyper_knux_shake = 0x7
+	camera.screenshake.state = 0x7
+	}
+	playSound(SFX_POP)
+	objA0.base_state += 2
+	fn01e626()
+}
+
+//-------------------------------------------------------//
+// Explosion used for defeated Robotnik                  //
+//-------------------------------------------------------//
+
+//# address-hook(0x083f52) end(0x083f70)
+function void fn083f52()
+{
+	objA0.update_address = 0x083f68
+	objA0.countdown_callback = 0x0852a0	// Address of "Object.TriggerUnloading()"
+		if (VisualScreenShakeEffects == 1)
+	{
+		UpdateScreenShake()
+	camera.hyper_knux_shake = 0x3
+	camera.screenshake.state = 0x3
+	}
+	playSound(0xb4)
+	fn083f68()
+}
+
+
+//# address-hook(0x0216b0) end(0x0216b2)
+function void Wall.Destroy()
+{
+		if (VisualScreenShakeEffects == 1)
+	{
+	UpdateScreenShake()
+	camera.hyper_knux_shake = 0x7
+	camera.screenshake.state = 0x7
+	}
+	playSound(SFX_COLLAPSE)
+	objA0.sprite_priority = 0x80
+	fn0216b8()
+}
+
+function void fn02015c_internal(bool doAllocation)
+{
+	while (true)
+	{
+		if (doAllocation)
+		{
+			if (!allocDynamicObjectAfterA0())
+				break
+		}
+
+		doAllocation = true
+		u32[A1] = D4
+		u32[A1 + 0x0c] = u32[A0 + 0x0c]
+		u8[A1 + 0x04] = D5.u8
+		objA1.position.x.u16 = D2.u16 + s8[(A3+=1)-1]
+		objA1.position.y.u16 = D3.u16 + s8[(A3+=1)-1]
+		u16[A1 + 0x0a] = u16[A0 + 0x0a] | 0x8000
+		u16[A1 + 0x08] = 0x80
+		u8[A1 + 0x07] = 0x18
+		objA1.velocity.x = u16[(A4+=2)-2]
+		objA1.velocity.y = u16[(A4+=2)-2]
+		u8[A1 + 0x22] = D6.u8
+		++D6.u8
+		if (D6.u8 >= 7)
+			D6.u16 = 3
+
+		--D1.s16
+		if (D1.s16 < 0)
+			break
+	}
+		if (VisualScreenShakeEffects == 1)
+	{
+	UpdateScreenShake()
+	camera.hyper_knux_shake = 0x7
+	camera.screenshake.state = 0x7
+	}
+	playSound(SFX_COLLAPSE)
+}
+
+//# address-hook(0x020c38) end(0x020cb0)
+function void fn020c38()
+{
+	D0 = objA0.animation.sprite * 2
+	A3 = u32[A0 + 0x0c]
+	A3.u16 += u16[A3 + D0.s16]
+	D1.u16 = u16[(A3+=2)-2]
+	objA0.render_flags |= 0x20
+	D5.u8 = objA0.render_flags
+	A1 = A0
+
+	while (true)
+	{
+		u8[A1 + 0x04] = D5.u8
+		u8[A1 + 0x06] = objA0.box_size.y
+		u8[A1 + 0x07] = objA0.box_size.x
+		u16[A1 + 0x08] = objA0.sprite_priority
+		u16[A1 + 0x0a] = u16[A0 + 0x0a]
+		u32[A1 + 0x0c] = A3
+		objA1.position.x.u16 = objA0.position.x.u16
+		objA1.position.y.u16 = objA0.position.y.u16
+		u8[A1 + 0x38] = u8[(A4+=1)-1]
+
+		--D1.s16
+		if (D1.s16 <= 0)
+			break
+		if (!allocDynamicObjectAfterA0())
+			break
+
+		A3 += 6
+		u32[A1] = D4
+	}
+
+	DrawObject()
+
+	if (objA0.respawn_entry)
+	{
+		A1 = 0xffff0000 + objA0.respawn_entry
+		u8[A1] &= ~0x80
+		objA0.respawn_entry = 0
+	}
+		if (VisualScreenShakeEffects == 1)
+	{
+	UpdateScreenShake()
+	camera.hyper_knux_shake = 0x7
+	camera.screenshake.state = 0x7
+	}
+	playSound(SFX_COLLAPSE)
+}
+
+//# address-hook(0x03c9e4) end(0x03ca00)
+function void fn03c9e4()
+{
+	objA0.update_address = 0x01e5e0
+	objA0.base_state = 0x06
+	u8[A0 + 0x28] = 0
+	u8[A0 + 0x29] = 0
+
+	if (VisualScreenShakeEffects == 1)
+	{
+	UpdateScreenShake()
+	camera.hyper_knux_shake = 0x7
+	camera.screenshake.state = 0x7
+	}
+	playSound(0xb4)
+	SmallExplosion.BaseUpdate()
+}

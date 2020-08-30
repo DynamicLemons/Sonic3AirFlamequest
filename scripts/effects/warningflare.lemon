@@ -1,0 +1,42 @@
+global u8 BosstimeXFlag
+global u8 BosstimeXTimer
+
+//# address-hook(0x085bda) end(0x085bf6)
+function void fn085bda()
+{
+    objA0.update_address = 0x085c00
+    level.boss_encounter = 0
+
+    // Spawn the sign post
+    //  -> One object with update address 0x0837b2
+    spawnSimpleChildObjects(0x085bfa)
+
+    addPatternLoadingCue(0x085bc8)
+    fn083c06()
+}
+
+//# address-hook(0x085940) end(0x08594c)
+function void LoadPaletteLine1()
+{
+    // Loads palette colors 0x10 .. 0x1f
+    copyMemory(0xfffffc20, A1, 0x20)
+    if (level.boss_encounter == 1)
+    {
+		Audio.playAudio("warning_flare", 0)
+        BosstimeXFlag = 1
+        BosstimeXTimer = 2780
+    }
+}
+
+
+function void loadPaletteLine1(u32 sourceAddress)
+{
+    // Loads palette colors 0x10 .. 0x1f
+    copyMemory(0xfffffc20, sourceAddress, 0x20)
+    if (level.boss_encounter == 1)
+    {
+		Audio.playAudio("warning_flare", 0)
+        BosstimeXFlag = 1
+        BosstimeXTimer = 2780
+    }
+}

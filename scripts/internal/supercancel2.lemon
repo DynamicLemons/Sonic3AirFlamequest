@@ -1,0 +1,40 @@
+function void Character.cancelSuperTransformation()
+{
+	// Stop being super/hyper already
+	super.active = 0
+	char.double_jump_state = 0
+	super.active.tails = 0
+	super.palettefx.state = 2
+	super.palettefx.frame = 30
+	u8[0xfffff766] = 0xff
+
+	if (char.character == CHARACTER_SONIC)
+	{
+		objA0.mapping_offset = 0x146620
+	}
+	char.state.former = 0x01
+	char.invinc.countdown = 1
+
+	// Reset physics
+	setSpeedCapProperties(A4)
+
+#if STANDALONE
+	// Remove invincibility right away (otherwise it would be done in 2 frames because of "char.invinc.countdown", see above)
+	//  -> This is done so that "chooseFittingMusic" does the right thing afterwards
+	char.bonus_effect &= ~char.bonus.INVINCIBLE
+	char.invinc.countdown = 0
+
+	// Remove control flags set during super transformation
+	//  -> Otherwise the game can get soft-locked when e.g. the game timer stops when just transforming
+	if (char.state == char.state.TRANSFORMING && (char.control_flags & 0x81) == 0x81)
+		char.control_flags &= ~0x81
+
+	// If lightning shield is active, reload sprite patterns for the sparks
+	if (u32[0xffffcce8] == 0x019732)
+	{
+		updateSpritePattern(0x18f8e4, 0xf760, 0x50)
+	}
+
+	Standalone.setFastMusicFlag(FastMusicFlag.SUPER_THEME, false)   // Disable fast music by Super Theme (if this was active)
+#endif
+}

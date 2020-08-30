@@ -1,0 +1,140 @@
+
+
+
+//# address-hook(0x002440) end(0x00244c)
+function void LevelPaletteUpdate.FBZ()
+{
+
+
+
+
+
+
+	if (level.framecounter.low == 0)
+	{
+		u8[0xfffff7c1] ^= 0x01
+	}
+
+#if STANDALONE 
+global.zone_act == 0x0400
+{
+		A1 = 0xfffffc74
+		u16[A1] = 0x0006
+}
+
+		if global.zone_act == 0x0401 && camera.foreground.x.u16 < 0x2A44 //yes i know this is not the most optimized way of doing palette cycles lol
+		{
+		A1 = 0xfffffc74
+		A2 += 1
+		{
+		u16[A1] = 0x0006
+		if level.framecounter.low < 8
+		{
+		u16[A1] = 0x0008
+		}
+		else if level.framecounter.low < 16
+		{
+		u16[A1] = 0x000a
+		}
+		else if level.framecounter.low < 24
+		{
+		u16[A1] = 0x000c
+		}
+		else if level.framecounter.low < 32
+		{
+		u16[A1] = 0x000e
+		}
+		else if level.framecounter.low < 40
+		{
+		u16[A1] = 0x000c
+		}
+		else if level.framecounter.low < 48
+		{
+		u16[A1] = 0x000a
+		}
+		else if level.framecounter.low < 56
+		{
+		u16[A1] = 0x0008
+		}
+		else if level.framecounter.low < 64
+		{
+		u16[A1] = 0x0006
+		}
+		else if level.framecounter.low < 72
+		{
+		u16[A1] = 0x0008
+		}
+		else if level.framecounter.low < 80
+		{
+		u16[A1] = 0x000a
+		}
+		else if level.framecounter.low < 88
+		{
+		u16[A1] = 0x000c
+		}
+		else if level.framecounter.low < 92
+		{
+		u16[A1] = 0x000e
+		}
+		else if level.framecounter.low < 100
+		{
+		u16[A1] = 0x000c
+		}
+		else if level.framecounter.low < 108
+		{
+		u16[A1] = 0x000a
+		}
+		else if level.framecounter.low < 116
+		{
+		u16[A1] = 0x0008
+		}
+		else if level.framecounter.low < 124
+		{
+		u16[A1] = 0x0006
+		}
+		else if level.framecounter.low < 132
+		{
+		u16[A1] = 0x0008
+		}
+		else if level.framecounter.low < 140
+		{
+		u16[A1] = 0x000a
+		}
+		else if level.framecounter.low < 148
+		{
+		u16[A1] = 0x000c
+		}
+		else if level.framecounter.low < 156
+		{
+		u16[A1] = 0x000e
+		}
+		else if level.framecounter.low < 164
+		{
+		u16[A1] = 0x000c
+		}
+		else if level.framecounter.low < 172
+		{
+		u16[A1] = 0x000a
+		}
+		else if level.framecounter.low < 188
+		{
+		u16[A1] = 0x0008
+		}
+		}
+}	
+
+	
+	// Standalone uses upper bits to store more data
+	//  -> Bit 0 = Electricity on/off (as in original)
+	//  -> Bits 1-7 = Intensity value going up/down just before the actual switch
+	u8 intensity = (u8[0xfffff7c1] & 0x01) * 255
+	if (level.framecounter.low > 0xf0)
+	{
+		if (u8[0xfffff7c1] & 0x01)
+			intensity = 0xfe - (level.framecounter.low - 0xf0) * 0x10
+		else
+			intensity = (level.framecounter.low - 0xf0) * 0x10
+	}
+	u8[0xfffff7c1] = (u8[0xfffff7c1] & 0x01) | intensity
+#endif
+}

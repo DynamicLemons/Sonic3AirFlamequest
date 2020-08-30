@@ -1,0 +1,55 @@
+//# address-hook(0x054b20) end(0x054b7c)
+function void UpdateLevelTiles.MHZ1()
+{
+	if (u8[0xffffeed2] == 0 && u16[0xffffeee8] == 0)
+	{
+		fn054b80()
+
+		D0.u16 = (u16[0xffffb010] >= 0x4100) ? 0x0710 : 0x0aa0
+		if (D0.u16 != move_area.bottom.current)
+		{
+			move_area.bottom.current = D0.u16
+			move_area.bottom.target = D0.u16
+		}
+
+		if (camera.position.x.u16 >= 0x4298 - (getScreenWidth() - 320) && camera.position.y.u16 >= 0x0710)
+		{
+			level.vertical_wrap = 0x0710
+			level.special_scrolling = 0x08
+			u8[0xffffeed2] = 0xff
+
+		#if STANDALONE
+			if (Game.isTimeAttack())
+			{
+				// Nothing special to do here
+			}
+			else
+		#endif
+			{
+				// Spawn boss
+				if (allocDynamicObjectStd())
+				{
+					objA1.update_address = 0x0751ca
+				}
+			}
+		}
+	}
+u64 mhz1fire = stringformat("mhz1_fire_0%d", ((global.framecounter / 4) & 0x03) + 1)
+		D0.u8 = (global.framecounter.low & 0x3F)
+		Renderer.drawCustomSprite("mhz_smoke_1", getScreenExtend() - 40 - D0.u8, - D0.u8, 0x00, 0, 0x1100)
+						Renderer.drawCustomSprite(mhz1fire, getScreenExtend() - 40, 0, 0x00, 0, 0x1100)
+	LoadTileContentDefault()
+}
+
+//# address-hook(0x054d8c) end(0x054d98)
+function void UpdateLevelTiles.MHZ2()
+{
+u64 mhz1fire = stringformat("mhz1_fire_0%d", ((global.framecounter / 4) & 0x03) + 1)
+	u64 mhz2fire = stringformat("mhz2_fire_0%d", ((global.framecounter / 4) & 0x03) + 1)
+		D0.u8 = (global.framecounter.low & 0x3F) * 2
+		Renderer.drawCustomSprite(mhz1fire, getScreenExtend() - 40, 0, 0x00, 0, 0x1100)
+		Renderer.drawCustomSprite("mhz_smoke_2", getScreenExtend() - 40 - D0.u8, - D0.u8, 0x00, 0, 0x1100)
+		Renderer.drawCustomSprite(mhz2fire, getScreenExtend() - 40, 0, 0x00, 0, 0x1100)
+	camera.foreground.x.u16 += camera.screenshake.offset
+	call 0x054d9c + s16[0xffffeec0]
+}

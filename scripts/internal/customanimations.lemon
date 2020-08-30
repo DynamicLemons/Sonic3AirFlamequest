@@ -1,0 +1,347 @@
+//# address-hook(0x010bba) end(0x010c8e)
+function void Character.UpdateNormalState.Sonic()
+{
+	if (updateDebugModeInput(false))
+		return
+
+	if (player1.control_override == 0)
+	{
+		// Set player 1 control state
+		control.player1 = control.pad1
+	}
+
+	if (char.control_flags & 0x01)
+	{
+		// Character is not directly controllable (but may be indirectly via an object, like when hanging on a pole or similar)
+		char.double_jump_state = 0
+	}
+	else
+	{
+		// Call update function depending on flags
+		pushA456()
+		if (char.flags & char.flag.IN_AIR)
+		{
+			if (char.flags & char.flag.ROLLING)
+				Character.UpdateSonicRollingInAir()
+			else
+				Character.UpdateSonicUprightInAir()
+		}
+		else
+		{
+			if (char.flags & char.flag.ROLLING)
+				Character.UpdateSonicRollingOnGround()
+			else
+				Character.UpdateSonicUprightOnGround()
+		}
+		popA456()
+	}
+
+#if STANDALONE
+	if (Game.getSetting(SETTING_DROPDASH) && !competition_mode.active)
+	{
+		if (sonic.dropdash_counter > 0)
+		{
+			// Check if hit the ground with drop dash charged
+			if ((sonic.dropdash_counter == DROPDASH_FULLCHARGE) && (char.flags & char.flag.IN_AIR) == 0)
+			{
+				if (char.state != char.state.WIN_POSE)		// This check is only needed for drop dash vs. win pose after FBZ 2 boss
+				{
+					releaseDropDash()
+				}
+				else
+				{
+					// Abort drop dash (e.g. when jumping on a spring)
+					sonic.dropdash_counter = 0
+				}
+			}
+			else
+			{
+				u8 expectedState = (sonic.dropdash_counter < DROPDASH_FULLCHARGE) ? char.state.ROLLING : char.state.SONIC_DROPDASH
+				if (char.state != expectedState)
+				{
+					// Abort drop dash (e.g. when jumping on a spring)
+					sonic.dropdash_counter = 0
+				}
+			}
+		}
+	}
+
+	if (Game.getSetting(SETTING_SUPERFAST_RUNANIM) && !super.active && abs(char.groundspeed) >= 0x0d00)
+	{
+		sonic.fastrunanim.timer = 30
+	}
+	else if (sonic.fastrunanim.timer > 0)
+	{
+		if (abs(char.groundspeed) >= 0x0800)
+			--sonic.fastrunanim.timer
+		else
+			sonic.fastrunanim.timer = 0
+	}
+#endif
+
+	if (level.vertical_wrap == 0xff00)
+	{
+		char.position.y.u16 &= level.height.bitmask
+	}
+
+	Character.updateBonusEffects()
+	Character.UpdateRingsInSuperForm()
+	Character.WriteToPositionBackup()
+	Character.checkForWaterSurface()
+
+	char.angle_sensor_1 = u8[0xfffff768]
+	char.angle_sensor_2 = u8[0xfffff76a]
+
+	if (u8[0xfffff7c8] != 0)
+	{
+		if (char.state == char.state.RUNNING)
+			char.state = char.state.former
+	}
+
+	if ((char.control_flags & 0x02) == 0)	// Hanging flag
+	{
+		UpdateSonicAnimation()
+		if (global.inv_gravity)
+		{
+			char.render_flags ^= render_flag.FLIP_Y
+		}
+		UpdateSonicSpritePatterns()
+	}
+
+	if ((char.control_flags & 0xa0) == 0)
+	{
+		Character.CheckCollisionsWithDynamicObjects()
+	}
+	//////////////
+    // GIMMICKS //
+	/////////////
+
+    // Super heat effect //
+
+			if (global.zone_act.apparent == 0x0701) || (global.zone_act.apparent == 0x0901)
+			{
+	if (level.framecounter & 0x01)
+	{
+					UpdateScreenShake()
+	camera.hyper_knux_shake = 0x1
+	camera.screenshake.state = 0x1
+	}
+			}
+
+	// HCZ //
+
+			if (global.zone_act.apparent == 0x0100) || (global.zone_act.apparent == 0x0101)
+			{
+	if (level.framecounter.low == 0xb4) && (DevToolsHCZRingDrain == 1)
+	{
+        if (char.flags & char.flag.UNDERWATER) && (ring_counter > 0)
+        {
+            --ring_counter
+        
+        }
+	}
+			}
+
+	// FBZ //
+
+			if (global.zone_act.apparent == 0x0400)
+			{
+	if (level.framecounter & 0x384)
+	{
+					UpdateScreenShake()
+	camera.hyper_knux_shake = 0x7
+	camera.screenshake.state = 0x7
+	}
+			}
+
+			if (global.zone_act.apparent == 0x0401)
+			{
+	if (level.framecounter & 0x02)
+	{
+					UpdateScreenShake()
+	camera.hyper_knux_shake = 0x1
+	camera.screenshake.state = 0x1
+	}
+			}
+}
+
+
+//# address-hook(0x0137c4) end(0x0138f4)
+function void Character.UpdateNormalState.Tails()
+{
+	if (updateDebugModeInput(true))
+		return
+
+	if (A0 == 0xffffb000)
+	{
+		// Tails is the main player
+		if (player1.control_override == 0)
+		{
+			control.tails = control.pad1
+			control.player1 = control.pad1
+			if (tails.ai_routine >= 0x1a && competition_mode.active == 0)
+			{
+				Character.TailsAI.Update()
+			}
+		}
+		else
+		{
+			control.tails = control.player1
+		}
+	}
+	else
+	{
+		// Tails is the second player
+		if (player2.control_override == 0)
+		{
+			control.tails = control.player2
+		}
+
+		if (player2.control_override >= 0 && competition_mode.active == 0)
+		{
+			Character.TailsAI.Update()
+		}
+	}
+
+	if (char.control_flags & 0x01)
+	{
+		// Character is not directly controllable (but may be indirectly via an object, like when hanging on a pole or similar)
+		char.double_jump_state = 0
+		if (tails.carrying)
+		{
+			A1 = 0xffffb000
+			objA1.flags2a |= char.flag.IN_AIR
+			u8[A1 + 0x2e] = 0
+			tails.carrying = 0
+			tails.catch_timeout = 0
+		}
+	}
+	else
+	{
+		// Call update function depending on flags
+		pushA456()
+		if (char.flags & char.flag.IN_AIR)
+		{
+			if (char.flags & char.flag.ROLLING)
+				Character.UpdateTailsRollingInAir()
+			else
+				Character.UpdateTailsUprightInAir()
+		}
+		else
+		{
+			if (char.flags & char.flag.ROLLING)
+				Character.UpdateTailsRollingOnGround()
+			else
+				Character.UpdateTailsUprightOnGround()
+		}
+		popA456()
+	}
+
+	if (level.vertical_wrap == 0xff00)
+	{
+		char.position.y.u16 &= level.height.bitmask
+	}
+
+	Character.updateBonusEffects()
+	Character.UpdateRingsInSuperForm()
+	Character.WriteToPositionBackup()
+	Character.checkForWaterSurface()
+
+	char.angle_sensor_1 = u8[0xfffff768]
+	char.angle_sensor_2 = u8[0xfffff76a]
+
+	if (u8[0xfffff7c9] != 0)
+	{
+		if (char.state == 0)
+			char.state = char.state.former
+	}
+
+	if ((char.control_flags & 0x02) == 0)	// Hanging flag
+	{
+		UpdateTailsAnimation()
+		if (global.inv_gravity)
+		{
+			char.render_flags ^= render_flag.FLIP_Y
+		}
+		UpdateTailsSpritePatterns()
+	}
+
+	if ((char.control_flags & 0xa0) == 0)
+	{
+		Character.CheckCollisionsWithDynamicObjects()
+	}
+}
+
+
+//# address-hook(0x01656c) end(0x016640)
+function void Character.UpdateNormalState.Knuckles()
+{
+	if (updateDebugModeInput(false))
+		return
+
+	if (player1.control_override == 0)
+	{
+		// Set player 1 control state
+		control.player1 = control.pad1
+	}
+
+	if (char.control_flags & 0x01)
+	{
+		// Character is not directly controllable (but may be indirectly via an object, like when hanging on a pole or similar)
+		char.double_jump_state = 0
+	}
+	else
+	{
+		// Call update function depending on flags
+		pushA456()
+		if (char.flags & char.flag.IN_AIR)
+		{
+			if (char.flags & char.flag.ROLLING)
+				Character.UpdateKnucklesRollingInAir()
+			else
+				Character.UpdateKnucklesUprightInAir()
+		}
+		else
+		{
+			if (char.flags & char.flag.ROLLING)
+				Character.UpdateKnucklesRollingOnGround()
+			else
+				Character.UpdateKnucklesUprightOnGround()
+		}
+		popA456()
+	}
+
+	if (level.vertical_wrap == 0xff00)
+	{
+		char.position.y.u16 &= level.height.bitmask
+	}
+
+	Character.updateBonusEffects()
+	Character.UpdateRingsInSuperForm()
+	Character.WriteToPositionBackup()
+	Character.checkForWaterSurface()
+
+	char.angle_sensor_1 = u8[0xfffff768]
+	char.angle_sensor_2 = u8[0xfffff76a]
+
+	if (u8[0xfffff7c8] != 0)
+	{
+		if (char.state == char.state.RUNNING)
+			char.state = char.state.former
+	}
+
+	if ((char.control_flags & 0x02) == 0)	// Hanging flag
+	{
+		UpdateKnucklesAnimation()
+		if (global.inv_gravity)
+		{
+			char.render_flags ^= render_flag.FLIP_Y
+		}
+		UpdateKnucklesSpritePatterns()
+	}
+
+	if ((char.control_flags & 0xa0) == 0)
+	{
+		Character.CheckCollisionsWithDynamicObjects()
+	}
+}

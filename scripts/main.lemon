@@ -1,0 +1,25 @@
+include effects/?
+
+include bosses/?
+
+include gimmicks/?
+
+include transitions/?
+
+include internal/?
+
+include music/?
+
+include levels/?
+
+include titlescreen/?
+
+include specialstages/?
+
+include options/?
+
+include cutscenes/?
+
+include credits/?
+
+include eastereggs/?

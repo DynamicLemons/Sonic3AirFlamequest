@@ -1,0 +1,170 @@
+global u16 switch1 = 0
+global u16 switch2 = 0
+global u16 switch3 = 0 //Wunused
+global u8 soundtestfade
+
+//# address-hook(0x007e64) end(0x007f1e)
+//# translated(0x007f46) end(0x007f60)
+function void fn007e64()
+{
+    if (switch3)
+    {
+		/*
+        Renderer.enforceClearScreen(true)
+        Renderer.enableDefaultPlane(0, false)
+		*/
+
+		RenderSprites()
+		Renderer.drawCustomSprite("black", 0, 0, 0x00, 0, 0xe000)
+		if (soundtestfade < 255)
+		{
+			soundtestfade += 15
+		}
+        Renderer.drawCustomSprite("tailssoundtest", 0, 0, 0x00, 0, 0xe001, 0, soundtestfade)
+    }
+
+	bool skipPart = false
+	if ((control.pad1.pressed & (CONTROL_UP | CONTROL_DOWN)) == 0)
+	{
+		--u16[0xffffff80]
+		skipPart = (s16[0xffffff80] >= 0)
+	}
+
+	if (!skipPart)
+	{
+		u16[0xffffff80] = 11
+		if (control.pad1.state & CONTROL_UP)
+		{
+			--levelselect.selection
+			if (s16(levelselect.selection) < 0)
+				levelselect.selection = 0x20
+		}
+		if (control.pad1.state & CONTROL_DOWN)
+		{
+			++levelselect.selection
+			if (levelselect.selection > 0x20)
+				levelselect.selection = 0
+		}
+		return
+	}
+
+	if (levelselect.selection == 0x20)
+	{
+		if (switch3 == 0)
+		{
+			// Sound test
+			if (control.pad1.pressed & CONTROL_LEFT)
+			{
+				if (levelselect.soundtest > 0)
+					--levelselect.soundtest
+			}
+			if (control.pad1.pressed & CONTROL_RIGHT)
+			{
+				levelselect.soundtest = (levelselect.soundtest + 1) & 0xff
+			}
+			if (control.pad1.pressed & CONTROL_A)
+			{
+				levelselect.soundtest = (levelselect.soundtest + 0x10) & 0xff
+			}
+
+			if (control.pad1.pressed & CONTROL_C)
+			{
+				if (switch1 == 0)
+				{
+					if (levelselect.soundtest == 0x07)
+					{
+						switch1 = 1
+						playMusic(levelselect.soundtest)
+					}
+					else
+					{
+						switch1 = 0
+						switch2 = 0
+						switch3 = 0
+						playMusic(levelselect.soundtest)
+					}
+				}
+				else if (switch2 == 0)
+				{
+					if (levelselect.soundtest == 0x08)
+					{
+						switch2 = 1
+						playMusic(levelselect.soundtest)
+					}
+					else
+					{
+						switch1 = 0
+						switch2 = 0
+						switch3 = 0
+						playMusic(levelselect.soundtest)
+					}
+				}
+				else if (switch3 == 0)
+				{
+					if (levelselect.soundtest == 0x09)
+					{
+						Renderer.enforceClearScreen(true)
+						Renderer.enableDefaultPlane(0, false)
+						Renderer.drawCustomSprite("sklogo", 0, 0, 0x00, 0, 0xe000)
+
+						switch3 = 1
+
+						playMusic(0x30) //Play Big Arms because why not
+					}
+					else
+					{
+						switch1 = 0
+						switch2 = 0
+						switch3 = 0
+						playMusic(levelselect.soundtest)
+					}
+				}
+			}
+		}
+		if (control.pad1.pressed & CONTROL_B)
+		{
+			playMusic(0xe3)
+		}
+	}
+	else
+	{
+		if (switch3 == 0)
+		{
+			if (control.pad1.pressed & (CONTROL_LEFT | CONTROL_RIGHT))
+			{
+				levelselect.selection = u8[0x007f22 + levelselect.selection]
+			}
+
+			if (control.pad1.pressed & CONTROL_C)
+			{
+				u8 maxCharacterSelection = 3
+			#if STANDALONE
+				// Knuckles & Tails
+				if (Game.isSecretUnlocked(SECRET_KNUX_AND_TAILS))
+				{
+					maxCharacterSelection = 4
+				}
+			#endif
+
+				++levelselect.characters
+				if (levelselect.characters > maxCharacterSelection)
+					levelselect.characters = 0
+			}
+		}
+	}
+
+#if STANDALONE
+	if (control.pad1.pressed & CONTROL_B)
+	{
+		playSound(0xad)
+
+		u32 backupA0 = A0
+		FadeOutScreenBlocking()
+		A0 = backupA0
+
+		// Do not fade out music in this case, Data Select music is meant to kept playing
+		Game.returnToMainMenu()
+		yieldExecution()
+	}
+#endif
+}

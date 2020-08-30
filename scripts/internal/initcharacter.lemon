@@ -1,0 +1,119 @@
+function void Character.Initialization.shared(u8 character)
+{
+            if (global.zone_act.apparent == 0x0401) || (global.zone_act.apparent == 0x0300) || (global.zone_act.apparent == 0x0701)
+            {
+			if (checkpoint.number == 0)
+			{
+ZoneIntroRunningStart()
+			}
+			}
+	char.base_state += 2
+
+	char.character = character
+
+	u8 characterHeight = (character == CHARACTER_TAILS) ? 15 : 19
+	char.hitbox_extends.x = 9
+	char.hitbox_extends.y = characterHeight
+	char.hitbox.default.x = 9
+	char.hitbox.default.y = characterHeight
+
+	if (character == CHARACTER_SONIC)
+	{
+		char.mapping_offset = 0x146620
+	}
+	else if (character == CHARACTER_TAILS)
+	{
+		char.mapping_offset = 0x148eb8
+	}
+	else  // character == CHARACTER_KNUCKLES
+	{
+		char.mapping_offset = 0x14a8d6
+	}
+
+	char.sprite_priority = 0x100
+	char.box_size.x = 0x18
+	char.box_size.y = 0x18
+	char.render_flags = render_flag.WORLD
+	if (character == CHARACTER_TAILS)
+		char.render_flags |= render_flag.VISIBLE
+
+	setSpeedCapProperties(A4, false)
+
+	u8[A0 + 0x30] = 0
+	u8[A0 + 0x31] = 4
+	char.drown_countdown = 30
+
+	if (character == CHARACTER_TAILS)
+	{
+		if (global.characters == CHARS_TAILS_ALONE)
+		{
+			if (checkpoint.number == 0)
+			{
+				char.sprite_attributes = 0x06a0
+				char.layer_flags1 = 0x0c
+				char.layer_flags2 = 0x0d
+
+				if (global.stage_type != 2)
+				{
+					checkpoint.x = char.position.x.u16
+					checkpoint.y = char.position.y.u16
+					checkpoint.sprite_attr = char.sprite_attributes
+					checkpoint.layer_flags = char.layer_flags
+				}
+			}
+		}
+		else
+		{
+			char.sprite_attributes = 0x06a0 | (u16[0xffffb00a] & 0x8000)
+			u16[A0 + 0x46] = u16[0xffffb046]
+		}
+
+		super.active.tails = 0
+
+		if (tails.ai_routine != 0x12 && tails.ai_routine != 0x20)
+			tails.ai_routine = 0
+
+		tails.control_counter = 0
+		tails.respawn_counter = 0
+
+		// Init Tails' tails object
+		u32[0xffffcc0a] = 0x0160a6
+		u16[0xffffcc3a] = A0.u16
+
+		u8[0xfffff746] = checkpoint.number
+	}
+	else
+	{
+		if (checkpoint.number == 0)
+		{
+			char.sprite_attributes = 0x0680
+			char.layer_flags1 = 0x0c
+			char.layer_flags2 = 0x0d
+
+			if (global.stage_type != 2)
+			{
+				checkpoint.x = char.position.x.u16
+				checkpoint.y = char.position.y.u16
+				checkpoint.sprite_attr = char.sprite_attributes
+				checkpoint.layer_flags = u16[A0 + 0x46]
+			}
+		}
+
+		super.active = 0
+
+		char.position.x.u16 -= 0x20
+		char.position.y.u16 += 4
+		ClearPositionBackup()
+		char.position.x.u16 += 0x20
+		char.position.y.u16 -= 4
+	}
+}
+
+function void ZoneIntroRunningStart()
+{
+	// This defines the position where to stop automatic moving right
+	u16[A0 + 0x30] = u16[0xffffb010] + getScreenWidth() / 2 + 0xfffffffffffffff
+
+
+	fn044a26()
+}

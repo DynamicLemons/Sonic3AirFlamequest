@@ -1,0 +1,76 @@
+function u64 getCharacterPaletteKey(u8 character)
+{
+	bool isBonusStage = (global.zone >= 0x13 && global.zone <= 0x15)
+	if (!isBonusStage) && (global.zone.apparent != 0x00) && (global.zone.apparent != 0x0a) && (global.zone.apparent != 0x0b) && (global.zone.apparent != 0x0c)
+	{
+	if (character == CHARACTER_SONIC)
+	{
+		if (super.active & 0x80 || super.active.tails & 0x80)
+		{
+	return "character_palette_scorching_sonic_hot"
+		}
+		else
+		{
+	return "character_palette_burning_sonic_hot"
+		}
+	}
+	else if (character == CHARACTER_TAILS)
+	{
+		if (super.active & 0x80 || super.active.tails & 0x80)
+		{
+	return "character_palette_scorching_tails_hot"
+		}
+		else
+		{
+	return "character_palette_burning_tails_hot"
+		}
+	}
+	else if (character == CHARACTER_KNUCKLES)
+	{
+		if (super.active & 0x80 || super.active.tails & 0x80)
+		{
+	return "character_palette_scorching_knuckles_hot"
+		}
+		else
+		{
+	return "character_palette_burning_knuckles_hot"
+		}
+	}
+	}
+	else
+	{
+	if (character == CHARACTER_SONIC)
+	{
+		if (super.active & 0x80 || super.active.tails & 0x80)
+		{
+	return "character_palette_scorching_sonic_normal"
+		}
+		else
+		{
+	return "character_palette_burning_sonic_normal"
+		}
+	}
+	else if (character == CHARACTER_TAILS)
+	{
+		if (super.active & 0x80 || super.active.tails & 0x80)
+		{
+	return "character_palette_scorching_tails_normal"
+		}
+		else
+		{
+	return "character_palette_burning_tails_normal"
+		}
+	}
+	else if (character == CHARACTER_KNUCKLES)
+	{
+		if (super.active & 0x80 || super.active.tails & 0x80)
+		{
+	return "character_palette_scorching_knuckles_normal"
+		}
+		else
+		{
+	return "character_palette_burning_knuckles_normal"
+		}
+	}
+	}
+}
