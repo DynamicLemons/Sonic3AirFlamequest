@@ -1,0 +1,21 @@
+{
+	"aiz1_layout": { "File": "../level/AIZ/Layout/1.bin" },
+	"aiz1_objects": { "File": "../level/AIZ/Object Pos/1.bin" },
+	"aiz1_rings": { "File": "../level/AIZ/Ring Pos/1.bin" },
+
+	"icz2_layout": { "File": "../level/ICZ/Layout/2.bin" },
+	"icz2_objects": { "File": "../level/ICZ/Object Pos/2.bin" },
+	"icz2_rings": { "File": "../level/ICZ/Ring Pos/2.bin" },
+
+	"mhz1_layout": { "File": "../level/MHZ/Layout/1.bin" },
+	"mhz1_objects": { "File": "../level/MHZ/Object Pos/1.bin" },
+	"mhz1_rings": { "File": "../level/MHZ/Ring Pos/1.bin" },
+
+	"fbz2_layout": { "File": "../level/FBZ/Layout/2.bin" },
+	"fbz2_objects": { "File": "../level/FBZ/Object Pos/2.bin" },
+	"fbz2_rings": { "File": "../level/FBZ/Ring Pos/2.bin" },
+
+	"soz1_layout": { "File": "../level/SOZ/Layout/1.bin" },
+	"soz1_objects": { "File": "../level/SOZ/Object Pos/1.bin" },
+	"soz1_rings": { "File": "../level/SOZ/Ring Pos/1.bin" },
+}

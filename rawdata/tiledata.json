@@ -1,0 +1,20 @@
+{
+
+	"fbz tiles": 
+{
+	"File": "fbz tiles.bin",
+	"RomInject": "0x195040"
+},
+
+		"fbz blocks": 
+{
+	"File": "fbz blocks.bin",
+	"RomInject": "0x194400"
+},
+
+			"fbz chunks": 
+{
+	"File": "fbz chunks.bin",
+	"RomInject": "0x01974a2"
+},
+}
