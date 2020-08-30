@@ -1,0 +1,227 @@
+{
+
+	//----------------------------------------------//
+	// Music and jingles                            //
+	//----------------------------------------------//
+
+	// AIZ 1
+	"01":      { "File": "...", "Type": "Music", "Loop": "1" },
+	"01_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// AIZ 2
+	"02":      { "File": "...", "Type": "Music", "Loop": "1" },
+	"02_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// HCZ 1
+	"03":      { "File": "...", "Type": "Music", "Loop": "1" },
+	"03_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// HCZ 2
+	"04":      { "File": "...", "Type": "Music", "Loop": "1" },
+	"04_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// MGZ 1
+	"05":      { "File": "...", "Type": "Music", "Loop": "1" },
+	"05_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// MGZ 2
+	"06":      { "File": "...", "Type": "Music", "Loop": "1" },
+	"06_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// CNZ 1
+	"07":      { "File": "...", "Type": "Music", "Loop": "1" },
+	"07_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// CNZ 2
+	"08":      { "File": "...", "Type": "Music", "Loop": "1" },
+	"08_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// FBZ 1
+	"09":      { "File": "BustedBattery1.ogg", "Type": "Music", "Loop": "1" },
+	"09_fast": { "File": "BustedBattery1F.ogg", "Type": "Music", "Loop": "1" },
+
+	// FBZ 2
+	"0A":      { "File": "BustedBattery2.ogg", "Type": "Music", "LoopStart": "90435" },
+	"0A_fast": { "File": "BustedBattery2F.ogg", "Type": "Music", "LoopStart": "72347" },
+
+	"0Aalt":      { "File": "BustedBattery2ALT.ogg", "Type": "Music", "LoopStart": "76101" },
+	"0Aalt_fast": { "File": "BustedBattery2FALT.ogg", "Type": "Music", "LoopStart": "76877" },
+
+	// ICZ 1
+	"0B":      { "File": "MeltingIceCap1.ogg", "Type": "Music", "Loop": "2542576" },
+	"0B_fast": { "File": "MeltingIceCap1F.ogg", "Type": "Music", "Loop": "157695" },
+
+	// ICZ 2
+	"0C":      { "File": "MeltingIceCap2.ogg", "Type": "Music", "Loop": "1939143" },
+	"0C_fast": { "File": "MeltingIceCap2F.ogg", "Type": "Music", "Loop": "159279" },
+
+	// LBZ 1
+	"0D":      { "File": "...", "Type": "Music", "Loop": "1" },
+	"0D_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// LBZ 2
+	"0E":      { "File": "...", "Type": "Music", "Loop": "1" },
+	"0E_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// MHZ 1
+	"0F":      { "File": "...", "Type": "Music", "Loop": "1" },
+	"0F_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// MHZ 2
+	"10":      { "File": "...", "Type": "Music", "Loop": "1" },
+	"10_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// SOZ 1
+	"11":      { "File": "...", "Type": "Music", "Loop": "1" },
+	"11_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// SOZ 2
+	"12":      { "File": "...", "Type": "Music", "Loop": "1" },
+	"12_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// LRZ 1
+	"13":      { "File": "...", "Type": "Music", "Loop": "1" },
+	"13_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// LRZ 2
+	"14":      { "File": "...", "Type": "Music", "Loop": "1" },
+	"14_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// SSZ
+	"15":      { "File": "...", "Type": "Music", "Loop": "1" },
+	"15_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// DEZ 1
+	"16":      { "File": "...", "Type": "Music", "Loop": "1" },
+	"16_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// DEZ 2
+	"17":      { "File": "...", "Type": "Music", "Loop": "1" },
+	"17_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// Mini-boss
+	//  -> First ID is S&K version, second is S3 version
+	"18": { "File": "Miniboss.ogg", "Type": "Music", "Loop": "1" },
+	"2E_sonic3": { "File": "Miniboss.ogg", "Type": "Music", "Loop": "1" },
+
+	// Main boss
+	"19": { "File": "BossPinch.ogg", "Type": "Music", "Loop": "1" },
+
+	// DDZ
+	"1A":      { "File": "Doomsday.ogg", "Type": "Music", "Loop": "369218" },
+	"1A_fast": { "File": "DoomsdayF.ogg", "Type": "Music", "Loop": "501938" },
+
+	// Glowing Spheres bonus stage
+	"1B": { "File": "BonusStage.ogg", "Type": "Music", "Loop": "1" },
+
+	// Slot Machine bonus stage
+	"1D": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// Gumball Machine bonus stage
+	"1E": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// Knuckles' Theme
+	//  -> First ID is S&K version, second is S3 version
+	"1F": { "File": "...", "Type": "Music", "Loop": "1" },
+	"1F_sonic3": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// Competition mode
+	"20": { "File": "...", "Type": "Music", "Loop": "1" },
+	"21": { "File": "...", "Type": "Music", "Loop": "1" },
+	"22": { "File": "...", "Type": "Music", "Loop": "1" },
+	"23": { "File": "...", "Type": "Music", "Loop": "1" },
+	"24": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// Title screen
+	//  -> First ID is S&K version, second is S3 version
+	"25": { "File": "...", "Type": "Jingle" },
+
+	// Credits Music (from Sonic 3)
+	"26": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// Game Over
+	"27": { "File": "...", "Type": "Jingle" },
+
+	// Continue Screen
+	"28": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// Level results jingle
+	"29": { "File": "...", "Type": "Jingle", "ClearMusic": "1" },
+
+	// Extra life jingle
+	//  -> First ID is S&K version, second is S3 version
+	"2A": { "File": "...", "Type": "Jingle" },
+
+	// Emerald jingle
+	"2B": { "File": "...", "Type": "Jingle" },
+
+	// Invincibility theme
+	//  -> First ID is S&K version, second is S3 version
+	"2C": { "File": "...", "Type": "Music", "Loop": "1" },
+	"2C_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+	"2C_sonic3": { "File": "...", "Type": "Music", "Loop": "1" },
+	"2C_sonic3_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// Competition Mode menu
+	"2D": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// Data Select menu
+	"2F": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// Final Boss
+	"30": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// Drowning jingle
+	"31": { "File": "...", "Type": "Jingle" },
+
+	// Victory music (when game is finished)
+	"32": { "File": "...", "Type": "Jingle" },
+	"32_sonic3": { "File": "...", "Type": "Jingle" },
+
+	// Outro
+	"DC": { "File": "...", "Type": "Jingle" },
+
+	// SEGA sound
+	"FF": { "File": "SplashScreenJingle.ogg", "Type": "Jingle" },
+
+	// Sonic 1 boss music
+	"sonic1_boss": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// Sonic 2 boss music
+	"sonic2_boss": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// CNZ 1 (Sonic 3 Prototype)
+	"07_proto":		 { "File": "...", "Type": "Music", "Loop": "1" },
+	"07_proto_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// CNZ 2 (Sonic 3 Prototype)
+	"08_proto":		 { "File": "...", "Type": "Music", "Loop": "1" },
+	"08_proto_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// ICZ 1 (Sonic 3 Prototype)
+	"0B_proto":		 { "File": "...", "Type": "Music", "Loop": "1" },
+	"0B_proto_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// ICZ 2 (Sonic 3 Prototype)
+	"0C_proto":		 { "File": "...", "Type": "Music", "Loop": "1" },
+	"0C_proto_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// LBZ 1 (Sonic 3 Prototype)
+	"0D_proto":		 { "File": "...", "Type": "Music", "Loop": "1" },
+	"0D_proto_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// ICZ 2 (Sonic 3 Prototype)
+	"0E_proto":		 { "File": "...", "Type": "Music", "Loop": "1" },
+	"0E_proto_fast": { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// Knuckles Theme (Sonic 3 Prototype)
+	"1F_proto":		 { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// Credits (Sonic 3 Prototype)
+	"26_proto":		 { "File": "...", "Type": "Music", "Loop": "1" },
+
+	// Competition Mode menu (Sonic 3 Prototype)
+	"2D_proto":		 { "File": "...", "Type": "Music", "Loop": "1" },
+
+	"warning_flare": { "File": "WarningFlare.ogg", "Type": "Sound" },
+}
