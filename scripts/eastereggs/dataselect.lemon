@@ -1,6 +1,6 @@
 global bool dsswitch1
 global bool dsswitch2
-global bool dsswitch3 //Wunused, or at least it should be
+global bool dsswitch3
 
 function bool fn00d458()
 {
