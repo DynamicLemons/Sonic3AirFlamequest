@@ -1,0 +1,13 @@
+{
+	"splash_screen_logo":  { "File": "splash_screen_logo.png", "Rect": "0,0,400,224", "Center": "0,0" },
+	"splash_screen_bg_01":  { "File": "splash_screen_bg.png", "Rect": "0,0,400,224", "Center": "0,0" },
+	"splash_screen_bg_02":  { "File": "splash_screen_bg.png", "Rect": "0,226,400,224", "Center": "0,0" },
+	"splash_screen_bg_03":  { "File": "splash_screen_bg.png", "Rect": "0,452,400,224", "Center": "0,0" },
+	"splash_screen_bg_04":  { "File": "splash_screen_bg.png", "Rect": "0,226,400,224", "Center": "0,0" },
+	"splash_screen_flames_01":  { "File": "splash_screen_fire.png", "Rect": "0,0,400,224", "Center": "0,-40" },
+	"splash_screen_flames_02":  { "File": "splash_screen_fire.png", "Rect": "0,226,400,224", "Center": "0,-40" },
+	"splash_screen_flames_03":  { "File": "splash_screen_fire.png", "Rect": "0,0,400,224", "Center": "0,-40" },
+    "splash_screen_flames_04":  { "File": "splash_screen_fire.png", "Rect": "0,226,400,224", "Center": "0,-40" },
+    "splash_screen_embers":  { "File": "splash_screen_embers.png", "Rect": "0,0,512,512", "Center": "0,256" },
+    "splash_screen_white_flash":  { "File": "splash_screen_white_flash.png", "Rect": "0,0,400,224", "Center": "0,0" }
+}

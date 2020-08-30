@@ -1,0 +1,6 @@
+{
+	"warning_flare_01":  { "File": "warning_flare.png", "Rect": "0,0,222,32", "Center": "64,16" },
+	"warning_flare_02":  { "File": "warning_flare.png", "Rect": "0,32,222,32", "Center": "64,16" },
+	"warning_flare_03":  { "File": "warning_flare.png", "Rect": "0,0,222,32", "Center": "64,16" },
+	"warning_flare_04":  { "File": "warning_flare.png", "Rect": "0,32,222,32", "Center": "64,16" }
+}

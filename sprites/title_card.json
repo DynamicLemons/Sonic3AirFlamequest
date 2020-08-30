@@ -1,0 +1,10 @@
+{
+	//Classic
+	"topblue":    { "File": "TopBlue.png", "Rect": "0,0,500,240", "Center": "110,0" },
+	"botred":    { "File": "BottomRed.png", "Rect": "0,0,500,240", "Center": "110,0" },
+	"bg":    { "File": "Back.png", "Rect": "0,0,500,240", "Center": "110,0" },
+
+	//Modern
+	"moderntcbottom":    { "File": "ModernTitleCard.png", "Rect": "0,0,1150,240", "Center": "300,0" },
+	"moderntcyop":    { "File": "ModernTitleCardYFlip.png", "Rect": "0,0,1150,240", "Center": "300,0" }
+}
