@@ -1,0 +1,244 @@
+// Level Transitions
+
+//# address-hook(0x044a26) end(0x044a62)
+function void fn044a26()
+{
+	player1.control_override = 1
+	control.player1 = 0x0800
+	char.groundspeed = 0x1000
+	char.velocity.x = 0x1000
+
+	D0.u16 = u16[0xffffb010] + 0x10
+	if (D0.u16 < u16[A0 + 0x30])
+		return
+
+	player1.control_override = 0
+	player2.control_override = 0
+	UnloadObject()
+}
+
+//# address-hook(0x085e3a) end(0x085e50)
+function void TriggerNextZone()
+{
+#if STANDALONE
+	Standalone.onLevelFinished()
+	D0.u16 = Game.onTriggerNextZone(D0.u16)
+
+	// Decide on the next zone's start location -- either the default or an alternative one
+	//  - 0 is the default
+	//  - 1 is Sonic's and Tails' path
+	//  - 2 is Knuckles's path
+	level.start_location = 0
+	if (D0.u16 == 0x0300)
+	{
+		// MGZ -> CNZ
+		level.start_location = (camera.position.y.u16 < 0x0600) ? 2 : 2
+	}
+	else if (D0.u16 == 0x0500)
+	{
+		// CNZ -> ICZ
+		level.start_location = (camera.position.y.u16 > 0x0300) ? 1 : 1
+	}
+
+	if (Game.getSetting(SETTING_MAINTAIN_SHIELDS))
+	{
+		global.shields_backup_1 = u8[0xffffb02b] & 0x71
+	}
+#endif
+
+	// Trigger the fade out and loading of next zone
+	global.zone_act = D0.u16
+	global.zone_act.apparent = D0.u16
+	level.restart = 1
+	checkpoint.number = 0
+	global.stage_type = 0
+
+#if STANDALONE
+	Standalone.onLevelStart()
+#endif
+}
+
+//# address-hook(0x085e3a) end(0x085e50)
+function void TriggerNextZone()
+{
+#if STANDALONE
+	Standalone.onLevelFinished()
+	D0.u16 = Game.onTriggerNextZone(D0.u16)
+
+	// Decide on the next zone's start location -- either the default or an alternative one
+	//  - 0 is the default
+	//  - 1 is Sonic's and Tails' path
+	//  - 2 is Knuckles's path
+	level.start_location = 0
+	if (D0.u16 == 0x0300)
+	{
+		// MGZ -> CNZ
+		level.start_location = 2
+	}
+	else if (D0.u16 == 0x0500)
+	{
+		// CNZ -> ICZ
+		level.start_location = 1
+	}
+
+	if (Game.getSetting(SETTING_MAINTAIN_SHIELDS))
+	{
+		global.shields_backup_1 = u8[0xffffb02b] & 0x71
+	}
+#endif
+
+	// Trigger the fade out and loading of next zone
+	global.zone_act = D0.u16
+	global.zone_act.apparent = D0.u16
+	level.restart = 1
+	checkpoint.number = 0
+	global.stage_type = 0
+
+#if STANDALONE
+	Standalone.onLevelStart()
+#endif
+}
+
+//# address-hook(0x01be46) end(0x01bfae)
+function void SetupCharacterAtStartPosition()
+{
+	if (checkpoint.number != 0)
+	{
+		SetupCharacterAtLastCheckpoint()
+		D1.u16 = u16[0xffffb010]
+		D0.u16 = u16[0xffffb014]
+	}
+	else
+	{
+		A1 = isMainCharacter(CHARACTER_KNUCKLES) ? 0x1e3cd8 : 0x1e3c18
+		A1 += global.zone * 8 + global.act * 4
+		D1 = u16[A1]
+		D0 = u16[A1+2]
+		u16[0xffffb010] = D1.u16
+		u16[0xffffb014] = D0.u16
+
+		if (global.zone_act == 0x0000)
+		{
+			if (isSonicIntro())
+			{
+				D1.u16 = 0
+				D0.u16 = 0x420
+				u16[0xffffb010] = 0x0040
+				u16[0xffffb014] = 0x0420
+				move_area.left = 0
+				u16[0xffffee0c] = 0
+				u16[0xffffee1c] = 0
+			}
+		#if STANDALONE
+			else if (isMainCharacter(CHARACTER_KNUCKLES) && (Game.getSetting(SETTING_AIZ_INTRO_KNUCKLES) != 0 || Game.isTimeAttack()))
+			{
+				// First set the desired camera position, then character position gets calculated after the if-else-blocks
+				//  -> Camera positions here should be the same as in "fn0634ca"
+				if (Game.getSetting(SETTING_LEVELLAYOUTS) == 2)
+				{
+					u16[0xffffb010] = 0x1830
+					u16[0xffffb014] = 0x0119
+					D1.u16 = 0x1768
+					D0.u16 = 0x0090
+					move_area.bottom.current = D0.u16
+					move_area.bottom.target = D0.u16
+				}
+				else
+				{
+					D1.u16 = 0x1390
+					D0.u16 = 0x0380
+				}
+				D1.u16 += getScreenWidth() / 2
+				D0.u16 += 96
+			}
+		#endif
+		}
+		else if (global.zone_act == 0x0300)
+		{
+level.start_location = 2
+		}
+		else if (global.zone_act == 0x0500)
+		{
+level.start_location = 1
+		}
+	#if STANDALONE
+		else if (global.zone_act == 0x0601)
+		{
+			if (isMainCharacter(CHARACTER_KNUCKLES) && getNumPlayers() == 2)
+			{
+				// Move Knuckles a bit to the right in LBZ 2 to make space for Tails
+				u16[0xffffb010] += 0x10
+				D1.u16 += 0x10
+			}
+		}
+	#endif
+		else if (global.zone_act == 0x0700)
+		{
+			if (!isMainCharacter(CHARACTER_KNUCKLES) && global.lock_on_state == 0)
+			{
+				move_area.left  = 0x00c0
+				u16[0xffffee0c] = 0x00c0
+				u16[0xffffee1c] = 0x00c0
+				D1.u16 = 0x0160
+			}
+		}
+		else if (global.zone_act == 0x0900)
+		{
+			if (isMainCharacter(CHARACTER_KNUCKLES))
+			{
+				D1.u16 += 0xb0
+			}
+		}
+		else if (global.zone_act == 0x0b00 || global.zone_act == 0x1601)
+		{
+			D1.u16 += 0xb0 + getScreenExtend()
+		}
+	#if STANDALONE
+		else if (global.zone == 0x13)
+		{
+			// Gumball Machine:
+			// Do not allow for jumping in first frame
+			u8[0xffffb000 + 0x20] = char.state.STANDING
+			u8[0xffffb000 + 0x2a] |= char.flag.IN_AIR
+			u8[0xffffb04a + 0x20] = char.state.STANDING
+			u8[0xffffb04a + 0x2a] |= char.flag.IN_AIR
+		}
+		else if (global.zone == 0x15)
+		{
+			// Slot Machine
+			D1.u16 -= getScreenExtend()
+		}
+	#endif
+	}
+
+	D1.s16 = max(D1.s16 - getScreenWidth() / 2, 0)
+	if (competition_mode.active == 0)
+	{
+	#if STANDALONE
+		// Avoid exact tile edges
+		//  -> This was particularly added in to avoid glitches in first pixel row after exiting first Giant Ring in AIZ 2
+		//     (There's probably a better solution, that generally solves this type of glitches when going left in AIZ 2)
+		if ((D1.u16 & 0x0f) == 0)
+			++D1.u16
+	#endif
+		D1.u16 = min(D1.u16, move_area.right)
+	}
+
+	camera.position.x.u16 = D1.u16
+	u16[0xffffee60] = D1.u16
+
+	D0.s16 = clamp(D0.s16 - 96, 0, s16(move_area.bottom.current))
+	camera.position.y.u16 = D0.u16
+	u16[0xffffee64] = D0.u16
+}
+
+//# address-hook(0x053608) end(0x05365e)
+function void InitLevelTiles.ICZ1()
+{
+	level.height.bitmask = 0x07ff
+	level.height.tilemask = 0x07f0
+	level.chunksize.bitmask = 0x3c
+	Level.GetCameraPosition()
+	Level.InitialTilesFill()
+}
+
