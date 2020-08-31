@@ -1,8 +1,5 @@
 #if STANDALONE
 
-include settings
-include tools
-
 global u8 EggmanBlue.laughTimer = 0
 
 function bool EggmanBlue.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
