@@ -46,8 +46,8 @@ function void mhzheathaze()
 		A1 += 4
 		if global.zone_act == 0x0701
 		{
-		A5 += 4
-		A6 += 4		
+		A5 += 2
+		A6 += 2		
 		}
 		else
 		{
