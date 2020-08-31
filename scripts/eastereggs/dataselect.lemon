@@ -1,6 +1,6 @@
-global bool dsswitch1
-global bool dsswitch2
-global bool dsswitch3
+global bool switch1
+global bool switch2
+global bool switch3 //Wunused, or at least it should be
 
 function bool fn00d458()
 {
@@ -122,28 +122,29 @@ function bool fn00d458()
             {
                 if (control.pad1.pressed & CONTROL_DOWN)
                 {
-                    if (dsswitch1 == 0 && dsswitch2 == 0 && dsswitch3 == 0)
+                    if (switch1 == 0 && switch2 == 0 && switch3 == 0)
                     {
-                        dsswitch1 = 1
+                        switch1 = 1
                     }
-                    else if (dsswitch1 && dsswitch2)
+                    else if (switch1 && switch2)
                     {
-                        dsswitch3 = 1
+						playMusic(SFX_RING)
+                        switch3 = 1
                     }
                     else
                     {
-                        Resetdsswitches()
+                        ResetSwitches()
                     }
                 }
                 else if (control.pad1.pressed & CONTROL_UP)
                 {
-                    if (dsswitch1)
+                    if (switch1)
                     {
-                        dsswitch2 = 1
+                        switch2 = 1
                     }
                     else
                     {
-                        Resetdsswitches()
+                        ResetSwitches()
                     }
                 }
             }
@@ -237,9 +238,9 @@ function bool fn00d458()
 }
 
 
-function void Resetdsswitches()
+function void ResetSwitches()
 {
-    dsswitch1 = 0
-    dsswitch2 = 0
-    dsswitch3 = 0
+    switch1 = 0
+    switch2 = 0
+    switch3 = 0
 }
