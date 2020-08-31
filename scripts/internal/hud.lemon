@@ -81,22 +81,22 @@ bosshphealthbar = boss.remaining_hits
 				--BosstimeXTimer
 			}
 			u64 warningflare = stringformat("warning_flare_0%d", ((global.framecounter / 4) & 0x03) + 1)
-                    if (level.boss_encounter == 1) && (BosstimeXTimer != 0)
-                    {
-                    HUD.drawSprite(warningflare, baseX + 0x90, baseY + 0x71, renderQueue)
-					}
+			if (level.boss_encounter == 1) && (BosstimeXTimer != 0)
+			{
+				HUD.drawSprite(warningflare, baseX + 0x90, baseY + 0x71, renderQueue)
+			}
 			// Score
 			HUD.drawSprite("hud_text_score", baseX, baseY, renderQueue)
 			++renderQueue
 			HUD.drawNumber("hud_digit_%d", player.score * 10, baseX + 0x58, baseY, renderQueue)
 			++renderQueue
-            if (global.zone_act.apparent == 0x0401) && (DevToolsFBZ2TimeLimit == 1)
-            {
-                    if (level.boss_encounter == 0)
-                    {
-HUD.drawSprite("fbz_time_limit_1", baseX + 0x62, baseY + 0x11, renderQueue)
-++renderQueue
-					}
+			if (global.zone_act.apparent == 0x0401) && (DevToolsFBZ2TimeLimit == 1)
+			{
+				if (level.boss_encounter == 0)
+				{
+					HUD.drawSprite("fbz_time_limit_1", baseX + 0x62, baseY + 0x11, renderQueue)
+					++renderQueue
+				}
 			}
 			// Time
 			{
@@ -116,18 +116,18 @@ HUD.drawSprite("fbz_time_limit_1", baseX + 0x62, baseY + 0x11, renderQueue)
 					minutes += (seconds / 60)
 					frames %= 60
 					seconds %= 60
-                }
-            if (global.zone_act.apparent == 0x0401) && (DevToolsFBZ2TimeLimit == 1)
-            {
-                if (timer.minutes >= 3)
-                {
-                    if (level.boss_encounter == 0)
-                    {
-checkpoint.number = 0
-level.restart = 1
-                    }
-                }
-            }
+                	}
+			if (global.zone_act.apparent == 0x0401) && (DevToolsFBZ2TimeLimit == 1)
+			{
+				if (timer.minutes >= 3)
+				{
+			    		if (level.boss_encounter == 0)
+			    		{
+						checkpoint.number = 0
+						level.restart = 1
+					    }
+				}
+			}
 				u16 centiseconds = (frames * 99 + 30) / 59
 
 				u16 px = (minutes >= 10) ? (baseX + 8) : baseX
