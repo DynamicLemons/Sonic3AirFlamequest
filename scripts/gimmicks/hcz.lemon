@@ -1,20 +1,10 @@
-global u8 hczringdrainframe
 //# address-hook(0x010bba) end(0x010c8e)
 function void Character.UpdateNormalState.Sonic()
 {
 	base.Character.UpdateNormalState.Sonic()
 	
-	if (!(char.flags & char.flag.UNDERWATER))
+	if (((level.framecounter.low + 8) & 0x0f) == 0) && (char.flags & char.flag.UNDERWATER)
 	{
-		hczringdrainframe = 3600
-	}
-	if (char.flags & char.flag.UNDERWATER) && (hczringdrainframe > 0) && (A0 == 0xffffb000) && (ring_counter > 0)
-	{
-		hczringdrainframe--
-	}
-	if (A0 == 0xffffb000) && (char.flags & char.flag.UNDERWATER) && (ring_counter > 0)
-	{
-		hczringdrainframe = 3600
-		ring_counter--
+		--ring_counter
 	}
 }
