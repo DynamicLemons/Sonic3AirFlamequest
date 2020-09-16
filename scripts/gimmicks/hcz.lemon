@@ -8,3 +8,5 @@ function void Character.UpdateNormalState.Sonic()
 		--ring_counter
 	}
 }
+
+// todo copy variants for tails and knuckles
