@@ -5,14 +5,14 @@ function void Character.UpdateNormalState.Sonic()
 {
 	base.Character.UpdateNormalState.Sonic()
 	
-	if (char.flags & char.flag.UNDERWATER) && (hczringdrainframe > 0)
+	if (char.flags & char.flag.UNDERWATER) && (hczringdrainframe > 0) && (A0 == 0xffffb000)
 	{
 		--hczringdrainframe
 	}
-	else
+	else if (A0 == 0xffffb000)
 	{
 		hczringdrainframe = 60
-		--ringcounter
+		--ring_counter
 	}
 }
 
@@ -21,14 +21,14 @@ function void Character.UpdateNormalState.Tails()
 {
 	base.Character.UpdateNormalState.Tails()
 	
-	if (char.flags & char.flag.UNDERWATER) && (hczringdrainframe > 0)
+	if (char.flags & char.flag.UNDERWATER) && (hczringdrainframe > 0) && (A0 == 0xffffb000)
 	{
 		--hczringdrainframe
 	}
-	else
+	else if (A0 == 0xffffb000)
 	{
 		hczringdrainframe = 60
-		--ringcounter
+		--ring_counter
 	}
 }
 
@@ -37,13 +37,13 @@ function void Character.UpdateNormalState.Knuckles()
 {
 	base.Character.UpdateNormalState.Knuckles()
 	
-	if (char.flags & char.flag.UNDERWATER) && (hczringdrainframe > 0)
+	if (char.flags & char.flag.UNDERWATER) && (hczringdrainframe > 0) && (A0 == 0xffffb000)
 	{
 		--hczringdrainframe
 	}
-	else
+	else if (A0 == 0xffffb000)
 	{
 		hczringdrainframe = 60
-		--ringcounter
+		--ring_counter
 	}
 }
