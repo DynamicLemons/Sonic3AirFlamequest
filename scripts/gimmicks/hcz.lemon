@@ -3,7 +3,7 @@ function void Character.UpdateNormalState.Sonic()
 {
 	base.Character.UpdateNormalState.Sonic()
 	
-	if (((level.framecounter.low + 8) & 0x0f) == 0) && (char.flags & char.flag.UNDERWATER)
+	if (((level.framecounter.low + 8) & 0x0f) == 0) && (char.flags & char.flag.UNDERWATER) && (ring_counter > 0)
 	{
 		--ring_counter
 	}
