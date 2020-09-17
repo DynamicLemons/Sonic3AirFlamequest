@@ -49,6 +49,11 @@
 		"File": "HCZ1Water.bin",
 		"RomInject": "0xA8EDC"
 	},
+	"PaletteMGZ":
+	{
+		"File": "MGZ.bin",
+		"RomInject": "0xA8F5C"
+	},
 	"PaletteICZ1":
 	{
 		"File": "ICZ1.bin",
@@ -147,7 +152,7 @@
 	// Replaces Mushroom Hill Zone Act 2 Palettes
 	"PaletteMHZ2Autumn": 
 	{
-		"File": "MHZ1.bin",
+		"File": "MHZ2.bin",
 		"RomInject": "0x0550fe"
 	},
 	"PaletteMHZ2Winter": 
@@ -159,6 +164,21 @@
 	{
 		"File": "SOZ1.bin",
 		"RomInject": "0x0a94fc"
+	},
+	"PaletteSOZ2Light": 
+	{
+		"File": "SOZ2.bin",
+		"RomInject": "0x0A955C"
+	},
+	"PaletteSOZ2Dim": 
+	{
+		"File": "SOZ2.bin",
+		"RomInject": "0x0A95BC"
+	},
+	"PaletteSOZ2Dark": 
+	{
+		"File": "SOZ2.bin",
+		"RomInject": "0x0A961C"
 	},
 	"PaletteLRZ2": 
 	{
