@@ -1,0 +1,4 @@
+{
+"data_select_bg":  { "File": "menu_bg.png", "Rect": "0,0,400,224", "Center": "0,0" },
+"level_select_bg":  { "File": "level_select_bg.png", "Rect": "0,0,400,224", "Center": "0,0" }
+}
