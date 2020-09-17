@@ -162,9 +162,6 @@
 	"2C_sonic3": { "File": "...", "Type": "Music", "Loop": "1" },
 	"2C_sonic3_fast": { "File": "...", "Type": "Music", "Loop": "1" },
 
-	// Competition Mode menu
-	"2D": { "File": "...", "Type": "Music", "Loop": "1" },
-
 	// Data Select menu
 	"2F": { "File": "...", "Type": "Music", "Loop": "1" },
 
@@ -221,7 +218,8 @@
 	"26_proto":		 { "File": "...", "Type": "Music", "Loop": "1" },
 
 	// Competition Mode menu (Sonic 3 Prototype)
-	"2D_proto":		 { "File": "...", "Type": "Music", "Loop": "1" },
+	"2D": { "File": "CompMenu.ogg", "Type": "Music", "LoopStart": "426340" },
+	"2D_proto": { "File": "CompMenu.ogg", "Type": "Music", "LoopStart": "426340" },
 
 	"warning_flare": { "File": "WarningFlare.ogg", "Type": "Sound" },
 }
