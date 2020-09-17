@@ -7,6 +7,22 @@ function void Character.Initialization.shared(u8 character)
 ZoneIntroRunningStart()
 			}
 			}
+            if (global.zone_act.apparent == 0x0000)
+            {
+			if (checkpoint.number == 1)
+			{
+ZoneIntroRunningStart()
+char.velocity.x = char.velocity.x / 2
+char.groundspeed = char.groundspeed / 2
+playSound(SFX_JUMP)
+char.jumping = 0
+char.flags |= char.flag.IN_AIR
+char.flags &= ~char.flag.PUSHING
+char.state = char.state.ROLLING
+char.velocity.y = -0x400
+char.groundspeed = 0x100
+			}
+			}
 	char.base_state += 2
 
 	char.character = character

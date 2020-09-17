@@ -242,3 +242,253 @@ function void InitLevelTiles.ICZ1()
 	Level.InitialTilesFill()
 }
 
+//# address-hook(0x03943a) end(0x039470)
+function void fn03943a()
+{
+	// This state is only used before touching the ground with the snowboard for the first time
+
+	A1 = 0xffffb000
+	objA1.state = char.state.RUNNING 
+	objA0.position.x.u16 = objA1.position.x.u16
+	objA0.position.y.u16 = objA1.position.y.u16
+	if ((u8[A1 + 0x2a] & char.flag.IN_AIR) == 0)
+	{
+		objA0.state = 1
+		objA0.update_address = 0x0394a0
+	}
+
+	Object.animationUpdate(0x039476)
+	fn03968e()
+	DrawObject()
+}
+
+//# address-hook(0x0067ee) end(0x0069b6)
+function void fn0067ee()
+{
+	u32[0xffffb094] = 0x006c2c
+	InitializeGameCharacters()
+	RestoreShield()
+	if (checkpoint.number != 0 || global.stage_type != 0)
+		return
+
+	A1 = 0xffffb000
+	A2 = 0xffffb04a
+	if (global.zone_act == 0x0000)
+	{
+		// Angel Island Zone
+		if (isSonicIntro())
+		{
+			// Trigger intro
+			u32[0xffffb172] = 0x067472
+			global.level_started = 0
+		}
+	#if STANDALONE
+		else if (isMainCharacter(CHARACTER_KNUCKLES) && Game.getSetting(SETTING_AIZ_INTRO_KNUCKLES) != 0 && !Game.isTimeAttack())
+		{
+			u32[0xffffb172] = 0x063446
+		}
+	#endif
+	}
+	else if (global.zone_act == 0x0100)
+	{
+		// Hydrocity Zone
+		objA1.state = char.state.FALLING_PANIC
+		if (global.characters == CHARS_KNUCKLES_ALONE)
+		{
+			u16[A1 + 0x20] = 0x2121
+			u8[A1 + 0x23] = 1
+			objA1.animation.timer = 0	// This is A0 instead of A1 in original, thanks to Clownacy (https://forums.sonicretro.org/index.php?showtopic=30778&view=findpost&p=893997)
+		}
+		objA1.flags2a |= char.flag.IN_AIR
+		if (global.characters == CHARS_TAILS_ALONE)
+		{
+			u8[A1 + 0x40] = 0x01
+		}
+		if (u32[A2] != 0)
+		{
+			u8[A2 + 0x20] = char.state.FALLING_PANIC
+			u8[A2 + 0x2a] |= char.flag.IN_AIR
+			u8[A2 + 0x40] = 0x01
+		}
+	}
+	else if (global.zone_act == 0x0200)
+	{
+		// Marble Garden Zone
+		objA1.state = char.state.FALLING_PANIC
+		objA1.flags2a |= char.flag.IN_AIR
+		if (u32[A2] != 0)
+		{
+			u8[A2 + 0x20] = char.state.FALLING_PANIC
+			u8[A2 + 0x2a] |= char.flag.IN_AIR
+		}
+	}
+	else if (global.zone_act == 0x0300)
+	{
+		// Carnival Night Zone
+		bool spawnAITails = (global.characters == CHARS_SONIC_ALONE)	// Excluding Sonic & Tails
+	#if STANDALONE
+		if (level.start_location == 1 && isMainCharacter(CHARACTER_KNUCKLES))
+		{
+			spawnAITails = true
+		}
+	#endif
+		if (spawnAITails)
+		{
+			u32[0xffffb04a] = 0x01365c
+			u16[0xffffb05a] = u16[0xffffb010]
+			u16[0xffffb05e] = u16[0xffffb014]
+			tails.ai_routine = 0
+		}
+		else if (isMainCharacter(CHARACTER_TAILS))
+		{
+			tails.ai_routine = 0x20
+		}
+		else if (isMainCharacter(CHARACTER_KNUCKLES))
+		{
+			u32[0xffffb172] = 0x044a0c
+		}
+	}
+	else if (global.zone_act == 0x0500)
+	{
+		// IceCap Zone
+		if (isMainCharacter(CHARACTER_SONIC))
+		{
+			u32[0xffffb172] = 0x0396e4
+		}
+		else if (isMainCharacter(CHARACTER_TAILS))
+		{
+			// u32[0xffffb172] = 0x039b66 // changed this to make the snowboard load for Tails
+			u32[0xffffb172] = 0x0396e4
+		}
+	#if STANDALONE
+		else if (isMainCharacter(CHARACTER_KNUCKLES))
+		{
+u32[0xffffb172] = 0x0396e4
+		}
+	#endif
+	}
+	else if (global.zone_act == 0x0600)
+	{
+		// Launch Base Zone
+		u32[0xffffb172] = 0x039a40
+	}
+	else if (global.zone_act == 0x0700)
+	{
+		// Mushroom Hill Zone
+		if (isMainCharacter(CHARACTER_KNUCKLES))
+		{
+			objA1.state = char.state.FALLING_PANIC
+			objA1.flags2a |= char.flag.IN_AIR
+		}
+		else if (global.lock_on_state == 0)
+		{
+			// Add Tails
+			if (global.characters == CHARS_SONIC_ALONE)
+			{
+				u32[0xffffb04a] = 0x01365c
+				u16[0xffffb05a] = u16[0xffffb010]
+				u16[0xffffb05e] = u16[0xffffb014]
+				tails.ai_routine = 0
+			}
+			else if (isMainCharacter(CHARACTER_TAILS))
+			{
+				tails.ai_routine = 0x20
+			}
+		}
+	}
+	else if (global.zone_act == 0x0800)
+	{
+		// Sandopolis Zone
+		u32[0xffffb172] = 0x041fee
+		objA1.state = char.state.ROLLING
+		objA1.flags2a |= char.flag.IN_AIR
+		if (u32[A2] != 0)
+		{
+			u8[A2 + 0x20] = char.state.ROLLING
+			u8[A2 + 0x2a] |= char.flag.IN_AIR
+		}
+	}
+	else if (global.zone_act == 0x0900)
+	{
+		// Lava Reef Zone
+		if (global.characters != CHARS_KNUCKLES_ALONE)
+		{
+			objA1.state = char.state.FALLING_PANIC
+			objA1.flags2a |= char.flag.IN_AIR
+			if (u32[A2] != 0)
+			{
+				u8[A2 + 0x20] = char.state.FALLING_PANIC
+				u8[A2 + 0x2a] |= char.flag.IN_AIR
+			}
+		}
+		else
+		{
+			u32[0xffffb172] = 0x044a0c
+		}
+	}
+	else if (global.zone_act == 0x0b00)
+	{
+		// Death Egg Zone
+		u32[0xffffb172] = 0x044a0c
+	}
+	else if (global.zone_act == 0x1600)
+	{
+		// Lava Reef boss act
+		objA1.state = char.state.FALLING_PANIC
+		objA1.flags2a |= char.flag.IN_AIR
+		if (u32[A2] != 0)
+		{
+			u8[A2 + 0x20] = char.state.FALLING_PANIC
+			u8[A2 + 0x2a] |= char.flag.IN_AIR
+		}
+	}
+	else if (global.zone_act == 0x1601)
+	{
+		// Hidden Palace Zone
+		u32[0xffffb172] = 0x044a0c
+	}
+}
+
+//# address-hook(0x0394a0) end(0x0394f0)
+function void fn0394a0()
+{
+	// Main state while snowboarding (except for curves)
+
+	A1 = 0xffffb000
+	objA1.state = char.state.RUNNING 
+	objA0.position.x.u16 = u16[A2 + 0x10]
+	objA0.position.y.u16 = u16[A2 + 0x14]
+
+	D0 = u8[A2 + 0x26] + 5
+	D0.u16 >>= 4
+	objA0.state = u8[0x0394f2 + D0.s16]
+	if ((u8[A2 + 0x2a] & char.flag.IN_AIR) == 0)
+	{
+		// Touching ground
+		fn039502()
+	}
+	else
+	{
+		// In air
+	#if STANDALONE
+		// Prevent insta-shield and drop dash, by resetting "char.jumping"
+		u8[A2 + 0x40] = 0
+	#endif
+
+		objA0.state = 0
+		if (s16[A2 + 0x18] >= 0x1000)
+			s16[A2 + 0x18] = 0x1000
+		if (s16[A2 + 0x1a] < -0x200)
+			s16[A2 + 0x1a] = -0x200
+
+		fn039554()
+	}
+
+#if STANDALONE
+	// Update achievement
+	if (ring_counter >= 50)
+	{
+		Game.setAchievementComplete(ACHIEVEMENT_ICZ_SNOWBOARDING)
+	}
+#endif
+}

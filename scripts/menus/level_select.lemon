@@ -1,0 +1,142 @@
+function bool LevelSelect.innerUpdate()
+{
+playMusic(0x2d)
+#if STANDALONE
+	// Corrections for widescreen
+	//  -> Actually no need to do this each frame, but I like to load level select save states and want it to be corrected after initialization
+	for (u16 base = 0xe000; base < 0xee00; base += 0x80)
+	{
+		for (u16 x = 0; x < 0x30; x += 2)
+		{
+			setVRAM(base + x + 0x50, getVRAM(base + x + 0x08))
+		}
+	}
+
+	// Foreground scroll offset
+	u16[0xffffe000] = max(s16(getScreenExtend()) - 6, 0)
+#endif
+
+	set_status_register(0x2700)
+	D3 = 0
+	fn007f62()
+	fn007e64()
+	D3.u16 = 0x6000
+	fn007f62()
+	set_status_register(0x2300)
+
+	A2 = 0x0081b0
+
+	if ((control.pad1.pressed | control.player2.pressed) & CONTROL_START)
+	{
+		if (global.lock_on_state != 0)
+		{
+			if (levelselect.characters < CHARS_KNUCKLES_ALONE)
+				levelselect.characters = CHARS_SONIC_ALONE
+		}
+
+		global.characters = levelselect.characters
+	#if STANDALONE
+		// Handle Knuckles & Tails
+		useKnucklesAndTails = (global.characters == 4)
+		global.characters = min(global.characters, 3)
+	#endif
+
+		D0.u16 = u16[0x007d22 + levelselect.selection * 2]
+		if (D0.u16 & 0x8000)
+		{
+			global.game_mode = 0
+			return true
+		}
+
+		if (D0.u16 != 0x5555)
+		{
+			// Start game
+			lives_counter = 3
+			global.sk_bluespheres = 0
+
+			if (D0.u16 == 0x4000 || D0.u16 == 0x4001)
+			{
+				// Start Blue Spheres
+				if (D0.u16 == 0x4000)
+				{
+					// Blue Spheres from Sonic 3
+					if (global.lock_on_state != 0)
+					{
+						global.sk_bluespheres = 1
+					}
+				}
+				else if (D0.u16 == 0x4001)
+				{
+					// Blue Spheres from Sonic & Knuckles
+					global.sk_bluespheres = 1
+				}
+
+				// Start Blue Spheres
+				global.game_mode = 0x34
+
+			#if STANDALONE
+				if (control.pad1.state & CONTROL_A)
+				{
+					// This is needed to make the special stage selection (incl. 8th stage) work
+					//  -> You need to start a special stage form level select by pressing A + Start
+					//  -> Current sound test selection tells the game which stage to start
+					//  -> See "BlueSpheres.getNextOpenStageIndex()" function for more
+					debug_mode.unlocked = 1
+				}
+
+			#else
+				// Tried to start a Sonic 3 stage in S&K ?
+				if (global.lock_on_state != 0)
+				{
+					if (global.zone_act != 0x0400 && global.zone_act < 0x0700)
+					{
+						global.zone_act = 0x0700
+						global.zone_act.apparent = 0x0700
+						checkpoint.zone_act = 0x0700
+						checkpoint.zone_act.apparent = 0x0700
+					}
+				}
+			#endif
+				return false
+			}
+			else
+			{
+				// Normal levels
+				if (fn007d6c())
+				{
+					return false
+				}
+			}
+		}
+	}
+	RenderSprites()
+			Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x00, 0, 0x1fff, 0, 255)
+	return true
+}
+
+//# address-hook(0x007a74) end(0x007d20)
+//# translated(0x007d64) end(0x007d6a)
+function void LevelSelect()
+{
+	global.zone_act = 0
+	FadeOutScreenBlocking()
+	set_status_register(0x2700)
+
+	LevelSelect.init()
+
+	Menu.FadeInAfterInit()
+
+	// Perform main update now
+	bool running = true
+	while (running)
+	{
+		global.frame_state = 0x16
+
+		// End point for a single frame
+		//  -> Right here we place the entry point for the standalone version
+		waitForNextFrame()
+	@EntryPoint:
+
+		running = LevelSelect.innerUpdate()
+	}
+}

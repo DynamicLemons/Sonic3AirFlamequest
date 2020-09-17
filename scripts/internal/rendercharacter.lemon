@@ -305,7 +305,7 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 		Renderer.drawCustomSprite(key, px, py, atex, flags, renderQueue, angle, 255)
             if (global.zone_act.apparent == 0x0900) || (global.zone_act.apparent == 0x0901)
             {
-		HUD.drawSpotlight(px, py)
+		// HUD.drawSpotlight(px, py)
 			}
 	}
 
