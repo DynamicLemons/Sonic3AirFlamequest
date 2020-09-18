@@ -42,7 +42,7 @@ function u64 getZoneInitials(u8 zone)
 	if (zone == 0x17)
 		return "dez-boss"
 	if (zone == 0x14)
-		return "pachinko" //best one
+		return "bonus" //best one
 	if (zone == 0x13)
 	    return "gumball" 
 	if (zone == 0x15)
