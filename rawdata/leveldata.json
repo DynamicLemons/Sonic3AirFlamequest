@@ -18,4 +18,16 @@
 	"soz1_layout": { "File": "../level/SOZ/Layout/1.bin" },
 	"soz1_objects": { "File": "../level/SOZ/Object Pos/1.bin" },
 	"soz1_rings": { "File": "../level/SOZ/Ring Pos/1.bin" },
+
+
+
+
+
+
+
+
+
+	"bonus1_layout": { "File": "../level/Bonus/Layout/1.bin" },
+	"bonus1_objects": { "File": "../level/Bonus/Object Pos/1.bin" },
+	"bonus1_rings": { "File": "../level/Bonus/Ring Pos/1.bin" },
 }
