@@ -185,4 +185,10 @@
 		"File": "LRZ2.bin",
 		"RomInject": "0xA96DC"
 	},
+
+	"PaletteBonus1": 
+	{
+		"File": "BonusPalette1.bin",
+		"RomInject": "0x0A9C1C"
+	},
 }
