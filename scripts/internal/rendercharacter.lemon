@@ -303,16 +303,16 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 	else
 	{
 		Renderer.drawCustomSprite(key, px, py, atex, flags, renderQueue, angle, 255)
-            if (global.zone_act.apparent == 0x0900) || (global.zone_act.apparent == 0x0901)
-            {
-		// HUD.drawSpotlight(px, py)
-			}
+		if (global.zone_act.apparent == 0x0900) || (global.zone_act.apparent == 0x0901)
+		{
+			//HUD.drawSpotlight(px, py)
+		}
 	}
 
 	bool useAfterImages
 	if (isPlayer1)
 	{
-		if (super.active.tails) || (abs(char.groundspeed) >= 0x0a00) || (super.active) || (global.zone >= 0x13 && global.zone <= 0x15)
+		if (super.active.tails) || (FastAfterImages != 0) || (super.active) || (global.zone >= 0x13 && global.zone <= 0x15)
 		{
 			useAfterImages = true
 		}
@@ -334,23 +334,23 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 			afterImagesOffsetX = (char.groundspeed >> 7) * ((char.flags & char.flag.FACING_LEFT) ? 0 : -0)
 		}
 
-            for (s8 i = 1; i > 0; --i)
-            {
-                if (level.framecounter & 0x01)
-                {
-                    A1 = 0xffffe500 + u8(posbackup.offset.player1 - (2 * 8 + 4))
-                    s16 px0 = u16[A1] - camera.foreground.x.u16 + (i * afterImagesOffsetX / 4)
-                    s16 py0 = u16[A1+2] - camera.foreground.y.u16
-                    Renderer.drawCustomSprite(key, px0, py0, atex, flags, renderQueue - i, angle, 255 - i * 0)
-                }
-                else
-                {
-                    A1 = 0xffffe500 + u8(posbackup.offset.player1 - (i * 8 + 4))
-                    s16 px0 = u16[A1] - camera.foreground.x.u16 + (i * afterImagesOffsetX / 4)
-                    s16 py0 = u16[A1+2] - camera.foreground.y.u16
-                    Renderer.drawCustomSprite(key, px0, py0, atex, flags, renderQueue - i, angle, 255 - i * 0)
-                }
-            }
+		for (s8 i = 1; i > 0; --i)
+		{
+			if (level.framecounter & 0x01)
+			{
+				A1 = 0xffffe500 + u8(posbackup.offset.player1 - (2 * 8 + 4))
+				s16 px0 = u16[A1] - camera.foreground.x.u16 + (i * afterImagesOffsetX / 4)
+				s16 py0 = u16[A1+2] - camera.foreground.y.u16
+				Renderer.drawCustomSprite(key, px0, py0, atex, flags, renderQueue - i, angle, 255 - i * 0)
+			}
+			else
+			{
+				A1 = 0xffffe500 + u8(posbackup.offset.player1 - (i * 8 + 4))
+				s16 px0 = u16[A1] - camera.foreground.x.u16 + (i * afterImagesOffsetX / 4)
+				s16 py0 = u16[A1+2] - camera.foreground.y.u16
+				Renderer.drawCustomSprite(key, px0, py0, atex, flags, renderQueue - i, angle, 255 - i * 0)
+			}
+		}
 	}
 
 	// Prevent emulator-like rendering
