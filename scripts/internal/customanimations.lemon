@@ -1,3 +1,5 @@
+global bool FastAfterImages //Note: Not actually a timer
+
 //# address-hook(0x010bba) end(0x010c8e)
 function void Character.UpdateNormalState.Sonic()
 {
@@ -77,6 +79,15 @@ function void Character.UpdateNormalState.Sonic()
 		else
 			sonic.fastrunanim.timer = 0
 	}
+
+	if (abs(char.groundspeed) >= 0x0a00)
+	{
+		FastAfterImages = 30
+	}
+	else
+	{
+		FastAfterImages = 0
+	}
 #endif
 
 	if (level.vertical_wrap == 0xff00)
@@ -113,56 +124,56 @@ function void Character.UpdateNormalState.Sonic()
 		Character.CheckCollisionsWithDynamicObjects()
 	}
 	//////////////
-    // GIMMICKS //
+	// GIMMICKS //
 	/////////////
 
-    // Super heat effect //
+	// Super heat effect //
 
-			if (global.zone_act.apparent == 0x0701) || (global.zone_act.apparent == 0x0901)
-			{
-	if (level.framecounter & 0x01)
+	if (global.zone_act.apparent == 0x0701) || (global.zone_act.apparent == 0x0901)
 	{
-					UpdateScreenShake()
-	camera.hyper_knux_shake = 0x1
-	camera.screenshake.state = 0x1
+		if (level.framecounter & 0x01)
+		{
+			UpdateScreenShake()
+			camera.hyper_knux_shake = 0x1
+			camera.screenshake.state = 0x1
+		}
 	}
-			}
 
 	// HCZ //
 
-			if (global.zone_act.apparent == 0x0100) || (global.zone_act.apparent == 0x0101)
-			{
-	if (level.framecounter.low == 0xb4) && (DevToolsHCZRingDrain == 1)
+	if (global.zone_act.apparent == 0x0100) || (global.zone_act.apparent == 0x0101)
 	{
-        if (char.flags & char.flag.UNDERWATER) && (ring_counter > 0)
-        {
-            --ring_counter
-        
-        }
-	}
+		if (level.framecounter.low == 0xb4) && (DevToolsHCZRingDrain == 1)
+		{
+			if (char.flags & char.flag.UNDERWATER) && (ring_counter > 0)
+			{
+				--ring_counter
+			
 			}
+		}
+	}
 
 	// FBZ //
 
-			if (global.zone_act.apparent == 0x0400)
-			{
-	if (level.framecounter & 0x384)
+	if (global.zone_act.apparent == 0x0400)
 	{
-					UpdateScreenShake()
-	camera.hyper_knux_shake = 0x7
-	camera.screenshake.state = 0x7
+		if (level.framecounter & 0x384)
+		{
+			UpdateScreenShake()
+			camera.hyper_knux_shake = 0x7
+			camera.screenshake.state = 0x7
+		}
 	}
-			}
 
-			if (global.zone_act.apparent == 0x0401)
-			{
-	if (level.framecounter & 0x02)
+	if (global.zone_act.apparent == 0x0401)
 	{
-					UpdateScreenShake()
-	camera.hyper_knux_shake = 0x1
-	camera.screenshake.state = 0x1
+		if (level.framecounter & 0x02)
+		{
+			UpdateScreenShake()
+			camera.hyper_knux_shake = 0x1
+			camera.screenshake.state = 0x1
+		}
 	}
-			}
 }
 
 
@@ -270,6 +281,15 @@ function void Character.UpdateNormalState.Tails()
 	{
 		Character.CheckCollisionsWithDynamicObjects()
 	}
+
+	if (abs(char.groundspeed) >= 0x0a00)
+	{
+		FastAfterImages = 30
+	}
+	else
+	{
+		FastAfterImages = 0
+	}
 }
 
 
@@ -343,5 +363,14 @@ function void Character.UpdateNormalState.Knuckles()
 	if ((char.control_flags & 0xa0) == 0)
 	{
 		Character.CheckCollisionsWithDynamicObjects()
+	}
+
+	if (abs(char.groundspeed) >= 0x0a00)
+	{
+		FastAfterImages = 1
+	}
+	else
+	{
+		FastAfterImages = 0
 	}
 }
