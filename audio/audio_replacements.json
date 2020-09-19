@@ -222,4 +222,10 @@
 	"2D_proto": { "File": "CompMenu.ogg", "Type": "Music", "LoopStart": "426340" },
 
 	"warning_flare": { "File": "WarningFlare.ogg", "Type": "Sound" },
+
+	"7B": { "File": "haha_proto_content_2.ogg", "Type": "Sound" },
+
+	"proto_1": { "File": "haha_proto_content_1.ogg", "Type": "Sound" },
+	"proto_2": { "File": "haha_proto_content_2.ogg", "Type": "Sound" },
+}
 }
