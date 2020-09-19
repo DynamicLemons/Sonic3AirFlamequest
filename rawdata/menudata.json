@@ -1,0 +1,23 @@
+{
+	"LevelSelect":
+	{
+		"File": "LSelect.bin",
+		"RomInject": "0x8155"
+	},
+
+	"DataSelect1":
+	{
+		"File": "DataSelect1.bin",
+		"RomInject": "0x15cd62"
+	},
+	"DataSelect2":
+	{
+		"File": "DataSelect2.bin",
+		"RomInject": "0xcbb8"
+	},
+	"DataSelect3":
+	{
+		"File": "DataSelect3.bin",
+		"RomInject": "0xcbf8"
+	},
+}

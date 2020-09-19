@@ -17,4 +17,22 @@
 	"File": "fbz chunks.bin",
 	"RomInject": "0x01974a2"
 },
+
+"bonus stage tiles":
+    {
+        "File": "GSTiles.bin",
+        "RomInject": "0x01deb40"
+    },
+
+        "blocks bonus pach":
+    {
+        "File": "GSBlocks.bin",
+        "RomInject": "0x01de770"
+    },
+
+        "chunks bonus pach":
+    {
+      "File": "GSChunks.bin",
+      "RomInject": "0x01dfe92"
+    },
 }
