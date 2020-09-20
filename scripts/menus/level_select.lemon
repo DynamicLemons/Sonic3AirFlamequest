@@ -1,4 +1,6 @@
 // I presume this moves the stuff back over to the left
+// Also handles drawing some stuff like the background and the characters
+// upon first loading level select
 function void LevelSelect.init()
 {
 	// Disable active display for now
@@ -145,7 +147,10 @@ function void LevelSelect.init()
 
 	waitForNextFrame()
 
+	// Draw the background, characters, and sidebar
 	Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x20, 0, 0x1fff)
+	FlameQuest.LevelSelect.drawSidebar()
+
 	RenderSprites()
 	// Re-enable active display again
 	VDP.Config.setActiveDisplay(true)
@@ -251,11 +256,109 @@ function bool LevelSelect.innerUpdate()
 
 	// Render sprites & custom background
 	Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x20, 0, 0x1fff)
+	FlameQuest.LevelSelect.drawSidebar()
+
 	RenderSprites()
 
 	return true
 }
 
+// Draw the sidebar
+function void FlameQuest.LevelSelect.drawSidebar()
+{
+	FlameQuest.LevelSelect.drawCharacters()
+	System.writeDisplayLine(stringformat("%02x", levelselect.selection))
+}
+
+// Function for drawing the characters in the sidebar
+function void FlameQuest.LevelSelect.drawCharacters()
+{
+	u16 renderQueue = 0x9000
+
+	// Base coordinates for drawing the players
+	u16 characterXPos = getScreenWidth() - 45
+	u16 characterYPos = getScreenHeight() / 2
+
+	// Sonic and Miles
+	if(levelselect.characters == CHARS_SONIC_AND_TAILS)
+	{
+		Standalone.drawCharacterSpriteDirect(CHARACTER_TAILS , characterXPos - 12 + 15, characterYPos + 4, 0xa6, 0x01, 0x60, renderQueue)
+		Standalone.drawCharacterSpriteDirect(CHARACTER_SONIC , characterXPos - 12, characterYPos, 0xb1, 0x01, 0x40, renderQueue + 1)
+	}
+	// Sonic alone
+	else if(levelselect.characters == CHARS_SONIC_ALONE)
+	{
+		Standalone.drawCharacterSpriteDirect(levelselect.characters - 1 , characterXPos - 3, characterYPos, 0xb1, 0x01, 0x40, renderQueue)
+	}
+	// Miles the Prower
+	else if(levelselect.characters == CHARS_TAILS_ALONE)
+	{
+		Standalone.drawCharacterSpriteDirect(levelselect.characters - 1 , characterXPos, characterYPos + 4, 0xa6, 0, 0x60, renderQueue)
+	}
+	// Knuckles alone
+	else if(levelselect.characters == CHARS_KNUCKLES_ALONE)
+	{
+		Standalone.drawCharacterSpriteDirect(levelselect.characters - 1 , characterXPos + 4, characterYPos, 0xb4, 0x01, 0x80, renderQueue)
+	}
+	// Knuckles and Miles the Prower
+	else if(levelselect.characters == 4)
+	{
+		Standalone.drawCharacterSpriteDirect(CHARACTER_TAILS , characterXPos + 6, characterYPos + 4, 0xa6, 0x01, 0x60, renderQueue)
+		Standalone.drawCharacterSpriteDirect(CHARACTER_KNUCKLES, characterXPos - 6, characterYPos, 0xb4, 0x01, 0x80, renderQueue + 1)
+	}
+
+}
+
+// Overwrite the original function because it sucks. Might be moved to
+// a new function at some point if it causes issues with the vanilla
+// game
+function void Standalone.drawCharacterSpriteDirect(u8 character, s16 px, s16 py, u16 animationSpriteEx, u8 flags, u8 atex, u16 renderQueue)
+{
+	// First ask modded scripts
+	u64 key = Standalone.getModdedAnimationSpriteKey(character, animationSpriteEx)
+
+	if (key == 0 && animationSpriteEx >= 0x100)
+	{
+		// Custom added sprites for Sonic's Drop Dash & Super Peel-Out
+		if (animationSpriteEx >= CHAR_ANIMSPRITE_SONIC_PEELOUT)
+		{
+			key = stringformat("sonic_peelout_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
+		}
+		else
+		{
+			key = stringformat("sonic_dropdash_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_DROPDASH)
+		}
+	}
+
+	if (key == 0)
+	{
+		u8 animationSprite = animationSpriteEx
+		if (character == CHARACTER_SONIC)
+		{
+			key = stringformat(super.active ? "character_supersonic_0x%02x" : "character_sonic_0x%02x", animationSpriteEx)
+		}
+		else if (character == CHARACTER_TAILS)
+		{
+			key = stringformat("character_tails_0x%02x", animationSpriteEx)
+		}
+		else if (character == CHARACTER_KNUCKLES)
+		{
+			key = stringformat("character_knuckles_0x%02x", animationSpriteEx)
+		}
+
+		if (!Renderer.hasCustomSprite(key))
+		{
+			u32 sourceBase    = (character == CHARACTER_SONIC) ? ((animationSprite >= 0xda) ? 0x140060 : 0x100000) : (character == CHARACTER_TAILS) ? ((animationSprite >= 0xd1) ? 0x143d00 : 0x3200e0) : 0x1200e0
+			u32 tableAddress  = (character == CHARACTER_SONIC) ? (super.active ? 0x148378 : 0x148182) : (character == CHARACTER_TAILS) ? 0x14a08a : 0x14bd0a
+			u32 mappingOffset = (character == CHARACTER_SONIC) ? (super.active ? 0x146816 : 0x146620) : (character == CHARACTER_TAILS) ? 0x148eb8 : 0x14a8d6		// Not really necessary here, we could also use "char.mapping_offset"
+
+			key = Renderer.setupCustomCharacterSprite(sourceBase, tableAddress, mappingOffset, animationSprite, 0x00)
+		}
+	}
+
+	// Render character
+	Renderer.drawCustomSprite(key, px, py, atex, flags, renderQueue)
+}
 //# address-hook(0x007a74) end(0x007d20)
 //# translated(0x007d64) end(0x007d6a)
 function void LevelSelect()
