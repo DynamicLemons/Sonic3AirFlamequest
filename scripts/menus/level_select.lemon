@@ -145,7 +145,7 @@ function void LevelSelect.init()
 
 	waitForNextFrame()
 
-	Renderer.drawCustomSprite("bg_dataselect", 0, 0, 0x20, 0, 0x1fff)
+	Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x20, 0, 0x1fff)
 	RenderSprites()
 	// Re-enable active display again
 	VDP.Config.setActiveDisplay(true)
@@ -250,7 +250,7 @@ function bool LevelSelect.innerUpdate()
 	}
 
 	// Render sprites & custom background
-	Renderer.drawCustomSprite("bg_dataselect", 0, 0, 0x20, 0, 0x1fff)
+	Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x20, 0, 0x1fff)
 	RenderSprites()
 
 	return true
