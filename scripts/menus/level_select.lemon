@@ -309,56 +309,6 @@ function void FlameQuest.LevelSelect.drawCharacters()
 
 }
 
-// Overwrite the original function because it sucks. Might be moved to
-// a new function at some point if it causes issues with the vanilla
-// game
-function void Standalone.drawCharacterSpriteDirect(u8 character, s16 px, s16 py, u16 animationSpriteEx, u8 flags, u8 atex, u16 renderQueue)
-{
-	// First ask modded scripts
-	u64 key = Standalone.getModdedAnimationSpriteKey(character, animationSpriteEx)
-
-	if (key == 0 && animationSpriteEx >= 0x100)
-	{
-		// Custom added sprites for Sonic's Drop Dash & Super Peel-Out
-		if (animationSpriteEx >= CHAR_ANIMSPRITE_SONIC_PEELOUT)
-		{
-			key = stringformat("sonic_peelout_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_PEELOUT)
-		}
-		else
-		{
-			key = stringformat("sonic_dropdash_%d", animationSpriteEx - CHAR_ANIMSPRITE_SONIC_DROPDASH)
-		}
-	}
-
-	if (key == 0)
-	{
-		u8 animationSprite = animationSpriteEx
-		if (character == CHARACTER_SONIC)
-		{
-			key = stringformat(super.active ? "character_supersonic_0x%02x" : "character_sonic_0x%02x", animationSpriteEx)
-		}
-		else if (character == CHARACTER_TAILS)
-		{
-			key = stringformat("character_tails_0x%02x", animationSpriteEx)
-		}
-		else if (character == CHARACTER_KNUCKLES)
-		{
-			key = stringformat("character_knuckles_0x%02x", animationSpriteEx)
-		}
-
-		if (!Renderer.hasCustomSprite(key))
-		{
-			u32 sourceBase    = (character == CHARACTER_SONIC) ? ((animationSprite >= 0xda) ? 0x140060 : 0x100000) : (character == CHARACTER_TAILS) ? ((animationSprite >= 0xd1) ? 0x143d00 : 0x3200e0) : 0x1200e0
-			u32 tableAddress  = (character == CHARACTER_SONIC) ? (super.active ? 0x148378 : 0x148182) : (character == CHARACTER_TAILS) ? 0x14a08a : 0x14bd0a
-			u32 mappingOffset = (character == CHARACTER_SONIC) ? (super.active ? 0x146816 : 0x146620) : (character == CHARACTER_TAILS) ? 0x148eb8 : 0x14a8d6		// Not really necessary here, we could also use "char.mapping_offset"
-
-			key = Renderer.setupCustomCharacterSprite(sourceBase, tableAddress, mappingOffset, animationSprite, 0x00)
-		}
-	}
-
-	// Render character
-	Renderer.drawCustomSprite(key, px, py, atex, flags, renderQueue)
-}
 //# address-hook(0x007a74) end(0x007d20)
 //# translated(0x007d64) end(0x007d6a)
 function void LevelSelect()

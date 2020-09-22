@@ -32,6 +32,8 @@ function u64 Standalone.getModdedAnimationSpriteKey(u8 character, u16 animationS
 }
 
 
+// Fix the original function because it sucks
+// Currently used for Level Select
 function void Standalone.drawCharacterSpriteDirect(u8 character, s16 px, s16 py, u16 animationSpriteEx, u8 flags, u8 atex, u16 renderQueue)
 {
 	// First ask modded scripts
@@ -52,7 +54,7 @@ function void Standalone.drawCharacterSpriteDirect(u8 character, s16 px, s16 py,
 
 	if (key == 0)
 	{
-		u8 animationSprite = animationSpriteEx
+		u16 animationSprite = animationSpriteEx
 		if (character == CHARACTER_SONIC)
 		{
 			key = stringformat(super.active ? "character_supersonic_0x%02x" : "character_sonic_0x%02x", animationSprite)
