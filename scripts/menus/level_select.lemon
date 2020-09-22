@@ -117,9 +117,11 @@ function void LevelSelect.init()
 
 	Level.loadNonfadingPaletteData(0x04)
 
+	// Fix palette loading issues
 	//copyMemory(0xfffffcc0, 0xfffffc40, 0x20)
 	//zeroMemory(0xfffffc40, 0x20)
 
+	// Play level select music
 	playMusic(0x2d)
 
 	global.demo_countdown = 1799	// 30 seconds (minus one frame)
@@ -266,8 +268,9 @@ function bool LevelSelect.innerUpdate()
 // Draw the sidebar
 function void FlameQuest.LevelSelect.drawSidebar()
 {
+	// Draw the characters and Zone Icons
 	FlameQuest.LevelSelect.drawCharacters()
-	System.writeDisplayLine(stringformat("%02x", levelselect.selection))
+	FlameQuest.LevelSelect.drawZoneIcons()
 }
 
 // Function for drawing the characters in the sidebar
@@ -307,6 +310,90 @@ function void FlameQuest.LevelSelect.drawCharacters()
 		Standalone.drawCharacterSpriteDirect(CHARACTER_KNUCKLES, characterXPos - 6, characterYPos, 0xb4, 0x01, 0x80, renderQueue + 1)
 	}
 
+}
+
+// Function that draws the level select level icons
+function void FlameQuest.LevelSelect.drawZoneIcons()
+{
+	// Set the icon sprite key to the current icon. Further handling
+	// will be done later.
+	u64 zoneIconKey = stringformat("flamequest_levelselect_icon_0x%02x", levelselect.selection)
+
+	// Special handling for each zone
+
+	// Handle act 2 icons for all Zones excluding DDZ 1/2 & HPZ 1/2.
+	// If act 2 icons don't exist, use the icons for act 1 (SSZ can also
+	// use this logic since Knux' SSZ (act 2) would just use normal/Sonic's
+	// SSZ if its icon key isn't found
+	if(levelselect.selection < 0x1a && levelselect.selection != 0x14 && levelselect.selection != 0x15 && (levelselect.selection % 0x02))
+	{
+		if(!Renderer.hasCustomSprite(zoneIconKey))
+		{
+			zoneIconKey = stringformat("flamequest_levelselect_icon_0x%02x", levelselect.selection - 1)
+		}
+	}
+	// Special handling if HPZ 1 doesn't have its own icon
+	else if(levelselect.selection == 0x14 && !Renderer.hasCustomSprite(zoneIconKey))
+	{
+		// Use LRZ 2's icon
+		zoneIconKey = "flamequest_levelselect_icon_0x13"
+
+		// If LRZ 2's icon doesn't exist, use LRZ 1's icon
+		if(!Renderer.hasCustomSprite(zoneIconKey))
+		{
+			zoneIconKey = "flamequest_levelselect_icon_0x12"
+		}
+	}
+	// Special handling if DDZ 2 doesn't have its own icon
+	else if(levelselect.selection == 0x1b &&!Renderer.hasCustomSprite(zoneIconKey))
+	{
+		// Use DDZ 2's icon
+		zoneIconKey = "flamequest_levelselect_icon_0x19"
+
+		// If DEZ 2's icon doesn't exist, use DEZ 1's icon
+		if(!Renderer.hasCustomSprite(zoneIconKey))
+		{
+			zoneIconKey = "flamequest_levelselect_icon_0x18"
+		}
+	}
+	// Bonus or Special stage
+	else if(levelselect.selection >= 0x1c && levelselect.selection <= 0x1f)
+	{
+		// If the second special stage/bonus stage icon is highlighted,
+		// subtract 1 from the selection key and use that instead
+		// (levelselect.selection % 0x02 is 0 under the first selection and
+		// 1 under the second)
+		zoneIconKey = stringformat("flamequest_levelselect_icon_0x%02x", levelselect.selection - levelselect.selection % 0x02)
+	}
+	// Sound test icon
+	else if(levelselect.selection == 0x20)
+	{
+		// Add support for character-dependent icons.
+		zoneIconKey = stringformat("flamequest_soundtest_icon_0x%02x", levelselect.characters)
+
+		// If the Knux/Tails icon doesn't exist, try Knux' icon
+		if(!Renderer.hasCustomSprite(zoneIconKey) && levelselect.characters == 4)
+		{
+			zoneIconKey = "flamequest_soundtest_icon_0x03"
+		}
+
+		// If the icon doesn't exist, use Sonic's (which should always exist)
+		if(!Renderer.hasCustomSprite(zoneIconKey))
+		{
+			zoneIconKey = "flamequest_soundtest_icon_0x00"
+		}
+	}
+
+	// If the zoneIconKey exists, draw the icon
+	if(Renderer.hasCustomSprite(zoneIconKey))
+	{
+		Renderer.drawCustomSprite(zoneIconKey, getScreenWidth() - 90, getScreenHeight() / 2 + 45, 0x00, 0x01, 0x9002)
+	}
+	// If the key doesn't exist, show some debug info
+	else
+	{
+		System.writeDisplayLine(stringformat("0x%02x | %s", levelselect.selection, zoneIconKey))
+	}
 }
 
 //# address-hook(0x007a74) end(0x007d20)
