@@ -380,17 +380,19 @@ function void FlameQuest.LevelSelect.drawZoneIcons()
 		// If the icon doesn't exist, use Sonic's (which should always exist)
 		if(!Renderer.hasCustomSprite(zoneIconKey))
 		{
-			zoneIconKey = "flamequest_soundtest_icon_0x00"
+			zoneIconKey = "flamequest_soundtest_icon_0x01"
 		}
 	}
 
 	// If the zoneIconKey exists, draw the icon
 	if(Renderer.hasCustomSprite(zoneIconKey))
 	{
-		Renderer.drawCustomSprite(zoneIconKey, getScreenWidth() - 90, getScreenHeight() / 2 + 45, 0x00, 0x01, 0x9002)
+		Renderer.drawCustomSprite(zoneIconKey, getScreenWidth() - 85, (3 * getScreenHeight()) / 4 - 28, 0x00, 0x00, 0x9002)
 	}
 	// If the key doesn't exist, show some debug info
+	#if GAMEAPP
 	else
+	#endif
 	{
 		System.writeDisplayLine(stringformat("0x%02x | %s", levelselect.selection, zoneIconKey))
 	}
