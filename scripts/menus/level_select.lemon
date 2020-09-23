@@ -387,9 +387,15 @@ function void FlameQuest.LevelSelect.drawZoneIcons()
 	// If the zoneIconKey exists, draw the icon
 	if(Renderer.hasCustomSprite(zoneIconKey))
 	{
-		Renderer.drawCustomSprite(zoneIconKey, getScreenWidth() - 85, (3 * getScreenHeight()) / 4 - 28, 0x00, 0x00, 0x9002)
+		u16 iconXPosition = getScreenWidth() - 85
+		u16 iconYPosition = (3 * getScreenHeight()) / 4 - 28
+		// Zone Icon
+		Renderer.drawCustomSprite(zoneIconKey, iconXPosition, iconYPosition, 0x00, 0x00, 0x9002)
+		// Zone Icon Border
+		Renderer.drawCustomSprite("flamequest_levelselect_icon_border", iconXPosition - 1, iconYPosition - 1, 0x00, 0x00, 0x9002)
 	}
-	// If the key doesn't exist, show some debug info
+	// If the key doesn't exist, show some debug info (always show debug
+	// info in Oxygen)
 	#if GAMEAPP
 	else
 	#endif
