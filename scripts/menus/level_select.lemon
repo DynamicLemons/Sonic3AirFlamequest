@@ -95,8 +95,9 @@ function bool LevelSelect.innerUpdate()
 			}
 		}
 	}
+
 	RenderSprites()
-			Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x00, 0, 0x1fff, 0, 255)
+	Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x00, 0, 0x1fff, 0, 255)
 	return true
 }
 
@@ -107,12 +108,12 @@ function void LevelSelect()
 	global.zone_act = 0
 	FadeOutScreenBlocking()
 	RenderSprites()
-			Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x00, 0, 0x1fff, 0, 255)
+	Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x00, 0, 0x1fff, 0, 255)
 	set_status_register(0x2700)
 
 	LevelSelect.init()
 	RenderSprites()
-			Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x00, 0, 0x1fff, 0, 255)
+	Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x00, 0, 0x1fff, 0, 255)
 
 	Menu.FadeInAfterInit()
 
@@ -136,7 +137,8 @@ function void LevelSelect()
 function void fn007e64()
 {
 	RenderSprites()
-			Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x00, 0, 0x1fff, 0, 255)
+	Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x00, 0, 0x1fff, 0, 255)
+
 	bool skipPart = false
 	if ((control.pad1.pressed & (CONTROL_UP | CONTROL_DOWN)) == 0)
 	{
@@ -328,7 +330,7 @@ function void LevelSelect.init()
 	zeroMemory(0xffff0000, 0x460 * 2)
 
 	A3 = 0xffff0000
-        A1 = 0x0080e6
+	A1 = 0x0080e6
 	A5 = 0x0080c4
 	D0 = 0
 	D1.u16 = 0x10
@@ -365,12 +367,12 @@ function void LevelSelect.init()
 	u16[0xffff018a] = 0x11
 	u16[0xffff01da] = 0x12
 	
-    u16[0xffff061c] = 0x30
-    u16[0xffff061e] = 0x2D
-    u16[0xffff0620] = 0x22	
-    u16[0xffff0622] = 0x20
-    u16[0xffff0624] = 0x26	
-    u16[0xffff0626] = 0x1e	
+	u16[0xffff061c] = 0x30
+	u16[0xffff061e] = 0x2D
+	u16[0xffff0620] = 0x22	
+	u16[0xffff0622] = 0x20
+	u16[0xffff0624] = 0x26	
+	u16[0xffff0626] = 0x1e	
 	u16[0xffff0628] = 0x29
 	u16[0xffff062a] = 0x00
 	u16[0xffff062c] = 0x30
@@ -380,7 +382,7 @@ function void LevelSelect.init()
 	u16[0xffff0634] = 0x22
 
 
-    u16[0xffff0536] = 0x00
+	u16[0xffff0536] = 0x00
 	u16[0xffff0538] = 0x30
 	u16[0xffff053a] = 0x31
 	u16[0xffff053c] = 0x1e	
