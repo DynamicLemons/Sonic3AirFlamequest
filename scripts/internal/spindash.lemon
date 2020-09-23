@@ -81,6 +81,13 @@ function bool Character.UpdateSpindashCD()
 	{
 		if (input_state & CONTROL_DOWN)
 		{
+			if ((abs(char.groundspeed) >= 0x0370))
+			{
+			if (level.framecounter.low & 0x03)
+{
+			Audio.playAudio("peelout_charge_loop", AudioContext.CONTEXT_SOUND)
+}
+			}
 			if (char.spindash_charge >= 0x1) && (char.state == char.state.ROLLING)
 			{
 				char.state = char.state.ROLLING
