@@ -1,3 +1,31 @@
+// Main Level Select Update loop
+//# address-hook(0x007a74) end(0x007d20)
+//# translated(0x007d64) end(0x007d6a)
+function void LevelSelect()
+{
+	global.zone_act = 0
+	FadeOutScreenBlocking()
+
+	set_status_register(0x2700)
+	LevelSelect.init()
+
+	Menu.FadeInAfterInit()
+
+	// Perform main update now
+	bool running = true
+	while (running)
+	{
+		global.frame_state = 0x16
+
+		// End point for a single frame
+		//  -> Right here we place the entry point for the standalone version
+		waitForNextFrame()
+	@EntryPoint:
+
+		running = LevelSelect.innerUpdate()
+	}
+}
+
 // I presume this moves the stuff back over to the left
 // Also handles drawing some stuff like the background and the characters
 // upon first loading level select
@@ -117,7 +145,7 @@ function void LevelSelect.init()
 
 	Level.loadNonfadingPaletteData(0x04)
 
-	// Fix palette loading issues
+	// Fix palette loading issues (by not doing whatever this code does)
 	//copyMemory(0xfffffcc0, 0xfffffc40, 0x20)
 	//zeroMemory(0xfffffc40, 0x20)
 
@@ -404,32 +432,6 @@ function void FlameQuest.LevelSelect.drawZoneIcons()
 	}
 }
 
-//# address-hook(0x007a74) end(0x007d20)
-//# translated(0x007d64) end(0x007d6a)
-function void LevelSelect()
-{
-	global.zone_act = 0
-	FadeOutScreenBlocking()
-
-	set_status_register(0x2700)
-	LevelSelect.init()
-
-	Menu.FadeInAfterInit()
-
-	// Perform main update now
-	bool running = true
-	while (running)
-	{
-		global.frame_state = 0x16
-
-		// End point for a single frame
-		//  -> Right here we place the entry point for the standalone version
-		waitForNextFrame()
-	@EntryPoint:
-
-		running = LevelSelect.innerUpdate()
-	}
-}
 
 //# address-hook(0x007e64) end(0x007f1e)
 //# translated(0x007f46) end(0x007f60)
