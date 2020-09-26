@@ -183,8 +183,8 @@ function void LevelSelect.init()
 
 	RenderSprites()
 
-	// test
-	ZoneTimesMenu.drawString(0xc5d0, "CHARACTER")
+	// Draw "CHARACTER" text above the characters
+	ZoneTimesMenu.drawString(0xc550, "CHARACTER")
 
 	// Re-enable active display again
 	VDP.Config.setActiveDisplay(true)
