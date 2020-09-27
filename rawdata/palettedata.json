@@ -1,30 +1,30 @@
 {
-	"PaletteALZ": 
+	"PaletteALZ":
 	{
 		"File": "ALZ.bin",
 		"RomInject": "0xA99DC"
 	},
-	"PaletteBPZ": 
+	"PaletteBPZ":
 	{
 		"File": "BPZ.bin",
 		"RomInject": "0xA9A3C"
 	},
-	"PaletteCGZ": 
+	"PaletteCGZ":
 	{
 		"File": "CGZ.bin",
 		"RomInject": "0xA9AFC"
 	},
-	"PaletteDPZ": 
+	"PaletteDPZ":
 	{
 		"File": "DPZ.bin",
 		"RomInject": "0xA9A9C"
 	},
-	"PaletteEMZ": 
+	"PaletteEMZ":
 	{
 		"File": "EMZ.bin",
 		"RomInject": "0xA9B5C"
 	},
-				"fbz palette":
+	"fbz palette":
 	{
 		"File": "FBZ2.bin",
 		"RomInject": "0xA909C"
@@ -79,24 +79,25 @@
 		"File": "ICZWater.bin",
 		"RomInject": "0x0A921C"
 	},
-					"fbz 2 palette":
+	"fbz 2 palette":
 	{
 		"File": "FBZ2.bin",
 		"RomInject": "0x0A90FC"
 	},
-	
-		"fbz_indoors":
+
+	"fbz_indoors":
 	{
 		"File": "FBZ BG Indoors.bin",
 		"RomInject": "0x052DC0"
 	},
-	
+
 	"fbz_sky":
 	{
 		"File": "FBZ BG Outdoors.bin",
 		"RomInject": "0x052DD0"
-	},	
-		    "cnz flash and dark":
+	},
+	
+	"cnz flash and dark":
 	{
 		"File": "Flash.bin",
 		"RomInject": "0x066932"
@@ -113,7 +114,7 @@
 		"File": "cnz water.bin",
 		"RomInject": "0x0A901C"
 	},
-	
+
 		"cnz chunks":
 	{
 		"File": "cnz chunks.bin",
@@ -132,7 +133,7 @@
 		"File": "Act 2 Water.bin",
 		"RomInject": "0x0A935C"
 	},
-	
+
 		"lbz 1":
 	{
 		"File": "1.bin",
@@ -147,38 +148,38 @@
 	},
 
 	// Replaces Mushroom Hill Zone Act 1 Palette
-	"PaletteMHZ1": 
+	"PaletteMHZ1":
 	{
 		"File": "MHZ1.bin",
 		"RomInject": "0x0a943c"
 	},
 	// Replaces Mushroom Hill Zone Act 2 Palettes
-	"PaletteMHZ2Autumn": 
+	"PaletteMHZ2Autumn":
 	{
 		"File": "MHZ2.bin",
 		"RomInject": "0x0550fe"
 	},
-	"PaletteMHZ2Winter": 
+	"PaletteMHZ2Winter":
 	{
 		"File": "MHZ1.bin",
 		"RomInject": "0x0a949c"
 	},
-	"PaletteSOZ1": 
+	"PaletteSOZ1":
 	{
 		"File": "SOZ1.bin",
 		"RomInject": "0x0a94fc"
 	},
-	"PaletteSOZ2Light": 
+	"PaletteSOZ2Light":
 	{
 		"File": "SOZ2.bin",
 		"RomInject": "0x0A955C"
 	},
-	"PaletteSOZ2Dim": 
+	"PaletteSOZ2Dim":
 	{
 		"File": "SOZ2.bin",
 		"RomInject": "0x0A95BC"
 	},
-	"PaletteSOZ2Dark": 
+	"PaletteSOZ2Dark":
 	{
 		"File": "SOZ2.bin",
 		"RomInject": "0x0A961C"
@@ -194,9 +195,16 @@
 		"RomInject": "0xA96DC"
 	},
 
-	"PaletteBonus1": 
+	"PaletteBonus1":
 	{
 		"File": "BonusPalette1.bin",
 		"RomInject": "0x0A9C1C"
 	},
+
+	// Level Select Background Palette
+	"level_select_palette":
+	{
+		"File" : "level_select_palette.bin",
+		"RomInject": "0xa8a7c"
+	}
 }

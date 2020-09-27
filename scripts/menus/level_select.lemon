@@ -1,3 +1,197 @@
+// Main Level Select Update loop
+//# address-hook(0x007a74) end(0x007d20)
+//# translated(0x007d64) end(0x007d6a)
+function void LevelSelect()
+{
+	global.zone_act = 0
+	FadeOutScreenBlocking()
+
+	set_status_register(0x2700)
+	LevelSelect.init()
+
+	Menu.FadeInAfterInit()
+
+	// Perform main update now
+	bool running = true
+	while (running)
+	{
+		global.frame_state = 0x16
+
+		// End point for a single frame
+		//  -> Right here we place the entry point for the standalone version
+		waitForNextFrame()
+	@EntryPoint:
+
+		running = LevelSelect.innerUpdate()
+	}
+}
+
+// I presume this moves the stuff back over to the left
+// Also handles drawing some stuff like the background and the characters
+// upon first loading level select
+function void LevelSelect.init()
+{
+	// Disable active display for now
+	VDP.Config.setActiveDisplay(false)
+
+	fn0011ca()
+
+	// Configure VDP registers
+	VDP.Config.enableHInt(false)
+	VDP.Config.setNameTableBasePlaneA(0xc000)
+	VDP.Config.setNameTableBasePlaneB(0xe000)
+	VDP.Config.setBackdropColor(0)
+	VDP.Config.setRenderingModeConfiguration(false)
+	VDP.Config.setPlayfieldSizeInPixels(512, 256)
+	VDP.Config.setVerticalScrolling(false, 0)	// Horizontal scrolling mode without scroll mask
+
+	zeroMemory(0xffffac00, 0x400)
+	zeroMemory(0xffffb000, 0x2000)
+
+	u16[0xfffffb00] = 0
+	u32[0xfffffbfc] = 0xfffffb00
+	Nemesis.loadDataToVRAM(0x0ca5e0, 0x0200)
+
+	Enigma.decompress(0x0cab54, 0xffff0000, 0x6000)
+	copyRectToVRAM(0xffff0000, 0xe000, 0x28, 0x1c)
+
+	zeroMemory(0xffff0000, 0x460 * 2)
+
+	A3 = 0xffff0000
+        A1 = 0x0080e6
+	A5 = 0x0080c4
+	D0 = 0
+	D1.u16 = 0x10
+
+	while (D1.s16 >= 0)
+	{
+		D3.u16 = u16[(A5+=2)-2]
+		A2 = A3 + D3.s16
+		D2 = u8[(A1+=1)-1]
+		D3.u16 = D2.u16
+
+		while (D2.s16 >= 0)
+		{
+			u16[(A2+=2)-2] = u8[(A1+=1)-1]
+			--D2.s16
+		}
+
+		D2.u16 = 0x0d - D3.u16
+		while (D2.s16 >= 0)
+		{
+			u16[(A2+=2)-2] = 0
+			--D2.s16
+		}
+
+		u16[A2] = 0x11
+		A2 = A2 + 0x50
+		u16[A2] = 0x12
+		--D1.s16
+	}
+
+	u16[A2] = 0
+	A2 = A2 - 0x50
+	u16[A2] = 0x1a
+	u16[0xffff018a] = 0x11
+	u16[0xffff01da] = 0x12
+
+	u16[0xffff061c] = 0x30
+	u16[0xffff061e] = 0x2D
+	u16[0xffff0620] = 0x22
+	u16[0xffff0622] = 0x20
+	u16[0xffff0624] = 0x26
+	u16[0xffff0626] = 0x1e
+	u16[0xffff0628] = 0x29
+	u16[0xffff062a] = 0x00
+	u16[0xffff062c] = 0x30
+	u16[0xffff062e] = 0x31
+	u16[0xffff0630] = 0x1e
+	u16[0xffff0632] = 0x24
+	u16[0xffff0634] = 0x22
+
+
+	u16[0xffff0536] = 0x00
+	u16[0xffff0538] = 0x30
+	u16[0xffff053a] = 0x31
+	u16[0xffff053c] = 0x1e
+	u16[0xffff053e] = 0x24
+	u16[0xffff0540] = 0x22
+
+	u16[0xffff043c] = 0x31
+	u16[0xffff043e] = 0x25
+	u16[0xffff0440] = 0x22
+	u16[0xffff0442] = 0x00
+	u16[0xffff0444] = 0x21
+	u16[0xffff0446] = 0x2C
+	u16[0xffff0448] = 0x2C
+	u16[0xffff044a] = 0x2A
+	u16[0xffff044c] = 0x30
+	u16[0xffff044e] = 0x21
+	u16[0xffff0450] = 0x1E
+	u16[0xffff0452] = 0x36
+
+	copyRectToVRAM(0xffff0000, 0xc000, 0x28, 0x1c)
+
+	D3 = 0
+	fn007f62()
+
+	global.characters = CHARS_SONIC_AND_TAILS
+	u16[0xffffff02] = 0
+	global.level_started = 0
+	u16[0xfffff7f0] = 0
+
+	A2 = 0x0081b0
+	LevelTilesAnim.Default()
+
+	Level.loadNonfadingPaletteData(0x04)
+
+	// Fix palette loading issues (by not doing whatever this code does)
+	//copyMemory(0xfffffcc0, 0xfffffc40, 0x20)
+	//zeroMemory(0xfffffc40, 0x20)
+
+	// Play level select music
+	playMusic(0x2d)
+
+	global.demo_countdown = 1799	// 30 seconds (minus one frame)
+	competition_mode.active = 0
+	camera.position.x = 0
+	camera.position.y = 0
+	global.active_saveslot = 0
+	level.giantrings_clear = 0
+	checkpoint.number = 0
+	global.stage_type = 0
+	bluespheres.minigame_mode = 0
+
+	u16[0xffffffe4] = 0
+	u16[0xffffffe6] = 0
+	global.frame_state = 0x16
+
+#if STANDALONE
+
+	// Write sound test digits (they are missing otherwise)
+	VDP.setupVRAMWrite(0xcb46)
+	LevelSelect.writeHexDigit(levelselect.soundtest >> 4,   0)
+	LevelSelect.writeHexDigit(levelselect.soundtest & 0x0f, 0)
+
+#endif
+
+	waitForNextFrame()
+
+	// Draw the background, characters, and sidebar
+	Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x20, 0, 0x1fff)
+	FlameQuest.LevelSelect.drawSidebar()
+
+	RenderSprites()
+
+	// Draw "CHARACTER" text above the characters
+	ZoneTimesMenu.drawString(0xc550, "CHARACTER")
+
+	// Re-enable active display again
+	VDP.Config.setActiveDisplay(true)
+}
+
+// Draws the custom background and maybe some other stuff
+// Code needs more comments
 function bool LevelSelect.innerUpdate()
 {
 	set_status_register(0x2700)
@@ -94,39 +288,186 @@ function bool LevelSelect.innerUpdate()
 		}
 	}
 
+	// Render sprites & custom background
+	Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x20, 0, 0x1fff)
+	FlameQuest.LevelSelect.drawSidebar()
+
 	RenderSprites()
-	Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x00, 0, 0x1fff, 0, 255)
+
 	return true
 }
 
-//# address-hook(0x007a74) end(0x007d20)
-//# translated(0x007d64) end(0x007d6a)
-function void LevelSelect()
+// Draw the sidebar
+function void FlameQuest.LevelSelect.drawSidebar()
 {
-	global.zone_act = 0
-	FadeOutScreenBlocking()
-	RenderSprites()
-	Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x00, 0, 0x1fff, 0, 255)
-	set_status_register(0x2700)
+	// Draw the characters and Zone Icons
+	FlameQuest.LevelSelect.drawCharacters()
+	FlameQuest.LevelSelect.drawZoneIcons()
+}
 
-	LevelSelect.init()
-	RenderSprites()
-	Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x00, 0, 0x1fff, 0, 255)
+// Function for drawing the characters in the sidebar
+function void FlameQuest.LevelSelect.drawCharacters()
+{
+	u16 renderQueue = 0x9000
 
-	Menu.FadeInAfterInit()
+	// Base coordinates for drawing the players
+	u16 characterXPos = getScreenWidth() - 45
+	u16 characterYPos = getScreenHeight() / 2
 
-	// Perform main update now
-	bool running = true
-	while (running)
+	// Sonic and Miles
+	if(levelselect.characters == CHARS_SONIC_AND_TAILS)
 	{
-		global.frame_state = 0x16
+		Standalone.drawCharacterSpriteDirect(CHARACTER_TAILS , characterXPos - 12 + 15, characterYPos + 4, 0xa6, 0x01, 0x60, renderQueue)
+		Standalone.drawCharacterSpriteDirect(CHARACTER_SONIC , characterXPos - 12, characterYPos, 0xb1, 0x01, 0x40, renderQueue + 1)
+	}
+	// Sonic alone
+	else if(levelselect.characters == CHARS_SONIC_ALONE)
+	{
+		Standalone.drawCharacterSpriteDirect(levelselect.characters - 1 , characterXPos - 3, characterYPos, 0xb1, 0x01, 0x40, renderQueue)
+	}
+	// Miles the Prower
+	else if(levelselect.characters == CHARS_TAILS_ALONE)
+	{
+		Standalone.drawCharacterSpriteDirect(levelselect.characters - 1 , characterXPos, characterYPos + 4, 0xa6, 0, 0x60, renderQueue)
+	}
+	// Knuckles alone
+	else if(levelselect.characters == CHARS_KNUCKLES_ALONE)
+	{
+		Standalone.drawCharacterSpriteDirect(levelselect.characters - 1 , characterXPos + 4, characterYPos, 0xb4, 0x01, 0x80, renderQueue)
+	}
+	// Knuckles and Miles the Prower
+	else if(levelselect.characters == 4)
+	{
+		Standalone.drawCharacterSpriteDirect(CHARACTER_TAILS , characterXPos + 6, characterYPos + 4, 0xa6, 0x01, 0x60, renderQueue)
+		Standalone.drawCharacterSpriteDirect(CHARACTER_KNUCKLES, characterXPos - 6, characterYPos, 0xb4, 0x01, 0x80, renderQueue + 1)
+	}
 
-		// End point for a single frame
-		//  -> Right here we place the entry point for the standalone version
-		waitForNextFrame()
-	@EntryPoint:
+}
 
-		running = LevelSelect.innerUpdate()
+// Function that draws the level select level icons
+function void FlameQuest.LevelSelect.drawZoneIcons()
+{
+	// Set the icon sprite key to the current icon. Further handling
+	// will be done later.
+	u64 zoneIconKey = stringformat("flamequest_levelselect_icon_0x%02x", levelselect.selection)
+
+	// Current act number
+	s8 actNumber
+
+	// Special handling for each zone
+
+	// Handle act 2 icons for all Zones excluding DDZ 1/2 & HPZ 1/2.
+	// If act 2 icons don't exist, use the icons for act 1 (SSZ can also
+	// use this logic since Knux' SSZ (act 2) would just use normal/Sonic's
+	// SSZ if its icon key isn't found
+	if(levelselect.selection < 0x1a && levelselect.selection != 0x14 && levelselect.selection != 0x15 && (levelselect.selection % 0x02))
+	{
+		if(!Renderer.hasCustomSprite(zoneIconKey))
+		{
+			zoneIconKey = stringformat("flamequest_levelselect_icon_0x%02x", levelselect.selection - 1)
+		}
+	}
+	// Special handling if HPZ 1 doesn't have its own icon
+	else if(levelselect.selection == 0x14 && !Renderer.hasCustomSprite(zoneIconKey))
+	{
+		// Use LRZ 2's icon
+		zoneIconKey = "flamequest_levelselect_icon_0x13"
+
+		// If LRZ 2's icon doesn't exist, use LRZ 1's icon
+		if(!Renderer.hasCustomSprite(zoneIconKey))
+		{
+			zoneIconKey = "flamequest_levelselect_icon_0x12"
+		}
+	}
+	// Special handling if DDZ 2 doesn't have its own icon
+	else if(levelselect.selection == 0x1b &&!Renderer.hasCustomSprite(zoneIconKey))
+	{
+		// Use DDZ 2's icon
+		zoneIconKey = "flamequest_levelselect_icon_0x19"
+
+		// If DEZ 2's icon doesn't exist, use DEZ 1's icon
+		if(!Renderer.hasCustomSprite(zoneIconKey))
+		{
+			zoneIconKey = "flamequest_levelselect_icon_0x18"
+		}
+	}
+	// Bonus or Special stage
+	else if(levelselect.selection >= 0x1c && levelselect.selection <= 0x1f)
+	{
+		// If the second special stage/bonus stage icon is highlighted,
+		// subtract 1 from the selection key and use that instead
+		// (levelselect.selection % 0x02 is 0 under the first selection and
+		// 1 under the second)
+		zoneIconKey = stringformat("flamequest_levelselect_icon_0x%02x", levelselect.selection - levelselect.selection % 0x02)
+	}
+	// Sound test icon
+	else if(levelselect.selection == 0x20)
+	{
+		// Add support for character-dependent icons.
+		zoneIconKey = stringformat("flamequest_soundtest_icon_0x%02x", levelselect.characters)
+
+		// If the Knux/Tails icon doesn't exist, try Knux' icon
+		if(!Renderer.hasCustomSprite(zoneIconKey) && levelselect.characters == 4)
+		{
+			zoneIconKey = "flamequest_soundtest_icon_0x03"
+		}
+
+		// If the icon doesn't exist, use Sonic's (which should always exist)
+		if(!Renderer.hasCustomSprite(zoneIconKey))
+		{
+			zoneIconKey = "flamequest_soundtest_icon_0x01"
+		}
+	}
+
+	// Zone act number
+	// Normal zones
+	if(levelselect.selection < 0x1a && !(levelselect.selection >= 0x14 && levelselect.selection <= 0x17))
+	{
+		actNumber = levelselect.selection % 2 + 1
+	}
+	// LRZ Boss act (LRZ3) and Final Boss (DDZ2)
+	else if(levelselect.selection == 0x14 || levelselect.selection == 0x1b)
+	{
+		actNumber = 2
+	}
+	else
+	{
+		actNumber = -1
+	}
+
+	// If the zoneIconKey exists, draw the icon
+	if(Renderer.hasCustomSprite(zoneIconKey))
+	{
+		u16 iconXPosition = getScreenWidth() - 85
+		u16 iconYPosition = (3 * getScreenHeight()) / 4 - 28
+
+		// Zone Icon
+		Renderer.drawCustomSprite(zoneIconKey, iconXPosition, iconYPosition, 0x00, 0x00, 0x9002)
+
+		// Zone Icon Border
+		Renderer.drawCustomSprite("flamequest_levelselect_icon_border", iconXPosition - 1, iconYPosition - 1, 0x00, 0x00, 0x9002)
+
+		// VRAM address for the act number
+		u16 vramAddress = 0xccd4
+
+		// Act Number
+		if(actNumber > 0)
+		{
+			ZoneTimesMenu.drawString(vramAddress, stringformat("ACT %d", actNumber))
+		}
+		else
+		{
+			VDP.setupVRAMWrite(vramAddress)
+			VDP.zeroVRAM(0xa)
+		}
+	}
+	// If the key doesn't exist, show some debug info (always show debug
+	// info in Oxygen)
+	#if GAMEAPP
+	else
+	#endif
+	{
+		System.writeDisplayLine(stringformat("0x%02x | %s", levelselect.selection, zoneIconKey))
 	}
 }
 
@@ -134,9 +475,6 @@ function void LevelSelect()
 //# translated(0x007f46) end(0x007f60)
 function void fn007e64()
 {
-	RenderSprites()
-	Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x00, 0, 0x1fff, 0, 255)
-
 	bool skipPart = false
 	if ((control.pad1.pressed & (CONTROL_UP | CONTROL_DOWN)) == 0)
 	{
@@ -299,153 +637,87 @@ playSound(0xaf)
 	return true
 }
 
-function void LevelSelect.init()
+/* Functions from Zone Clear Times, used to draw strings
+ * Note, these functions do not support using lowercase letters (nor
+ * does the level select font). All letters must be UPPERCASE for the functions
+ * to work properly.
+ *
+ * To clear text (or VRAM in general), use
+ * VDP.setupVRAMWrite()
+ * VDP.zeroVRAM()
+ * which are documented in the Oxygen Handbook.
+ *
+ * The vramAddress parameter specifies where in VRAM to start writing
+ * characters to. It is highly recommended that you use Oxygen to find out
+ * where you want to put stuff in VRAM. Holding the `.` key down allows you
+ * to view the plane that the text is written to. The `Addr` parameter
+ * shows you the tile in VRAM you're currently hovering over. You can then
+ * hover over the position in VRAM you want to draw the text at and make
+ * note of it. In addition, here's some additional info about VRAM Addresses:
+   * Each tile takes up 2 bytes (or one u16) of space in VRAM. Thus, each
+     character also takes 2 bytes. When you want to clear VRAM, you'll
+     have to clear 2*the number of tiles you're trying to clear
+   * Each line is 0x0080 bytes apart. Thus, to move down a line in VRAM
+     you'd add 0x0080 to your current position (the opposite is also true)
+ *
+ */
+// Draws a string using the default white palette
+function void ZoneTimesMenu.drawString(u32 vramAddress, u64 stringToDraw)
 {
-	// Disable active display for now
-	VDP.Config.setActiveDisplay(false)
+	ZoneTimesMenu.drawString(vramAddress, stringToDraw, 0)
+}
 
-	fn0011ca()
-
-	// Configure VDP registers
-	VDP.Config.enableHInt(false)
-	VDP.Config.setNameTableBasePlaneA(0xc000)
-	VDP.Config.setNameTableBasePlaneB(0xe000)
-	VDP.Config.setBackdropColor(0)
-	VDP.Config.setRenderingModeConfiguration(false)
-	VDP.Config.setPlayfieldSizeInPixels(512, 256)
-	VDP.Config.setVerticalScrolling(false, 0)	// Horizontal scrolling mode without scroll mask
-
-	zeroMemory(0xffffac00, 0x400)
-	zeroMemory(0xffffb000, 0x2000)
-
-	u16[0xfffffb00] = 0
-	u32[0xfffffbfc] = 0xfffffb00
-	Nemesis.loadDataToVRAM(0x0ca5e0, 0x0200)
-
-	Enigma.decompress(0x0cab54, 0xffff0000, 0x6000)
-	copyRectToVRAM(0xffff0000, 0xe000, 0x28, 0x1c)
-
-	zeroMemory(0xffff0000, 0x460 * 2)
-
-	A3 = 0xffff0000
-	A1 = 0x0080e6
-	A5 = 0x0080c4
-	D0 = 0
-	D1.u16 = 0x10
-
-	while (D1.s16 >= 0)
+// Draws a string, but with the option of which palette line to use
+function void ZoneTimesMenu.drawString(u32 vramAddress, u64 stringToDraw, u8 paletteLine)
+{
+	for(u8 i = 0; i < strlen(stringToDraw); i++)
 	{
-		D3.u16 = u16[(A5+=2)-2]
-		A2 = A3 + D3.s16
-		D2 = u8[(A1+=1)-1]
-		D3.u16 = D2.u16
+		u8 character = getchar(stringToDraw, i)
+		// Also factors in its palette
+		u16 characterToDraw = 0x0000
 
-		while (D2.s16 >= 0)
+		// Alphabet characters
+		if(character >= 65)
 		{
-			u16[(A2+=2)-2] = u8[(A1+=1)-1]
-			--D2.s16
+			characterToDraw = character - 35
+		}
+		// Numbers
+		else if(character >= 48 && character <= 57)
+		{
+			characterToDraw = character - 0x20
+		}
+		// Space character
+		else if(character == 32)
+		{
+			characterToDraw = 0x0000
+		}
+		// Colon character
+		else if(character == 58)
+		{
+			characterToDraw = 28
+		}
+		// Star character (uses '*')
+		else if(character == 42)
+		{
+			characterToDraw = 26
+		}
+		// Period Character
+		else if(character == 46)
+		{
+			characterToDraw = 29
+		}
+		// Regard other characters as the (c) symbol. It's recommended
+		// that you use the @ for this, since it's easily accessible and
+		// most similar looking to the (c) symbol
+		else
+		{
+			characterToDraw = 27
 		}
 
-		D2.u16 = 0x0d - D3.u16
-		while (D2.s16 >= 0)
-		{
-			u16[(A2+=2)-2] = 0
-			--D2.s16
-		}
+		// Apply color lines
+		characterToDraw |= (paletteLine << 13)
 
-		u16[A2] = 0x11
-		A2 = A2 + 0x50
-		u16[A2] = 0x12
-		--D1.s16
+		setVRAM(vramAddress, characterToDraw)
+		vramAddress += 2
 	}
-
-	u16[A2] = 0
-	A2 = A2 - 0x50
-	u16[A2] = 0x1a
-	u16[0xffff018a] = 0x11
-	u16[0xffff01da] = 0x12
-	
-	u16[0xffff061c] = 0x30
-	u16[0xffff061e] = 0x2D
-	u16[0xffff0620] = 0x22	
-	u16[0xffff0622] = 0x20
-	u16[0xffff0624] = 0x26	
-	u16[0xffff0626] = 0x1e	
-	u16[0xffff0628] = 0x29
-	u16[0xffff062a] = 0x00
-	u16[0xffff062c] = 0x30
-	u16[0xffff062e] = 0x31
-	u16[0xffff0630] = 0x1e	
-	u16[0xffff0632] = 0x24
-	u16[0xffff0634] = 0x22
-
-
-	u16[0xffff0536] = 0x00
-	u16[0xffff0538] = 0x30
-	u16[0xffff053a] = 0x31
-	u16[0xffff053c] = 0x1e	
-	u16[0xffff053e] = 0x24
-	u16[0xffff0540] = 0x22
-
-	u16[0xffff043c] = 0x31
-	u16[0xffff043e] = 0x25
-	u16[0xffff0440] = 0x22
-	u16[0xffff0442] = 0x00
-	u16[0xffff0444] = 0x21
-	u16[0xffff0446] = 0x2C	
-	u16[0xffff0448] = 0x2C
-	u16[0xffff044a] = 0x2A
-	u16[0xffff044c] = 0x30	
-	u16[0xffff044e] = 0x21	
-	u16[0xffff0450] = 0x1E
-	u16[0xffff0452] = 0x36
-	 
-	 
-	copyRectToVRAM(0xffff0000, 0xc000, 0x28, 0x1c)
-
-	D3 = 0
-	fn007f62()
-
-	global.characters = CHARS_SONIC_AND_TAILS
-	u16[0xffffff02] = 0
-	global.level_started = 0
-	u16[0xfffff7f0] = 0
-
-	A2 = 0x0081b0
-	LevelTilesAnim.Default()
-
-	Level.loadNonfadingPaletteData(0x04)
-
-	copyMemory(0xfffffcc0, 0xfffffc40, 0x20)
-	zeroMemory(0xfffffc40, 0x20)
-
-	playMusic(0x2d)
-
-	global.demo_countdown = 1799	// 30 seconds (minus one frame)
-	competition_mode.active = 0
-	camera.position.x = 0
-	camera.position.y = 0
-	global.active_saveslot = 0
-	level.giantrings_clear = 0
-	checkpoint.number = 0
-	global.stage_type = 0
-	bluespheres.minigame_mode = 0
-
-	u16[0xffffffe4] = 0
-	u16[0xffffffe6] = 0
-	global.frame_state = 0x16
-
-#if STANDALONE
-
-	// Write sound test digits (they are missing otherwise)
-	VDP.setupVRAMWrite(0xcb46)
-	LevelSelect.writeHexDigit(levelselect.soundtest >> 4,   0)
-	LevelSelect.writeHexDigit(levelselect.soundtest & 0x0f, 0)
-
-#endif
-
-	waitForNextFrame()
-
-	// Re-enable active display again
-	VDP.Config.setActiveDisplay(true)
 }
