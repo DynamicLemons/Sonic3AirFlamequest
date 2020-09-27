@@ -351,6 +351,9 @@ function void FlameQuest.LevelSelect.drawZoneIcons()
 	// will be done later.
 	u64 zoneIconKey = stringformat("flamequest_levelselect_icon_0x%02x", levelselect.selection)
 
+	// Current act number
+	s8 actNumber
+
 	// Special handling for each zone
 
 	// Handle act 2 icons for all Zones excluding DDZ 1/2 & HPZ 1/2.
@@ -416,15 +419,47 @@ function void FlameQuest.LevelSelect.drawZoneIcons()
 		}
 	}
 
+	// Zone act number
+	// Normal zones
+	if(levelselect.selection < 0x1a && !(levelselect.selection >= 0x14 && levelselect.selection <= 0x17))
+	{
+		actNumber = levelselect.selection % 2 + 1
+	}
+	// LRZ Boss act (LRZ3) and Final Boss (DDZ2)
+	else if(levelselect.selection == 0x14 || levelselect.selection == 0x1b)
+	{
+		actNumber = 2
+	}
+	else
+	{
+		actNumber = -1
+	}
+
 	// If the zoneIconKey exists, draw the icon
 	if(Renderer.hasCustomSprite(zoneIconKey))
 	{
 		u16 iconXPosition = getScreenWidth() - 85
 		u16 iconYPosition = (3 * getScreenHeight()) / 4 - 28
+
 		// Zone Icon
 		Renderer.drawCustomSprite(zoneIconKey, iconXPosition, iconYPosition, 0x00, 0x00, 0x9002)
+
 		// Zone Icon Border
 		Renderer.drawCustomSprite("flamequest_levelselect_icon_border", iconXPosition - 1, iconYPosition - 1, 0x00, 0x00, 0x9002)
+
+		// VRAM address for the act number
+		u16 vramAddress = 0xccd4
+
+		// Act Number
+		if(actNumber > 0)
+		{
+			ZoneTimesMenu.drawString(vramAddress, stringformat("ACT %d", actNumber))
+		}
+		else
+		{
+			VDP.setupVRAMWrite(vramAddress)
+			VDP.zeroVRAM(0xa)
+		}
 	}
 	// If the key doesn't exist, show some debug info (always show debug
 	// info in Oxygen)
