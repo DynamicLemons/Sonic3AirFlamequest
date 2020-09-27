@@ -637,10 +637,30 @@ playSound(0xaf)
 	return true
 }
 
-// Functions from Zone Clear Times, used to draw strings
-// Note, these functions do not support using lowercase letters (nor
-// does the level select font). All letters must be UPPERCASE for the function
-// to work properly.
+/* Functions from Zone Clear Times, used to draw strings
+ * Note, these functions do not support using lowercase letters (nor
+ * does the level select font). All letters must be UPPERCASE for the functions
+ * to work properly.
+ *
+ * To clear text (or VRAM in general), use
+ * VDP.setupVRAMWrite()
+ * VDP.zeroVRAM()
+ * which are documented in the Oxygen Handbook.
+ *
+ * The vramAddress parameter specifies where in VRAM to start writing
+ * characters to. It is highly recommended that you use Oxygen to find out
+ * where you want to put stuff in VRAM. Holding the `.` key down allows you
+ * to view the plane that the text is written to. The `Addr` parameter
+ * shows you the tile in VRAM you're currently hovering over. You can then
+ * hover over the position in VRAM you want to draw the text at and make
+ * note of it. In addition, here's some additional info about VRAM Addresses:
+   * Each tile takes up 2 bytes (or one u16) of space in VRAM. Thus, each
+     character also takes 2 bytes. When you want to clear VRAM, you'll
+     have to clear 2*the number of tiles you're trying to clear
+   * Each line is 0x0080 bytes apart. Thus, to move down a line in VRAM
+     you'd add 0x0080 to your current position (the opposite is also true)
+ *
+ */
 // Draws a string using the default white palette
 function void ZoneTimesMenu.drawString(u32 vramAddress, u64 stringToDraw)
 {
