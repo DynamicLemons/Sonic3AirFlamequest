@@ -29,6 +29,16 @@
 		"File": "FBZ2.bin",
 		"RomInject": "0xA909C"
 	},
+	"PaletteAIZ2": 
+	{
+		"File": "AIZ2.bin",
+		"RomInject": "0x0A8BDC"
+	},
+	"PaletteAIZ2Water": 
+	{
+		"File": "AIZ2Water.bin",
+		"RomInject": "0xA8D1C"
+	},
 	"PaletteHCZ1":
 	{
 		"File": "HCZ1.bin",
@@ -86,13 +96,7 @@
 		"File": "FBZ BG Outdoors.bin",
 		"RomInject": "0x052DD0"
 	},
-
-	"sonic":
-	{
-		"File": "SonicAndTails.bin",
-		"RomInject": "0x0a8a3c"
-	},
-
+	
 	"cnz flash and dark":
 	{
 		"File": "Flash.bin",
@@ -180,7 +184,12 @@
 		"File": "SOZ2.bin",
 		"RomInject": "0x0A961C"
 	},
-	"PaletteLRZ2":
+	"PaletteLRZ1": 
+	{
+		"File": "LRZ1.bin",
+		"RomInject": "0xA967C"
+	},
+	"PaletteLRZ2": 
 	{
 		"File": "LRZ2.bin",
 		"RomInject": "0xA96DC"

@@ -12,8 +12,7 @@ include specialstages/?
 include options/?
 include cutscenes/?
 include credits/?
-include eastereggs/?
-
+include compatibility/?
 
 // Load character palettes at the start of the game so that the level
 // select functions properly.

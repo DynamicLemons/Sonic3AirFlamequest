@@ -1,0 +1,60 @@
+function bool Character.updateSuperPeelout()
+{
+	u8 input_state   = control.player1.state
+	u8 input_pressed = control.player1.pressed
+
+	if (char.spindash == 0)
+	{
+		bool canStartPeelout = (char.state == char.state.LOOKING_UP) && (input_pressed & CONTROL_ABC) && (player1.control_override == 0)	// Last check is needed in cutscenes (e.g. end of MHZ 2)
+		if (!canStartPeelout)
+		{
+			// Nothing to see here
+			return false
+		}
+
+		char.state = char.state.RUNNING
+		char.spindash = 0x80
+		char.spindash_charge = 0
+		Audio.playAudio("peelout_charge", AudioContext.CONTEXT_SOUND)
+	}
+	else if (char.spindash == 0x80)
+	{
+		if (input_state & CONTROL_UP)
+		{
+			if ((abs(char.groundspeed) >= 0x0999))
+			{
+			if (level.framecounter.low & 0x03)
+{
+			Audio.playAudio("peelout_charge_loop", AudioContext.CONTEXT_SOUND)
+}
+			}
+			// Charge up
+			char.spindash_charge = clamp(char.spindash_charge + 0x40, 0x100, 0x800)
+			if (char.flags & char.flag.UNDERWATER)
+			{
+				char.groundspeed = 0x300 + ((super.active) ? (char.spindash_charge) : (char.spindash_charge * 3/4))
+			}
+			else
+			{
+				char.groundspeed = 0x400 + ((super.active) ? (char.spindash_charge * 3/2) : (char.spindash_charge))
+			}
+
+			char.flags &= ~char.flag.PUSHING
+			if (abs(char.groundspeed) >= 0x0a00)
+				sonic.fastrunanim.timer = 30
+		}
+		else
+		{
+			releaseSuperPeelout()
+		}
+
+		// Center camera y-offset again
+		centerCameraYOffset()
+	}
+
+	Character.CheckAgainstMoveBorders()
+	Character.UpdateRotationOnGround()
+	partialUpdateCharacterOnGround()
+
+	return true
+}

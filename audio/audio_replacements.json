@@ -227,5 +227,9 @@
 
 	"proto_1": { "File": "haha_proto_content_1.ogg", "Type": "Sound" },
 	"proto_2": { "File": "haha_proto_content_2.ogg", "Type": "Sound" },
+
+	"peelout_charge":  { "File": "PeelCharge.ogg", "Type": "Sound", "Channel": "AB" },
+	"peelout_charge_loop":  { "File": "PeelChargeLoop.ogg", "Type": "Sound", "Channel": "AB" },
+	"peelout_release": { "File": "PeelRelease.ogg", "Type": "Sound", "Channel": "AB" }
 }
 }
