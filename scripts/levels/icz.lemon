@@ -100,3 +100,69 @@ System.loadExternalRawData("PaletteICZ2", 0x0A915C)
 	UpdateBackgroundScrolling.ICZ1.Indoors()
 	WriteScrollOffsets()
 }
+
+//# address-hook(0x039502) end(0x03954e)
+function void fn039502()
+{
+	if ((level.framecounter.low & 0x0f) == 0)
+	{
+		playSound(0xc8)
+	}
+
+	D0 = 0
+	if (u16[A2 + 0x10] >= 0x1310 && u16[A2 + 0x10] < 0x1330)
+	{
+		D0 = 2
+	}
+	else if (u16[A2 + 0x10] >= 0x2210 && u16[A2 + 0x10] < 0x2230)
+	{
+		D0 = 2
+	}
+
+	fn039554()
+}
+
+//# address-hook(0x039554) end(0x0395f8)
+function void fn039554()
+{
+	Object.animationUpdate(0x039476)
+	if (s16[A2 + 0x1c] >= 0x1000)
+	{
+		u16[A2 + 0x1c] -= 8
+	}
+	else
+	{
+		if (s16[A2 + 0x1c] < 0x1000)
+			u16[A2 + 0x1c] = 0x1000
+	}
+
+	if (u16[A2 + 0x10] >= 0x3880 && u16[A2 + 0x18] == 0)
+	{
+		objA0.update_address = 0x039676
+		u16[A2 + 0x18] = 0x300
+		u16[A2 + 0x1a] = -0x400
+		u8[A2 + 0x20] = char.state.RUNNING
+		u8[A2 + 0x2a] |= char.flag.IN_AIR
+		u8[A2 + 0x2e] = 0
+		playSound(SFX_JUMP)
+
+	#if STANDALONE
+		tails.respawn_counter = 0
+	#endif
+		tails.ai_routine = 0x02
+	}
+
+	if ((u8[A2 + 0x2a] & char.flag.IN_AIR) == 0)
+	{
+		D0.u8 = objA0.animation.sprite
+		if (D0.u8 != u8[A0 + 0x32])
+		{
+			if (D0.u8 == 0x07 || D0.u8 == 0x08)
+			{
+				playSound(0x7e)
+			}
+		}
+	}
+	fn03968e()
+	DrawObject()
+}
