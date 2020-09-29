@@ -1,3 +1,5 @@
+include access_level_select_for_debug
+
 //# address-hook(0x00076e) end(0x00077e)
 function void fn00076e()
 {
@@ -15,7 +17,7 @@ function void fn000780()
 	{
 		if (cesatrans < 255)
 		{
-			cesatrans += 15 
+			cesatrans += 15
 			//You can change this to change the speed that the thing comes in, but make sure that it never goes above 256. I could solve this by making it a u16, but I could also not fix and just leave it as it is.
 		}
 		else
@@ -120,7 +122,7 @@ function void fn00440c()
 		set_status_register(0x2300)
 	}
 }
-
+/*
 //# address-hook(0x003e32) end(0x004342)
 function void TitleScreen()
 {
@@ -522,3 +524,4 @@ function void TitleScreen()
 	player.next_life_score = 5000
 	u32[0xffffffc4] = 5000
 }
+*/
