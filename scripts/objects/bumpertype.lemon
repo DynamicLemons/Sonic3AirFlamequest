@@ -1,0 +1,186 @@
+// Script that contains Bumper-type objects.
+
+//# address-hook(0x032f56) end(0x032fee)
+function void fn032f56()
+{
+if (global.zone == 0x05) // Ice Bumper
+{
+	D1.u16 = objA0.position.x.u16 - objA1.position.x.u16
+	D2.u16 = objA0.position.y.u16 - objA1.position.y.u16
+	LookupAngleByVector()
+
+	D1.u16 = u8[0xfffffe04] & 0x03
+	D0.u16 += D1.u16
+	LookupSinCos()
+
+	D1.s32 = s32(D1.s16) * -objA1.velocity.x * 2
+	D1.s32 >>= 8
+	objA1.velocity.x = D1.u16
+	D0.s32 = s32(D0.s16) * objA1.velocity.y * 2
+	D0.s32 >>= 8
+	objA1.velocity.y = D0.u16
+
+	objA1.flags2a |= char.flag.IN_AIR
+	objA1.flags2a &= ~(char.flag.CONTROL_LOCK | char.flag.PUSHING)
+	u8[A1 + 0x40] = 0
+	objA0.state = 0x01
+
+    addScore(1)
+	playSound(0x8d)
+	spawnSimpleChildObjects(0x08b54a)
+	Object.TriggerUnloading()
+	playSound(0x80)
+	DrawObject()
+
+	D0.u16 = objA0.respawn_entry
+	if (D0.u16 != 0)
+	{
+		A2 = 0xffff0000 + D0.u16
+		if (u8[A2] >= 0x8a)
+			return
+
+		++u8[A2]
+	}
+
+	A3 = 0xffff0000 + A1.u16
+
+	if (allocDynamicObjectStd())
+	{
+		objA1.update_address = 0x02cce0
+		objA1.position.x.u16 = objA0.position.x.u16
+		objA1.position.y.u16 = objA0.position.y.u16
+		u8[A1 + 0x22] = 0x04
+	}
+}
+else if (global.zone != 0x05)
+{
+if (objA0.subtype2c != 0x1) // Bumper
+{
+	D1.u16 = objA0.position.x.u16 - objA1.position.x.u16
+	D2.u16 = objA0.position.y.u16 - objA1.position.y.u16
+	LookupAngleByVector()
+
+	D1.u16 = u8[0xfffffe04] & 0x03
+	D0.u16 += D1.u16
+	LookupSinCos()
+
+	D1.s32 = s32(D1.s16) * -0x700
+	D1.s32 >>= 8
+	objA1.velocity.x = D1.u16
+	D0.s32 = s32(D0.s16) * -0x700
+	D0.s32 >>= 8
+	objA1.velocity.y = D0.u16
+
+	objA1.flags2a |= char.flag.IN_AIR
+	objA1.flags2a &= ~(char.flag.CONTROL_LOCK | char.flag.PUSHING)
+	u8[A1 + 0x40] = 0
+	objA0.state = 0x01
+
+	playSound(0xaa)
+
+	D0.u16 = objA0.respawn_entry
+	if (D0.u16 != 0)
+	{
+		A2 = 0xffff0000 + D0.u16
+		if (u8[A2] >= 0x8a)
+			return
+
+		++u8[A2]
+	}
+
+	A3 = 0xffff0000 + A1.u16
+	addScore(1)
+
+	if (allocDynamicObjectStd())
+	{
+		objA1.update_address = 0x02cce0
+		objA1.position.x.u16 = objA0.position.x.u16
+		objA1.position.y.u16 = objA0.position.y.u16
+		u8[A1 + 0x22] = 0x04
+	}
+}
+else if (global.zone != 0x05) // Goal Sphere
+{
+			global.zone_act = checkpoint.zone_act
+			global.zone_act.apparent = checkpoint.zone_act.apparent
+			checkpoint.number = checkpoint.number.backup
+			global.stage_type = 0
+			level.restart.u8 = 1
+			checkpoint.rings = ring_counter
+			checkpoint.lives_granted = extra_lives_granted
+			global.shields_backup_1 = u8[0xffffb02b] & 0x71
+}
+}
+}
+
+//# address-hook(0x032df2) end(0x032eea)
+function void fn032df2()
+{
+	objA0.render_flags = render_flag.WORLD
+	objA0.box_size.x = 0x10
+	objA0.box_size.y = 0x10
+	objA0.sprite_priority = 0x80
+	u8[A0 + 0x28] = 0xd7
+	u16[A0 + 0x30] = objA0.position.x.u16
+	objA0.value32 = objA0.position.y.u16
+
+	if (global.zone == 0x14)
+	{
+		objA0.mapping_offset = 0x0330a2
+		objA0.sprite_attributes = 0x62cd
+		objA0.update_address = 0x032ef0
+		fn032ef0()
+		return
+	}
+
+	if (competition_mode.active)
+	{
+		objA0.mapping_offset = 0x2322ee
+		objA0.sprite_attributes = 0x2300
+		objA0.update_address = 0x032ff0
+		fn032ff0()
+		return
+	}
+
+	objA0.mapping_offset = 0x2322ce
+	objA0.sprite_attributes = 0x4364
+	if (objA0.subtype2c != 0) && (objA0.subtype2c != 1) && (global.zone != 0x14)
+	{
+		objA0.value26 = objA0.subtype2c
+		objA0.update_address = 0x032e7e
+		fn032e7e()
+	}
+	else
+	{
+		objA0.update_address = 0x032eaa
+		fn032eaa()
+	}
+}
+
+function bool Standalone.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
+{
+	// This function gets called once when rendering an object, even if it consists of multiple VDP sprites
+	//  -> That is in contrast to e.g. "Standalone.onDrawVdpSprite" which gets called for each VDP sprite
+	//  -> So if an object's sprites should be replaced with a new loaded graphics, this here is the place to go
+
+	u8 gameMode = global.game_mode & 0x7f
+	bool prioFlag = (objA0.sprite_attributes & 0x8000) != 0
+
+				// Goal Sphere
+		if (objA0.update_address == 0x032ef0) && (objA0.subtype2c == 0x01) || (objA0.update_address == 0x2322ce) && (objA0.subtype2c == 0x01)
+		{
+			u8 anim = (level.framecounter >> 2) % 8
+				Renderer.drawCustomSprite(stringformat("fire_decoration_object_0%d", anim+1), px, py, 0x00, prioFlag ? SPRITE_FLAG_PRIO : 0, renderQueue+0x100, 0, 255)
+			return true
+		}
+
+				// Ice Bumper
+		if (global.zone == 0x05) && (objA0.update_address == 0x032eaa) || (global.zone == 0x05) && (objA0.update_address == 0x032e7e)
+		{
+			u8 anim = (level.framecounter >> 2) % 6
+				Renderer.drawCustomSprite(stringformat("ice_bumper_0%d", anim+1), px, py, 0x00, prioFlag ? SPRITE_FLAG_PRIO : 0, renderQueue, 0, 255)
+			return true
+		}
+
+    return base.Standalone.onWriteToSpriteTable(px, py, renderQueue)
+}
