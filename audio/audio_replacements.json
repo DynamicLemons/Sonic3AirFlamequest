@@ -48,12 +48,13 @@
 	"0Aalt_fast": { "File": "BustedBattery2FALT.ogg", "Type": "Music", "LoopStart": "76877" },
 
 	// ICZ 1
-	"0B":      { "File": "MeltingIceCap1.ogg", "Type": "Music", "Loop": "2542576" },
-	"0B_fast": { "File": "MeltingIceCap1F.ogg", "Type": "Music", "Loop": "157695" },
+	"0B":      { "File": "MeltingPeaks1.ogg", "Type": "Music", "Loop": "2542576" },
+	"0B_fast": { "File": "MeltingPeaks1F.ogg", "Type": "Music", "Loop": "157695" },
+	"D1": { "File": "MeltingPeaks1Event.ogg", "Type": "Music", "Loop": "1" },
 
 	// ICZ 2
-	"0C":      { "File": "MeltingIceCap2.ogg", "Type": "Music", "Loop": "1939143" },
-	"0C_fast": { "File": "MeltingIceCap2F.ogg", "Type": "Music", "Loop": "159279" },
+	"0C":      { "File": "MeltingPeaks2.ogg", "Type": "Music", "Loop": "1939143" },
+	"0C_fast": { "File": "MeltingPeaks2F.ogg", "Type": "Music", "Loop": "159279" },
 
 	// LBZ 1
 	"0D":      { "File": "PlaceholderSong.ogg", "Type": "Music", "Loop": "1" },
@@ -157,13 +158,11 @@
 
 	// Invincibility theme
 	//  -> First ID is S&K version, second is S3 version
-	"2C": { "File": "PlaceholderSong.ogg", "Type": "Music", "Loop": "1" },
-	"2C_fast": { "File": "PlaceholderSong.ogg", "Type": "Music", "Loop": "1" },
-	"2C_sonic3": { "File": "PlaceholderSong.ogg", "Type": "Music", "Loop": "1" },
-	"2C_sonic3_fast": { "File": "PlaceholderSong.ogg", "Type": "Music", "Loop": "1" },
+	"2C": { "File": "Invincibility.ogg", "Type": "Music", "LoopStart": "276119"},
+	"2C_fast": { "File": "InvincibilityF.ogg", "Type": "Music", "LoopStart": "219909"},
 
 	// Data Select menu
-	"2F": { "File": "PlaceholderSong.ogg", "Type": "Music", "Loop": "1" },
+	"2F": { "File": "Menu1.ogg", "Type": "Music", "Loop": "1" },
 
 	// Final Boss
 	"30": { "File": "PlaceholderSong.ogg", "Type": "Music", "Loop": "1" },
@@ -224,6 +223,7 @@
 	"warning_flare": { "File": "WarningFlare.ogg", "Type": "Sound" },
 
 	"7B": { "File": "haha_proto_content_2.ogg", "Type": "Sound" },
+	"8d": { "File": "IceBumper.ogg", "Type": "Sound" },
 
 	"proto_1": { "File": "haha_proto_content_1.ogg", "Type": "Sound" },
 	"proto_2": { "File": "haha_proto_content_2.ogg", "Type": "Sound" },
