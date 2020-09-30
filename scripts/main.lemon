@@ -2,6 +2,7 @@
 include effects/?
 include bosses/?
 include gimmicks/?
+include objects/?
 include transitions/?
 include internal/?
 include music/?
@@ -12,15 +13,14 @@ include specialstages/?
 include options/?
 include cutscenes/?
 include credits/?
+include eastereggs/?
 include compatibility/?
+
 
 // Load character palettes at the start of the game so that the level
 // select functions properly.
 function void Init()
 {
-	// Run vanilla/Other mods' Init() functions
-	base.Init()
-
 	// Load palettes during initialization so the sprites don't appear
 	// blank in the menu
 	loadCharacterPalette(CHARACTER_SONIC, 0x802180 + 0x00, 0)
