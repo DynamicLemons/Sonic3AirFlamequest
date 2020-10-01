@@ -1,4 +1,279 @@
 
+//# address-hook(0x027758) end(0x027772)
+function void LevelTilesAnimation()
+{
+	// Targets:
+	//  - 0x02783a	-> offset = 0x00	-> AIZ 1
+	//  - 0x02784a	-> offset = 0x04	-> AIZ 2
+	//  - 0x027880	-> offset = 0x08	-> HCZ 1
+	//  - 0x027a58	-> offset = 0x0c	-> HCZ 2
+	//  - 0x027c2c	-> offset = 0x10	-> MGZ 1
+	//  - 0x027c2c	-> offset = 0x14	-> MGZ 2
+	//  - 0x027c36	-> offset = 0x18	-> CNZ 1
+	//  - 0x027c36	-> offset = 0x1c	-> CNZ 2
+	//  - 0x0286e4	-> offset = 0x20	-> FBZ 1
+	//  - 0x0286e4	-> offset = 0x24	-> FBZ 2
+	//  - 0x027ccc	-> offset = 0x28	-> ICZ 1
+	//  - 0x027ccc	-> offset = 0x2c	-> ICZ 2
+	//  - 0x027e00	-> offset = 0x30	-> LBZ 1
+	//  - 0x027ef0	-> offset = 0x34	-> LBZ 2
+	//  - 0x0280ac	-> offset = 0x38	-> MHZ 1
+	//  - 0x0280ac	-> offset = 0x3c	-> MHZ 2
+	//  - 0x0281c8	-> offset = 0x40	-> SOZ 1
+	//  - 0x02825c	-> offset = 0x44	-> SOZ 2
+	//  - 0x0282be	-> offset = 0x48	-> LRZ 1
+	//  - 0x0282c8	-> offset = 0x4c	-> LRZ 2
+	//  - 0x0286e4	-> offset = 0x50	-> SSZ S/T
+	//  - 0x027838	-> offset = 0x54	-> SSZ Knuckles
+	//  - 0x0286e4	-> offset = 0x58	-> DEZ 1
+	//  - 0x0286e4	-> offset = 0x5c	-> DEZ 2
+	//  - 0x027838	-> offset = 0x60	-> DDZ
+	//  - 0x027838	-> offset = 0x6c	-> DEZ Boss
+	//    ...some unknowns here, including the competition mode stages
+	//  - 0x0284c8	-> offset = 0x98	-> Bonus GM
+	//  - 0x0284fe	-> offset = 0xa0	-> Bonus GS
+	//  - 0x027838	-> offset = 0xa8	-> Bonus SM
+	//  - 0x0282b4	-> offset = 0xb0	-> LRZ Boss
+	//  - 0x0286e4	-> offset = 0xb4	-> HPZ
+	//  - 0x027838	-> offset = 0xb8	-> ??
+	//  - 0x0286e4	-> offset = 0xbc	-> Emerald cave
+
+if global.zone_act == 0x0400
+{
+		System.loadExternalRawData("anitilebgfbz", 0x825000)
+		System.loadExternalRawData("fbzindex", 0x28906)
+}
+else if global.zone_act == 0x0401
+{
+		System.loadExternalRawData("anitilebgfbz", 0x825000)
+		System.loadExternalRawData("fbzindex2", 0x28906)
+}
+else
+{
+		System.loadExternalRawData("aintileindex", 0x027778)
+}
+	u8 offset = global.zone * 8 + global.act * 4
+	A2 = 0x027778 + s16[0x02777a + offset]
+	call tableLookupAddress(0x027778, offset)
+}
+
+//# address-hook(0x052e34) end(0x052e40)
+function void UpdateLevelTiles.FBZ2()
+{
+	camera.foreground.y.u16 += camera.screenshake.offset
+	call 0x052e44 + s16[0xffffeec0]
+	
+	u8[0xffff8dd2] = 0xf8
+	u8[0xffff8dd3] = 0xf6
+	u8[0xffff8dd4] = 0xf8
+	u8[0xffff8dd5] = 0xf6
+	u8[0xffff8df7] = 0xf9
+	u8[0xffff8df8] = 0xf3
+	u8[0xffff8df9] = 0xf9
+	u8[0xffff8dfa] = 0xf3	
+	u8[0xffff8e1c] = 0xfa
+	u8[0xffff8e1d] = 0xf2
+	u8[0xffff8e1e] = 0xfa
+	u8[0xffff8e1f] = 0xf2	
+	u8[0xffff8e41] = 0xf7
+	u8[0xffff8e42] = 0xf5
+	u8[0xffff8e43] = 0xf7
+	u8[0xffff8e44] = 0xf5
+	u8[0xffff8e66] = 0xf8
+	u8[0xffff8e67] = 0xf6
+	u8[0xffff8e68] = 0xf8
+	u8[0xffff8e69] = 0xf6
+	u8[0xffff8e8b] = 0xf9
+	u8[0xffff8e8c] = 0xf3
+	u8[0xffff8e8d] = 0xf9
+	u8[0xffff8e8e] = 0xf3	
+	u8[0xffff8eb0] = 0xfa
+	u8[0xffff8eb1] = 0xf2
+	u8[0xffff8eb2] = 0xfa
+	u8[0xffff8eb3] = 0xf2	
+	u8[0xffff8ed5] = 0xf7
+	u8[0xffff8ed6] = 0xf5
+	u8[0xffff8ed7] = 0xf7
+	u8[0xffff8ed8] = 0xf5	
+	u8[0xffff8efa] = 0xf8
+	u8[0xffff8efb] = 0xf6
+	u8[0xffff8efc] = 0xf8
+	u8[0xffff8efd] = 0xf6
+	u8[0xffff8f1f] = 0xf9
+	u8[0xffff8f20] = 0xf3
+	u8[0xffff8f21] = 0xf9
+	u8[0xffff8f22] = 0xf3
+	u8[0xffff8f44] = 0xfa
+	u8[0xffff8f45] = 0xf2
+	u8[0xffff8f46] = 0xfa
+	u8[0xffff8f47] = 0xf2
+	u8[0xffff8f69] = 0xf7
+	u8[0xffff8f6a] = 0xf5
+	u8[0xffff8f6b] = 0xf7
+	u8[0xffff8f6c] = 0xf5
+}
+
+
+
+//# address-hook(0x052de0) end(0x052e30)
+function void InitLevelTiles.FBZ2()
+{
+	u8[0xffff8dd2] = 0xf8
+	u8[0xffff8dd3] = 0xf6
+	u8[0xffff8dd4] = 0xf8
+	u8[0xffff8dd5] = 0xf6
+	u8[0xffff8df7] = 0xf9
+	u8[0xffff8df8] = 0xf3
+	u8[0xffff8df9] = 0xf9
+	u8[0xffff8dfa] = 0xf3	
+	u8[0xffff8e1c] = 0xfa
+	u8[0xffff8e1d] = 0xf2
+	u8[0xffff8e1e] = 0xfa
+	u8[0xffff8e1f] = 0xf2	
+	u8[0xffff8e41] = 0xf7
+	u8[0xffff8e42] = 0xf5
+	u8[0xffff8e43] = 0xf7
+	u8[0xffff8e44] = 0xf5
+	u8[0xffff8e66] = 0xf8
+	u8[0xffff8e67] = 0xf6
+	u8[0xffff8e68] = 0xf8
+	u8[0xffff8e69] = 0xf6
+	u8[0xffff8e8b] = 0xf9
+	u8[0xffff8e8c] = 0xf3
+	u8[0xffff8e8d] = 0xf9
+	u8[0xffff8e8e] = 0xf3	
+	u8[0xffff8eb0] = 0xfa
+	u8[0xffff8eb1] = 0xf2
+	u8[0xffff8eb2] = 0xfa
+	u8[0xffff8eb3] = 0xf2	
+	u8[0xffff8ed5] = 0xf7
+	u8[0xffff8ed6] = 0xf5
+	u8[0xffff8ed7] = 0xf7
+	u8[0xffff8ed8] = 0xf5	
+	u8[0xffff8efa] = 0xf8
+	u8[0xffff8efb] = 0xf6
+	u8[0xffff8efc] = 0xf8
+	u8[0xffff8efd] = 0xf6
+	u8[0xffff8f1f] = 0xf9
+	u8[0xffff8f20] = 0xf3
+	u8[0xffff8f21] = 0xf9
+	u8[0xffff8f22] = 0xf3
+	u8[0xffff8f44] = 0xfa
+	u8[0xffff8f45] = 0xf2
+	u8[0xffff8f46] = 0xfa
+	u8[0xffff8f47] = 0xf2
+	u8[0xffff8f69] = 0xf7
+	u8[0xffff8f6a] = 0xf5
+	u8[0xffff8f6b] = 0xf7
+	u8[0xffff8f6c] = 0xf5
+	D0.u16 = 0x2c40
+	if (D0.u16 <= camera.position.x.u16)
+	{
+		u16[0xffffeec0] = 0x04
+		move_area.left = D0.u16
+		fn052f32()
+		u32[0xffffee98] = 0
+		u32[0xffffee9c] = 0
+		D7.u16 = 0xe000
+
+		push(A3)
+		push(A2)
+		push(A0)
+		push(D7)
+
+
+
+		D7 = pop()
+		A0 = pop()
+		A2 = pop()
+		A3 = pop()
+	}
+
+	Level.GetCameraPosition()
+	Level.InitialTilesFill()
+}
+
+
+
+
+//# address-hook(0x0523ec) end(0x052420)
+function void InitLevelTiles.FBZ1()
+{
+	u8[0xffff8d48] = 0xf8
+	u8[0xffff8d49] = 0xf6
+	u8[0xffff8d4a] = 0xf8
+	u8[0xffff8d4b] = 0xf6
+	u8[0xffff8d50] = 0xf9
+	u8[0xffff8d51] = 0xf3
+	u8[0xffff8d52] = 0xf9
+	u8[0xffff8d53] = 0xf3
+	u8[0xffff8d58] = 0xfa
+	u8[0xffff8d59] = 0xf2
+	u8[0xffff8d5a] = 0xfa
+	u8[0xffff8d5b] = 0xf2
+	u8[0xffff8d60] = 0xf7
+	u8[0xffff8d61] = 0xf5
+	u8[0xffff8d62] = 0xf7
+	u8[0xffff8d63] = 0xf5
+	u8[0xffff8d68] = 0xf8
+	u8[0xffff8d69] = 0xf6
+	u8[0xffff8d6a] = 0xf8
+	u8[0xffff8d6b] = 0xf6
+	u8[0xffff8d70] = 0xf9
+	u8[0xffff8d71] = 0xf3
+	u8[0xffff8d72] = 0xf9
+	u8[0xffff8d73] = 0xf3
+	u8[0xffff8d78] = 0xfa
+	u8[0xffff8d79] = 0xf2
+	u8[0xffff8d7a] = 0xfa
+	u8[0xffff8d7b] = 0xf2
+	u8[0xffff8d80] = 0xf7
+	u8[0xffff8d81] = 0xf5
+	u8[0xffff8d82] = 0xf7
+	u8[0xffff8d83] = 0xf5
+	u8[0xffff8d88] = 0xf8
+	u8[0xffff8d89] = 0xf6
+	u8[0xffff8d8a] = 0xf8
+	u8[0xffff8d8b] = 0xf6
+	u8[0xffff8d90] = 0xf9
+	u8[0xffff8d91] = 0xf3
+	u8[0xffff8d92] = 0xf9
+	u8[0xffff8d93] = 0xf3
+	u8[0xffff8d98] = 0xfa
+	u8[0xffff8d99] = 0xf2
+	u8[0xffff8d9a] = 0xfa
+	u8[0xffff8d9b] = 0xf2
+	u8[0xffff8da0] = 0xf7
+	u8[0xffff8da1] = 0xf5
+	u8[0xffff8da2] = 0xf7
+	u8[0xffff8da3] = 0xf5
+
+	if (u16[0xffffb010] >= 0x0180)
+	{
+		A1 = 0xffff0000 + u16[A3 + 0x34]
+		A5 = 0xffff0000 + u16[A3 + 0x48]
+		D0.u16 = u16[A3 - 0x08]
+		for (u8 i = 0; i < 3; ++i)
+		{
+			copyMemory(A1, A5, 0x05)
+			A1 += D0.u16
+			A5 += D0.u16
+		}
+	}
+	else
+	{
+		level.display_routine = 0x18
+		u8[0xffffeed4] = 0xff
+	}
+
+	
+	Level.GetCameraPosition()
+	Level.InitialTilesFill()
+	
+
+
+}
+
 
 
 //# address-hook(0x002440) end(0x00244c)
@@ -15,17 +290,15 @@ function void LevelPaletteUpdate.FBZ()
 		u8[0xfffff7c1] ^= 0x01
 	}
 
-#if STANDALONE 
-global.zone_act == 0x0400
-{
-		A1 = 0xfffffc74
-		u16[A1] = 0x0006
-}
+#if STANDALONE
+	    if u16[0xffffeed6] == 0 
+	    {
 
-		if global.zone_act == 0x0401 && camera.foreground.x.u16 < 0x2A44 //yes i know this is not the most optimized way of doing palette cycles lol
+		if  global.zone_act == 0x0400 || global.zone_act == 0x0401 && camera.foreground.x.u16 < 0x2A44
 		{
-		A1 = 0xfffffc74
+		A1 = 0xfffffc6c
 		A2 += 1
+	
 		{
 		u16[A1] = 0x0006
 		if level.framecounter.low < 8
@@ -121,8 +394,215 @@ global.zone_act == 0x0400
 		u16[A1] = 0x0008
 		}
 		}
-}	
+}
+}
+				A1 = 0xfffffc74
+	if global.zone_act == 0x0400
+	{
 
+		{
+		u16[A1] = 0x00e0
+		if level.framecounter.low < 8
+		{
+		u16[A1] = 0x00c0
+		}
+		else if level.framecounter.low < 16
+		{
+		u16[A1] = 0x00a0
+		}
+		else if level.framecounter.low < 24
+		{
+		u16[A1] = 0x0080
+		}
+		else if level.framecounter.low < 32
+		{
+		u16[A1] = 0x0060
+		}
+		else if level.framecounter.low < 40
+		{
+		u16[A1] = 0x0080
+		}
+		else if level.framecounter.low < 48
+		{
+		u16[A1] = 0x00a0
+		}
+		else if level.framecounter.low < 56
+		{
+		u16[A1] = 0x00c0
+		}
+		else if level.framecounter.low < 64
+		{
+		u16[A1] = 0x00e0
+		}
+		else if level.framecounter.low < 72
+		{
+		u16[A1] = 0x00c0
+		}
+		else if level.framecounter.low < 80
+		{
+		u16[A1] = 0x00a0
+		}
+		else if level.framecounter.low < 88
+		{
+		u16[A1] = 0x0080
+		}
+		else if level.framecounter.low < 92
+		{
+		u16[A1] = 0x0060
+		}
+		else if level.framecounter.low < 100
+		{
+		u16[A1] = 0x0080
+		}
+		else if level.framecounter.low < 108
+		{
+		u16[A1] = 0x00a0
+		}
+		else if level.framecounter.low < 116
+		{
+		u16[A1] = 0x00c0
+		}
+		else if level.framecounter.low < 124
+		{
+		u16[A1] = 0x00e0
+		}
+		else if level.framecounter.low < 132
+		{
+		u16[A1] = 0x00c0
+		}
+		else if level.framecounter.low < 140
+		{
+		u16[A1] = 0x00a0
+		}
+		else if level.framecounter.low < 148
+		{
+		u16[A1] = 0x0080
+		}
+		else if level.framecounter.low < 156
+		{
+		u16[A1] = 0x0060
+		}
+		else if level.framecounter.low < 164
+		{
+		u16[A1] = 0x0080
+		}
+		else if level.framecounter.low < 172
+		{
+		u16[A1] = 0x00a0
+		}
+		else if level.framecounter.low < 188
+		{
+		u16[A1] = 0x00c0
+		}
+		}
+		//u16[A1] = (level.framecounter.low)
+}	
+else
+{
+		{
+		u16[A1] = 0x0006
+		if level.framecounter.low < 8
+		{
+		u16[A1] = 0x0008
+		}
+		else if level.framecounter.low < 16
+		{
+		u16[A1] = 0x000a
+		}
+		else if level.framecounter.low < 24
+		{
+		u16[A1] = 0x000c
+		}
+		else if level.framecounter.low < 32
+		{
+		u16[A1] = 0x000e
+		}
+		else if level.framecounter.low < 40
+		{
+		u16[A1] = 0x000c
+		}
+		else if level.framecounter.low < 48
+		{
+		u16[A1] = 0x000a
+		}
+		else if level.framecounter.low < 56
+		{
+		u16[A1] = 0x0008
+		}
+		else if level.framecounter.low < 64
+		{
+		u16[A1] = 0x0006
+		}
+		else if level.framecounter.low < 72
+		{
+		u16[A1] = 0x0008
+		}
+		else if level.framecounter.low < 80
+		{
+		u16[A1] = 0x000a
+		}
+		else if level.framecounter.low < 88
+		{
+		u16[A1] = 0x000c
+		}
+		else if level.framecounter.low < 92
+		{
+		u16[A1] = 0x000e
+		}
+		else if level.framecounter.low < 100
+		{
+		u16[A1] = 0x000c
+		}
+		else if level.framecounter.low < 108
+		{
+		u16[A1] = 0x000a
+		}
+		else if level.framecounter.low < 116
+		{
+		u16[A1] = 0x0008
+		}
+		else if level.framecounter.low < 124
+		{
+		u16[A1] = 0x0006
+		}
+		else if level.framecounter.low < 132
+		{
+		u16[A1] = 0x0008
+		}
+		else if level.framecounter.low < 140
+		{
+		u16[A1] = 0x000a
+		}
+		else if level.framecounter.low < 148
+		{
+		u16[A1] = 0x000c
+		}
+		else if level.framecounter.low < 156
+		{
+		u16[A1] = 0x000e
+		}
+		else if level.framecounter.low < 164
+		{
+		u16[A1] = 0x000c
+		}
+		else if level.framecounter.low < 172
+		{
+		u16[A1] = 0x000a
+		}
+		else if level.framecounter.low < 188
+		{
+		u16[A1] = 0x0008
+		}
+		}
+}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	// Standalone uses upper bits to store more data
 	//  -> Bit 0 = Electricity on/off (as in original)
@@ -137,4 +617,71 @@ global.zone_act == 0x0400
 	}
 	u8[0xfffff7c1] = (u8[0xfffff7c1] & 0x01) | intensity
 #endif
+}
+
+//# address-hook(0x052a2a) end(0x052ab0)
+function void fn052a2a()
+{
+
+
+	// Background animation?
+
+	if (u16[0xffffeed6] == 0)
+	{
+
+		D0.s16 = s16(camera.foreground.y.u16) >> 1
+		D1.s16 = D0.u16 >> 5
+		D0.u16 -= D1.u16
+		camera.background.y.u16 = D0.u16
+
+		D0.u16 = camera.foreground.x.u16
+		D0 = (D0 << 16)
+		D0.s32 >>= 4
+		D1 = D0
+		A1 = 0xffffa800
+		A5 = 0x052d80
+		D2 = 0
+		while (true)
+		{
+			D3.u8 = u8[(A5+=1)-1]
+			if (D3.s8 < 0)
+				break
+
+			D3.s16 = D3.s8
+			D0 = (D0 << 16) + (D0 >> 16)
+			while (D3.s16 >= 0)
+			{
+				D2.u8 = u8[(A5+=1)-1]
+				u16[A1 + D2.s16] = D0.u16
+				--D3.s16
+			}
+
+			D0 = D0
+			D0 = D1
+		}
+	}
+	else
+	{
+		D0 = u16[0xffffeeda] + 0x16
+		camera.background.y.u16 = D0.u16
+
+		A1 = 0xffffa800
+		A5 = 0x052dae
+		D0.u16 = camera.foreground.x.u16
+		D0 = (D0 << 16)
+		D0.s32 >>= 4
+		D1 = D0
+		D1.s32 >>= 1
+		D2 = u32[0xffffa9fc]
+		u32[0xffffa9fc] += 0x0e00
+		D3 = 8
+		while (D3.s16 >= 0)
+		{
+			D4.u16 = u16[(A5+=2)-2]
+			D0 += D2
+			u16[A1 + D4.s16] = D0 >> 16
+			D0 += D1
+			--D3.s16
+		}
+	}
 }
