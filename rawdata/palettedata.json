@@ -1,4 +1,9 @@
 {
+		"sonic":
+	{
+		"File": "SonicAndTails.bin",
+		"RomInject": "0x0a8a3c"
+	},
 	"PaletteALZ":
 	{
 		"File": "ALZ.bin",
@@ -156,12 +161,12 @@
 	// Replaces Mushroom Hill Zone Act 2 Palettes
 	"PaletteMHZ2Autumn":
 	{
-		"File": "MHZ2.bin",
+		"File": "MHZAct_2_Gold.bin",
 		"RomInject": "0x0550fe"
 	},
 	"PaletteMHZ2Winter":
 	{
-		"File": "MHZ1.bin",
+		"File": "MHZ2.bin",
 		"RomInject": "0x0a949c"
 	},
 	"PaletteSOZ1":

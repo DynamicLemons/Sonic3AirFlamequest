@@ -35,4 +35,22 @@
       "File": "GSChunks.bin",
       "RomInject": "0x01dfe92"
     },
+	
+	    	"fbzindex":
+	{
+		"File": "fbzanitileindex.bin",
+//		"RomInject": "0x28906"
+	},
+	
+	     	"fbzindex2":
+	{
+		"File": "fbzanitileindex2.bin",
+//		"RomInject": "0x28906"
+	},
+	
+	     	"anitilebgfbz":
+	{
+		"File": "fbz ani tiles.bin",
+//		"RomInject": "0x0B89C0"
+	},
 }
