@@ -1,0 +1,6 @@
+{
+	"wip_boss":  { "File": "why.png", "Rect": "0,0,82,54", "Center": "41,29" },
+	"wip_badnik":  { "File": "why.png", "Rect": "83,0,37,35", "Center": "20,14" },
+	"wip_deco":  { "File": "why.png", "Rect": "83,36,35,49", "Center": "18,21" },
+	"wip_misc":  { "File": "why.png", "Rect": "0,55,53,35", "Center": "25,10" }
+}
