@@ -20,4 +20,52 @@
 		"File": "DataSelect3.bin",
 		"RomInject": "0xcbf8"
 	},
+
+    "Title1":
+    {
+        "File": "Title1.bin",
+        "RomInject": "0x2c49cc"
+    },
+
+    "Title2":
+    {
+        "File": "Title2.bin",
+        "RomInject": "0x359FC6"
+	},
+
+    "SegaScreen1":
+    {
+        "File": "SegaScreen.bin",
+        "RomInject": "0x05588"
+	},
+    "SegaScreen2":
+    {
+        "File": "SegaScreen.bin",
+        "RomInject": "0x055A8"
+	},
+    "SegaScreen3":
+    {
+        "File": "SegaScreen.bin",
+        "RomInject": "0x05608"
+	},
+    "SegaScreen4":
+    {
+        "File": "SegaScreen.bin",
+        "RomInject": "0x0459C"
+	},
+    "SegaScreen5":
+    {
+        "File": "SegaScreen.bin",
+        "RomInject": "0x03C78"
+	},
+    "SegaScreen6":
+    {
+        "File": "SegaScreen.bin",
+        "RomInject": "0x03CF8"
+	},
+    "SegaScreen7":
+    {
+        "File": "SegaScreen.bin",
+        "RomInject": "0x03E88"
+    }
 }
