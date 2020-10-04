@@ -4,7 +4,7 @@
 		"Name": "(Sonic Flame Quest)",
 		"Author": "Team Flame Quest",
 		"Description": "No Description",
-		"ModVersion": "2020-09-17 Prototype",
+		"ModVersion": "In Development",
 		"GameVersion": "20.04.26.0"
 	},
 	"Settings":
@@ -12,15 +12,16 @@
 		"Options":
 		[
 			{
-				"InternalName": "TitleCardTheme",
-				"DisplayName": "Title Card Theme",
-				"Variable": "VisualTitleCardTheme",
+				"InternalName": "CharRotationStyle",
+				"DisplayName": "Character Rotation Style",
+				"Variable": "VisualCharRotationStyle",
 				"Category": "Visual",
-				"DefaultValue": "0x1",
+				"DefaultValue": "0x0",
 				"Options":
 				{
-					"0x0": "Modern",
-					"0x1": "Classic"
+					"0x0": "Classic",
+					"0x1": "Sonic 3 A.I.R / Sonic Mania",
+					"0x2": "Sonic CD"
 				}
 			},
 			{
