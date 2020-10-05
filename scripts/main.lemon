@@ -21,6 +21,9 @@ include compatibility/?
 // select functions properly.
 function void Init()
 {
+	// Run vanilla/Other mods' Init() functions
+	base.Init()
+
 	// Load palettes during initialization so the sprites don't appear
 	// blank in the menu
 	loadCharacterPalette(CHARACTER_SONIC, 0x802180 + 0x00, 0)
