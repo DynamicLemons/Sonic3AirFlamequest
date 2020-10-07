@@ -152,23 +152,7 @@
 		"RomInject": "0x0A92FC"
 	},
 
-	// Replaces Mushroom Hill Zone Act 1 Palette
-	"PaletteMHZ1":
-	{
-		"File": "MHZ1.bin",
-		"RomInject": "0x0a943c"
-	},
-	// Replaces Mushroom Hill Zone Act 2 Palettes
-	"PaletteMHZ2Autumn":
-	{
-		"File": "MHZAct_2_Gold.bin",
-		"RomInject": "0x0550fe"
-	},
-	"PaletteMHZ2Winter":
-	{
-		"File": "MHZ2.bin",
-		"RomInject": "0x0a949c"
-	},
+
 	"PaletteSOZ1":
 	{
 		"File": "SOZ1.bin",
@@ -211,5 +195,51 @@
 	{
 		"File" : "level_select_palette.bin",
 		"RomInject": "0xa8a7c"
+	},
+	// Replaces Mushroom Hill Zone Act 1 Palette
+	"PaletteMHZ1": 
+	{
+		"File": "MHZ1.bin",
+		"RomInject": "0x0a943c"
+	},
+	// Replaces Mushroom Hill Zone Act 2 Palettes
+	"PaletteMHZ2Autumn": 
+	{
+		"File": "MHZAct 2 Gold.bin",
+		"RomInject": "0x0550fe"
+	},
+	"PaletteMHZ2Winter": 
+	{
+		"File": "MHZ2.bin",
+		"RomInject": "0x0a949c"
+	},
+	
+	// Replaces Lava Reef Zone Act 1 Palette
+	"PaletteLRZ1": 
+	{
+	    "File": "LRZ1.bin",
+		"RomInject": "0x0a967c"
+	},
+	
+    "lrz rocks":
+	{
+		"File": "Act 1 Rock Placement.bin",
+		"RomInject": "0x0cAD06"
+	},
+	// Replaces Lava Reef Zone Act 2 Palettes
+	"PaletteLRZ2": 
+	{
+		"File": "PaletteLRZ2.bin",
+		"RomInject": "0x0a96dc"
+	},
+	"PaletteLRZ2Boss": 
+	{
+		"File": "PaletteLRZ2Boss.bin",
+		"RomInject": "0x0a9cdc"
+	},
+	"PaletteLRZ2BossFire": 
+	{
+		"File": "PaletteLRZ2BossFire.bin",
+		"RomInject": "0x079726" // as seen in lrz_deatheggstarting.lemon
 	}
 }
