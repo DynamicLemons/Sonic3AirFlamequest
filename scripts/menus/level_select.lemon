@@ -471,6 +471,7 @@ function void FlameQuest.LevelSelect.drawZoneIcons()
 	}
 }
 
+// Separate the sound test code into its own function
 //# address-hook(0x007e64) end(0x007f1e)
 //# translated(0x007f46) end(0x007f60)
 function void fn007e64()
@@ -502,29 +503,7 @@ function void fn007e64()
 
 	if (levelselect.selection == 0x20)
 	{
-		// Sound test
-		if (control.pad1.pressed & CONTROL_LEFT)
-		{
-			if (levelselect.soundtest > 0)
-				--levelselect.soundtest
-		}
-		if (control.pad1.pressed & CONTROL_RIGHT)
-		{
-			levelselect.soundtest = (levelselect.soundtest + 1) & 0xff
-		}
-		if (control.pad1.pressed & CONTROL_A)
-		{
-			levelselect.soundtest = (levelselect.soundtest + 0x10) & 0xff
-		}
-
-		if (control.pad1.pressed & CONTROL_C)
-		{
-			playMusic(levelselect.soundtest)
-		}
-		if (control.pad1.pressed & CONTROL_B)
-		{
-			playMusic(0xe3)
-		}
+		FlameQuest.updateSoundTest()
 	}
 	else
 	{
@@ -566,6 +545,43 @@ function void fn007e64()
 #endif
 }
 
+// Update the sound test. Idea: Add a text blurb in the sidebar that shows
+// which song is currently playing.
+function void FlameQuest.updateSoundTest()
+{
+	// Sound test controls
+	if (control.pad1.pressed & CONTROL_LEFT)
+	{
+		if (levelselect.soundtest > 0)
+			--levelselect.soundtest
+	}
+
+	if (control.pad1.pressed & CONTROL_RIGHT)
+	{
+		levelselect.soundtest = (levelselect.soundtest + 1) & 0xff
+	}
+
+	if (control.pad1.pressed & CONTROL_A)
+	{
+		levelselect.soundtest = (levelselect.soundtest + 0x10) & 0xff
+	}
+
+	// Play sound test sound
+	if (control.pad1.pressed & CONTROL_C)
+	{
+		playMusic(levelselect.soundtest)
+
+		// Functions for handling easter-egg related stuff. Not implemented
+		// yet
+		// FlameQuest.updateSoundTestHistory()
+		// FlameQuest.updateSoundTestEasterEggs()
+	}
+
+	if (control.pad1.pressed & CONTROL_B)
+	{
+		playMusic(0xe3)
+	}
+}
 //# translated(0x007d6c) end(0x007e62)
 function bool fn007d6c()
 {

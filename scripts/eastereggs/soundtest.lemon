@@ -1,3 +1,4 @@
+/*
 //Switches for Tails
 global bool IsTryingTails
 global bool switch1
@@ -40,49 +41,7 @@ global bool blr1
 global bool blr2
 global bool blr3
 
-function void ResestSoundTestSwitches()
-{
-	spok1 = 0
-	spok2 = 0
-	spok3 = 0
-	switch1 = 0
-	switch2 = 0
-	switch3 = 0
-	egg1 = 0
-	egg2 = 0
-	egg3 = 0
-	da1 = 0
-	da2 = 0
-	da3 = 0
-	mid1 = 0
-	mid2 = 0
-	mid3 = 0
-	jam1 = 0
-	jam2 = 0
-	jam3 = 0
-	blr1 = 0
-	blr2 = 0
-	blr3 = 0
-	IsTryingTails = 0
-	IsSpok = 0
-	checkerz = 0
-	wetegg = 0
-	gill = 0
-	cnzs = 0
-	blur = 0
-}
 
-function bool CanDoStuffOnSoundTest()
-{
-	if (switch3 == 0 && egg3 == 0 && spok3 == 0 && da3 == 0 && mid3 == 0 && jam3 == 0 && blr3 == 0)
-	{
-		return true
-	}
-	else
-	{
-		return false
-	}
-}
 
 //Fade thing
 global u8 soundtestfade
@@ -523,3 +482,5 @@ function void fn007e64()
 	}
 #endif
 }
+
+*/
