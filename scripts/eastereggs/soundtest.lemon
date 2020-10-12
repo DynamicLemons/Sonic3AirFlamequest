@@ -1,5 +1,55 @@
+// Manages stuff related to soundtest and the soundtest easter eggs
+
+// Global variables
 global u64 FlameQuest.soundTestHistory
 
+// Update the sound test. Idea: Add a text blurb in the sidebar that shows
+// which song is currently playing.
+function void FlameQuest.updateSoundTest()
+{
+	// Sound test controls
+	if (control.pad1.pressed & CONTROL_LEFT)
+	{
+		if (levelselect.soundtest > 0)
+			--levelselect.soundtest
+		playSound(0x5b)
+	}
+
+	if (control.pad1.pressed & CONTROL_RIGHT)
+	{
+		levelselect.soundtest = (levelselect.soundtest + 1) & 0xff
+		playSound(0x5b)
+	}
+
+	if (control.pad1.pressed & CONTROL_A)
+	{
+		levelselect.soundtest = (levelselect.soundtest + 0x10) & 0xff
+	}
+
+	// Play sound test sound
+	if (control.pad1.pressed & CONTROL_C)
+	{
+		playMusic(levelselect.soundtest)
+
+		// Functions for handling easter-egg related stuff. Not implemented
+		// yet
+		FlameQuest.updateSoundTestHistory()
+		// FlameQuest.updateSoundTestEasterEggs()
+	}
+
+	if (control.pad1.pressed & CONTROL_B)
+	{
+		playMusic(0xe3)
+	}
+}
+
+// Update sound test history
+function void FlameQuest.updateSoundTestHistory()
+{
+	FlameQuest.soundTestHistory = u64(FlameQuest.soundTestHistory << 8) + u8(levelselect.soundtest)
+}
+
+// omega legacy code
 /*
 //Switches for Tails
 global bool IsTryingTails
