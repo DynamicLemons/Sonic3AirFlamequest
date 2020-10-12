@@ -1,0 +1,7 @@
+// Define shared memory stuff here.
+
+// Temp locations for sound test history & easter egg codes used in checking
+// for easter eggs
+define u32 FlameQuest.SOUNDTEST_HISTORY_TEMP = 0x8a0000
+define u32 FlameQuest.SOUNDTEST_CODE_TEMP = 0x8a0000 + 0x08
+

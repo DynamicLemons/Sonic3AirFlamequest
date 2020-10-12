@@ -297,6 +297,11 @@ function bool LevelSelect.innerUpdate()
 		}
 	}
 
+	// In oxygen, display the sound test history
+	#if !GAMEAPP
+	System.writeDisplayLine(stringformat("0x%x", FlameQuest.soundTestHistory))
+	#endif
+
 	// Render sprites & custom background
 	Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x20, 0, 0x1fff)
 	FlameQuest.LevelSelect.drawSidebar()

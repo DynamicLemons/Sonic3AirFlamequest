@@ -1,3 +1,5 @@
+global u64 FlameQuest.soundTestHistory
+
 /*
 //Switches for Tails
 global bool IsTryingTails
