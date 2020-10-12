@@ -13,6 +13,7 @@ function void LevelSelect()
 
 	// Perform main update now
 	bool running = true
+
 	while (running)
 	{
 		global.frame_state = 0x16
@@ -23,6 +24,14 @@ function void LevelSelect()
 	@EntryPoint:
 
 		running = LevelSelect.innerUpdate()
+
+		#if !GAMEAPP
+		// Exit the menu in Oxygen
+		if(global.game_mode == 0x04)
+		{
+			running = false
+		}
+		#endif
 	}
 }
 
@@ -472,6 +481,7 @@ function void FlameQuest.LevelSelect.drawZoneIcons()
 }
 
 // Separate the sound test code into its own function
+// Also handles Level Select controls
 //# address-hook(0x007e64) end(0x007f1e)
 //# translated(0x007f46) end(0x007f60)
 function void fn007e64()
@@ -538,6 +548,11 @@ function void fn007e64()
 		FadeOutScreenBlocking()
 		A0 = backupA0
 
+		#if !GAMEAPP
+		global.game_mode = 0x04
+
+		#endif
+
 		// Do not fade out music in this case, Data Select music is meant to kept playing
 		Game.returnToMainMenu()
 		yieldExecution()
@@ -582,6 +597,7 @@ function void FlameQuest.updateSoundTest()
 		playMusic(0xe3)
 	}
 }
+
 //# translated(0x007d6c) end(0x007e62)
 function bool fn007d6c()
 {
@@ -644,7 +660,8 @@ function bool fn007d6c()
 	global.rolling_demo = 0
 	player.next_life_score = 5000
 	u32[0xffffffc4] = 5000
-playSound(0xaf)
+
+	playSound(0xaf)
 
 	playSound(MUSIC_CTRL_FADEOUT)
 
