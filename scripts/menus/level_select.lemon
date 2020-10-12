@@ -476,7 +476,7 @@ function void FlameQuest.LevelSelect.drawZoneIcons()
 	else
 	#endif
 	{
-		System.writeDisplayLine(stringformat("0x%02x | %s", levelselect.selection, zoneIconKey))
+		// System.writeDisplayLine(stringformat("0x%02x | %s", levelselect.selection, zoneIconKey))
 	}
 }
 
@@ -501,12 +501,16 @@ function void fn007e64()
 			--levelselect.selection
 			if (s16(levelselect.selection) < 0)
 				levelselect.selection = 0x20
+
+			playSound(0x5b)
 		}
 		if (control.pad1.state & CONTROL_DOWN)
 		{
 			++levelselect.selection
 			if (levelselect.selection > 0x20)
 				levelselect.selection = 0
+
+			playSound(0x5b)
 		}
 		return
 	}
@@ -520,6 +524,7 @@ function void fn007e64()
 		if (control.pad1.pressed & (CONTROL_LEFT | CONTROL_RIGHT))
 		{
 			levelselect.selection = u8[0x007f22 + levelselect.selection]
+			playSound(0x5b)
 		}
 
 		if (control.pad1.pressed & CONTROL_C)
@@ -569,11 +574,13 @@ function void FlameQuest.updateSoundTest()
 	{
 		if (levelselect.soundtest > 0)
 			--levelselect.soundtest
+		playSound(0x5b)
 	}
 
 	if (control.pad1.pressed & CONTROL_RIGHT)
 	{
 		levelselect.soundtest = (levelselect.soundtest + 1) & 0xff
+		playSound(0x5b)
 	}
 
 	if (control.pad1.pressed & CONTROL_A)
