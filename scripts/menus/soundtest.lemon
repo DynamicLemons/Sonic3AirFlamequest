@@ -29,12 +29,19 @@ function void FlameQuest.updateSoundTest()
 	// Play sound test sound
 	if (control.pad1.pressed & CONTROL_C)
 	{
-		playMusic(levelselect.soundtest)
-
-		// Functions for handling easter-egg related stuff. Not implemented
-		// yet
+		// Update sound test history
 		FlameQuest.updateSoundTestHistory()
-		// FlameQuest.updateSoundTestEasterEggs()
+
+		// If no easter egg's been activated, play the level sound
+		if(!FlameQuest.updateSoundTestEasterEggs())
+		{
+			playMusic(levelselect.soundtest)
+		}
+		// Play the ring sound when an easter egg's activated
+		else
+		{
+			playSound(SFX_RING_ALT)
+		}
 	}
 
 	if (control.pad1.pressed & CONTROL_B)
@@ -47,6 +54,78 @@ function void FlameQuest.updateSoundTest()
 function void FlameQuest.updateSoundTestHistory()
 {
 	FlameQuest.soundTestHistory = u64(FlameQuest.soundTestHistory << 8) + u8(levelselect.soundtest)
+}
+
+// Check for easter eggs and apply their effects if entered correctly
+function bool FlameQuest.updateSoundTestEasterEggs()
+{
+	// Test for the secret and apply its effects if found
+	if(FlameQuest.checkEasterEgg(FlameQuest.SoundTest.RGB_KNUX_SECRET))
+	{
+		// Apply the RGB Knux easter egg effects, whatever they may be
+		FlameQuest.applySecretRGBKnux()
+		return true
+	}
+	// Test for other secrets here
+	// else if( ... )
+
+	return false
+}
+
+// Test the soundTestHistory against an easter egg
+function bool FlameQuest.checkEasterEgg(u64 easterEggCode)
+{
+	// Variables
+	u8 i = 0 // Index
+	bool result = true // Result
+
+	// Store values in shared memory for easy testing
+	// Sound Test History
+	u32[FlameQuest.SOUNDTEST_HISTORY_TEMP] = FlameQuest.soundTestHistory >> 32
+	u32[FlameQuest.SOUNDTEST_HISTORY_TEMP + 4] = FlameQuest.soundTestHistory
+
+	// Easter Egg Code
+	u32[FlameQuest.SOUNDTEST_CODE_TEMP] = easterEggCode >> 32
+	u32[FlameQuest.SOUNDTEST_CODE_TEMP + 4] = easterEggCode
+
+	// Increment the index to the first non-0 digit in the Easter Egg Code
+	while(u8[FlameQuest.SOUNDTEST_CODE_TEMP + i] == 0x00)
+	{
+		i++
+	}
+
+	// Throw an error if the sound test code contains 1 or fewer digits
+	if(i == 0x08)
+		assert(true, "Sound test code only 1 digit")
+	else if(i > 0x08)
+		assert(true, "Sound test code contains no digits")
+
+	// Test the remaining bytes of the Easter Egg Code against the
+	// Sound test history
+	while(i < 9)
+	{
+		// If the current byte in the Sound Test History isn't the same
+		// as the byte in the Easter Egg Code, set the result to false
+		if(u8[FlameQuest.SOUNDTEST_HISTORY_TEMP + i] != u8[FlameQuest.SOUNDTEST_CODE_TEMP + i])
+		{
+			result = false
+			break
+		}
+
+		i++
+	}
+
+	return result
+}
+
+// Sound Test Easter Egg functions
+// Might wanna move these to their own .lemon, especially when the amount
+// of Sound Test easter eggs increases
+
+// RGB Knux
+function void FlameQuest.applySecretRGBKnux()
+{
+	ZoneTimesMenu.drawString(0xc4d0, "RGB KNUX")
 }
 
 // omega legacy code
