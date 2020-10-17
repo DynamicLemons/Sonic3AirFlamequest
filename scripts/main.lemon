@@ -16,6 +16,7 @@ include credits/?
 include eastereggs/?
 include compatibility/?
 include defines/?
+include utility/?
 
 // Load character palettes at the start of the game so that the level
 // select functions properly.

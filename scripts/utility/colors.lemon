@@ -17,12 +17,95 @@
  * This allows for the Saturation and Luminance to take on more values
  * (namely half-steps between percentages). E.g. 10.5% -> 21, 100% -> 200, 50% -> 100
  *
- * AIR's RGBA format is documented in the Oxygen handbook.
+ * AIR's ABGR (RGBA but little-endian) format is documented in the Oxygen handbook.
 */
 
 
 // Function to convert RGB(A) -> HSL
+function u32 FlameQuest.Util.rgbToHSL(u32 argbColor)
+{
+	// Extract the R, G, B (& A) values from the color
+	u16 red 	= u32((argbColor & 0x000000ff) * 10000) / 255
+	u16 green 	= u32(((argbColor & 0x0000ff00) >> 8) * 10000) / 255
+	u16 blue 	= u32(((argbColor & 0x00ff0000) >> 16) * 10000) / 255
+
+	// Alpha channel, not included in HSL format as described above
+	// u16 alpha 	= ((argbColor & 0xff000000) << 8) / 255
+	s16 hue
+	u16 saturation
+	u16 luminance
+
+	// Variables for calculation
+	u16 min = min(min(red, green), blue)
+	u16 max = max(max(red, green), blue)
+
+	// Calculate luminance
+	luminance = (min + max) / 2
+
+
+	// Saturation
+	if(min == max)
+	{
+		// If the min and max are the same, saturation is 0
+		saturation = 0
+	}
+	else
+	{
+		if(luminance <= 5000)
+		{
+			// Multiply by 200 to convert into my HSL format and
+			// avoid loss of accuracy
+			saturation = u32((max - min) * 200) / (max + min)
+		}
+		else
+		{
+			saturation = u32((max - min) * 200) / (20000 - max - min)
+		}
+	}
+
+	// Hue
+	u16 maxRGB = max(max(red, green), blue) // Maximum of the original RGB values
+
+	// If there's no saturation, set the hue to 0
+	if(saturation == 0)
+	{
+		hue = 0
+	}
+	// Red is the maximum
+	else if(maxRGB == red)
+	{
+		// Multiply by 100 for precision and conversion purposes
+		hue = s32(s16(green - blue) * 100) / (max - min)
+	}
+	// Green is maximum
+	else if(maxRGB == green)
+	{
+		hue = 200 + s32(s16(blue - red) * 100) / (max - min)
+	}
+	// By process of elimination, Blue is maximum
+	else
+	{
+		hue = 400 + s32(s16(red - green) * 100) / (max - min)
+	}
+
+	// If the hue is negative, convert it to a positive
+	if(hue < 0)
+	{
+		hue += 600
+	}
+
+	// Convert hue into degrees
+	hue *= 60
+
+	return u32(hue << 16) + (saturation << 8) + u8(luminance / 50)
+
+}
+
 // Function to convert HSL -> RGB(A)
+
 // Function to hue shift HSL by a certain degree
+
 // Function to hue shift RGB(A) by a certain degree by calling ^
+
 // Function(s) to work directly on memory?
+
