@@ -17,20 +17,32 @@
  * This allows for the Saturation and Luminance to take on more values
  * (namely half-steps between percentages). E.g. 10.5% -> 21, 100% -> 200, 50% -> 100
  *
+ * Note that in most cases I've seen, HSL values don't usually contain decimals,
+ * so the extra precision here may be completely pointless.
+ *
  * AIR's ABGR (RGBA but little-endian) format is documented in the Oxygen handbook.
 */
 
 
 // Function to convert RGB(A) -> HSL
-function u32 FlameQuest.Util.rgbToHSL(u32 argbColor)
+function u32 FlameQuest.Util.rgbToHSL(u32 abgrColor)
 {
-	// Extract the R, G, B (& A) values from the color
-	u16 red 	= u32((argbColor & 0x000000ff) * 10000) / 255
-	u16 green 	= u32(((argbColor & 0x0000ff00) >> 8) * 10000) / 255
-	u16 blue 	= u32(((argbColor & 0x00ff0000) >> 16) * 10000) / 255
+	/* Some of the math here's a bit wonky due to the lack of floating-point
+	 * data types. For example, all the RGB values are multiplied by 10K before
+	 * dividing them by 255, and a lot of the values have been modified from
+	 * the original algorithm to match this. If you want an idea of what's going
+	 * on, check the original algorithm source.
+	*/
 
-	// Alpha channel, not included in HSL format as described above
-	// u16 alpha 	= ((argbColor & 0xff000000) << 8) / 255
+	// Extract the R, G, B (& A) values from the color
+	u16 red 	= u32((abgrColor & 0x000000ff) * 10000) / 255
+	u16 green 	= u32(((abgrColor & 0x0000ff00) >> 8) * 10000) / 255
+	u16 blue 	= u32(((abgrColor & 0x00ff0000) >> 16) * 10000) / 255
+
+	// Alpha channel, not included in HSL format but extraction code left
+	// here just because
+	// u16 alpha 	= ((argbColor & 0xff000000) >> 24)
+
 	s16 hue
 	u16 saturation
 	u16 luminance
@@ -101,7 +113,142 @@ function u32 FlameQuest.Util.rgbToHSL(u32 argbColor)
 
 }
 
-// Function to convert HSL -> RGB(A)
+// TODO: Clean up code (figure out what the temp vars are for and what to
+// to call them) and try and reduce the number of calculations (maybe
+// by finding a different algorithm?)
+// Function to convert HSL -> (A)BGR
+function u32 FlameQuest.Util.hslToABGR(u32 hslColor)
+{
+	// Separate HSL color into its components
+	u16 hue = 		(hslColor & 0xffff0000) >> 16
+	u16 saturation =(hslColor & 0x0000ff00) >> 8
+	u16 luminance = (hslColor & 0x000000ff)
+
+	// Convert from my HSL format to a more calculation-friendly one
+	hue = u32(hue * 10) / 36 // Convert hue to percentage out of 360 (done later in original algorithm)
+	saturation *= 50 // Multiply by 100 and divide by 2
+	luminance *= 50
+
+	// Variables needed in the future
+	u32 red
+	u32 green
+	u32 blue
+
+	// Temp variables
+	s32 tempRed
+	s32 tempGreen
+	s32 tempBlue
+	u32 tempOne	// Not exactly sure what these do, they're called this in the OG algorithm
+	u32 tempTwo
+
+	// No saturation, it's a shade of grey
+	if(saturation == 0)
+	{
+		// Find the value for red
+		red = u32(luminance * 255) / 10000
+
+		// R=G=B for shades of grey, set Green and Blue equal to red
+		green = red
+		blue = red
+	}
+	// There's saturation, perform the rest of the conversion
+	else
+	{
+		// If luminance is less than 50% (adjusted to 5K)
+		if(luminance < 5000)
+		{
+			tempOne = u32((luminance / 10) * (100 + (saturation / 10)))
+		}
+		else
+		{
+			tempOne = luminance + saturation - u32((luminance / 100) * (saturation / 100))
+		}
+
+		// Second temp var
+		tempTwo = 2 * luminance - tempOne
+
+		// Set temp RGB values
+		tempRed = hue + 3330
+		tempGreen = hue
+		tempBlue = hue - 3330
+
+		// Values must be between 0 and 1
+		if(tempRed > 10000)
+			tempRed -= 10000
+
+		if(tempBlue < 0)
+			tempBlue += 10000
+
+		// Red
+		if(tempRed * 6 < 10000)
+		{
+			red = tempTwo + 6 * ((tempOne - tempTwo) * tempRed) / 10000
+		}
+		else if(tempRed * 2 < 10000)
+		{
+			red = tempOne
+		}
+		else if(tempRed * 3 < 20000)
+		{
+			red = tempTwo + 6 * ((tempOne - tempTwo) * (6660 - tempRed)) / 10000
+		}
+		else
+		{
+			red = tempTwo
+		}
+
+		// Green
+		if(tempGreen * 6 < 10000)
+		{
+			green = tempTwo + 6 * ((tempOne - tempTwo) * tempGreen) / 10000
+		}
+		else if(tempGreen * 2 < 10000)
+		{
+			green = tempOne
+		}
+		else if(tempGreen * 3 < 20000)
+		{
+			green = tempTwo + 6 * ((tempOne - tempTwo) * (6660 - tempGreen)) / 10000
+		}
+		else
+		{
+			green = tempTwo
+		}
+
+		// Blue
+		if(tempBlue * 6 < 10000)
+		{
+			blue = tempTwo + 6 * ((tempOne - tempTwo) * tempBlue) / 10000
+		}
+		else if(tempBlue * 2 < 10000)
+		{
+			blue = tempOne
+		}
+		else if(tempBlue * 3 < 20000)
+		{
+			blue = tempTwo + 6 * ((tempOne - tempTwo) * (6660 - tempBlue)) / 10000
+		}
+		else
+		{
+			blue = tempTwo
+		}
+
+		u64 hslString = stringformat("H:%d, S:%d, L:%d", hue, saturation, luminance)
+		u64 tempRGBString = stringformat("TR:%d, TG:%d, TB:%d", tempRed, tempGreen, tempBlue)
+		u64 rgbString = stringformat("R:%d G:%d B:%d", red, green, blue)
+		// System.writeDisplayLine(stringformat("%s, T1:%d T2:%d, %s, %s",hslString, tempOne, tempTwo, tempRGBString, rgbString))
+
+		// Final calculations
+		red = (red * 255) / 10000
+		green = (green * 255) / 10000
+		blue = (blue * 255) / 10000
+
+	}
+
+	// Casting to u8 probably isn't needed here, but I'm doing it anyway
+	// just to be sure
+	return 0xff000000 + u32(u8(blue) << 16) + u32(u8(green) << 8) + u8(red)
+}
 
 // Function to hue shift HSL by a certain degree
 
