@@ -6,3 +6,6 @@ global u8 DevToolsLRZSmoke
 global u8 VisualTitleCardTheme
 global u8 VisualScreenShakeEffects
 global u8 GameplayCDSpindash
+
+// For now, easter egg options go here
+global bool FlameQuest.Secret.useRGBKnux

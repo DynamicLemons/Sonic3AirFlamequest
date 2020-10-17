@@ -24,8 +24,14 @@ function void Init()
 	// Run vanilla/Other mods' Init() functions
 	base.Init()
 
-	// Initialize variables
-	FlameQuest.soundTestHistory = 0x00
+	// Initialize variables (In a code block for editor folding)
+	{
+		FlameQuest.soundTestHistory = 0x00
+
+		// Easter eggs
+		FlameQuest.Secret.useRGBKnux = false
+
+	}
 
 	// Load palettes during initialization so the sprites don't appear
 	// blank in the menu

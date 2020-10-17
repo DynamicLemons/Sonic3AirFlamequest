@@ -126,6 +126,7 @@ function bool FlameQuest.checkEasterEgg(u64 easterEggCode)
 function void FlameQuest.applySecretRGBKnux()
 {
 	ZoneTimesMenu.drawString(0xc4d0, "RGB KNUX")
+	FlameQuest.Secret.useRGBKnux = true
 }
 
 // omega legacy code
