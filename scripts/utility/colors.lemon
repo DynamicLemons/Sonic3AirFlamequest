@@ -2,6 +2,13 @@
 // Copyright Team Flame Quest
 // 09/19/20
 
+/* ALGORITHM CREDITS (should probably add this guy to the credits
+ * Nikolai Waldman (Article Author)
+ *
+ * Article Source:
+ * https://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
+ */
+
 /* HSL COLOR FORMAT
  *
  * u32 value:
