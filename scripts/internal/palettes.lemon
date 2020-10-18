@@ -2,7 +2,7 @@ function u64 getCharacterPaletteKey(u8 character)
 {
 	bool isBonusStage = (global.zone >= 0x13 && global.zone <= 0x15)
 
-	if (!isBonusStage) && (global.zone.apparent != 0x00) && (global.zone.apparent != 0x0a) && (global.zone.apparent != 0x0b) && (global.zone.apparent != 0x0c)
+	if ((!isBonusStage) && (global.zone.apparent != 0x00) && (global.zone.apparent != 0x0a) && (global.zone.apparent != 0x0b) && (global.zone.apparent != 0x0c))
 	{
 		if (character == CHARACTER_SONIC)
 		{
