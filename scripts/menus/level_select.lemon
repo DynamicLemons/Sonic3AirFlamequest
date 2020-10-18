@@ -336,6 +336,7 @@ function bool LevelSelect.innerUpdate()
 
 		// u16[colorAddress] = FlameQuest.Util.packColor(rgbColor, false)
 	}
+
 	// Render sprites & custom background
 	Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x20, 0, 0x1fff)
 	FlameQuest.LevelSelect.drawSidebar()
