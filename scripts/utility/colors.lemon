@@ -164,7 +164,7 @@ function u32 FlameQuest.Util.hslToABGR(u32 hslColor)
 		// If luminance is less than 50% (adjusted to 5K)
 		if(luminance < 5000)
 		{
-			tempOne = u32((luminance / 10) * (100 + (saturation / 10)))
+			tempOne = u32((luminance / 100) * (100 + (saturation / 100)))
 		}
 		else
 		{
@@ -189,7 +189,7 @@ function u32 FlameQuest.Util.hslToABGR(u32 hslColor)
 		// Red
 		if(tempRed * 6 < 10000)
 		{
-			red = tempTwo + 6 * u64((tempOne - tempTwo) * tempRed) / 10000
+			red = tempTwo + 6 * ((tempOne - tempTwo) * tempRed) / 10000
 		}
 		else if(tempRed * 2 < 10000)
 		{
@@ -197,7 +197,7 @@ function u32 FlameQuest.Util.hslToABGR(u32 hslColor)
 		}
 		else if(tempRed * 3 < 20000)
 		{
-			red = tempTwo + 6 * u64((tempOne - tempTwo) * (6660 - tempRed)) / 10000
+			red = tempTwo + 6 * ((tempOne - tempTwo) * (6660 - tempRed)) / 10000
 		}
 		else
 		{
@@ -207,7 +207,7 @@ function u32 FlameQuest.Util.hslToABGR(u32 hslColor)
 		// Green
 		if(tempGreen * 6 < 10000)
 		{
-			green = tempTwo + 6 * u64((tempOne - tempTwo) * tempGreen) / 10000
+			green = tempTwo + 6 * ((tempOne - tempTwo) * tempGreen) / 10000
 		}
 		else if(tempGreen * 2 < 10000)
 		{
@@ -215,7 +215,7 @@ function u32 FlameQuest.Util.hslToABGR(u32 hslColor)
 		}
 		else if(tempGreen * 3 < 20000)
 		{
-			green = tempTwo + 6 * u64((tempOne - tempTwo) * (6660 - tempGreen)) / 10000
+			green = tempTwo + 6 * ((tempOne - tempTwo) * (6660 - tempGreen)) / 10000
 		}
 		else
 		{
@@ -225,7 +225,7 @@ function u32 FlameQuest.Util.hslToABGR(u32 hslColor)
 		// Blue
 		if(tempBlue * 6 < 10000)
 		{
-			blue = tempTwo + 6 * u64((tempOne - tempTwo) * tempBlue) / 10000
+			blue = tempTwo + 6 * ((tempOne - tempTwo) * tempBlue) / 10000
 		}
 		else if(tempBlue * 2 < 10000)
 		{
@@ -233,7 +233,7 @@ function u32 FlameQuest.Util.hslToABGR(u32 hslColor)
 		}
 		else if(tempBlue * 3 < 20000)
 		{
-			blue = tempTwo + 6 * u64((tempOne - tempTwo) * (6660 - tempBlue)) / 10000
+			blue = tempTwo + 6 * ((tempOne - tempTwo) * (6660 - tempBlue)) / 10000
 		}
 		else
 		{
@@ -272,6 +272,7 @@ function u32 FlameQuest.Util.shiftHSL(u32 hslColor, s16 degree)
 
 	return u32(hue << 16) + u32(saturation << 8) + luminance
 }
+
 // Function to hue shift RGB(A) by a certain degree by calling ^
 function u32 FlameQuest.Util.shiftABGR(u32 rgbColor, s16 degree)
 {
@@ -339,7 +340,7 @@ function u16 FlameQuest.Util.packColor(u32 color, bool useVDPFormat)
 	// Convert to VDP format
 	if(useVDPFormat)
 	{
-		assert(false, "VDP COLOR FORMAT NOT SUPPORTED")
+		assert(false, "VDP COLOR FORMAT NOT SUPPORTED YET")
 	}
 	// Convert to extended format
 	else

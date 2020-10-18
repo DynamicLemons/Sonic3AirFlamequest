@@ -2,7 +2,7 @@ function u64 getCharacterPaletteKey(u8 character)
 {
 	bool isBonusStage = (global.zone >= 0x13 && global.zone <= 0x15)
 
-	if ((!isBonusStage) && (global.zone.apparent != 0x00) && (global.zone.apparent != 0x0a) && (global.zone.apparent != 0x0b) && (global.zone.apparent != 0x0c))
+	if ((!isBonusStage) && (global.zone.apparent != 0x00) && !(global.zone.apparent >= 0x0a && global.zone.apparent <= 0x0c))
 	{
 		if (character == CHARACTER_SONIC)
 		{
@@ -74,4 +74,38 @@ function u64 getCharacterPaletteKey(u8 character)
 			}
 		}
 	}
+}
+
+// Load Knux' palette into RAM as HSL for palette shenanigans
+// In the RGB Knux mod, this will also check for mods w/ RGB Knux compatibility,
+// but since FQ isn't that I'll forgo the checks for now
+function void loadCharacterPalette(u8 character, u32 targetAddress, u8 paletteVariant)
+{
+	// Run the vanilla palette loading code
+	base.loadCharacterPalette(character, targetAddress, paletteVariant)
+
+	// The vanilla palette loading code uses shared memory to store colors,
+	// so we can use this to easily convert all of Knux' colors to HSL
+	if(character == CHARACTER_KNUCKLES)
+	{
+		// Normal palette
+		if(!paletteVariant)
+		{
+			for (u8 i = 0; i < 0x20; ++i)
+			{
+				u32 rgba = u32[0x800000 + i * 4]
+				u32[FlameQuest.RGB_KNUX_PALETTE + i * 4] = FlameQuest.Util.abgrToHSL(rgba)
+			}
+		}
+		// Underwater palette
+		else
+		{
+			for (u8 i = 0; i < 0x20; ++i)
+			{
+				u32 rgba = u32[0x800000 + i * 4]
+				u32[FlameQuest.RGB_KNUX_PALETTE_WATER + i * 4] = FlameQuest.Util.abgrToHSL(rgba)
+			}
+		}
+	}
+
 }
