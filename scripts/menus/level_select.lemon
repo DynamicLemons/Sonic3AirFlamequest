@@ -1,3 +1,7 @@
+// temp var
+global u32 tempRGBKnuxColor
+global u32 tempHSLKnuxColor
+
 // Main Level Select Update loop
 //# address-hook(0x007a74) end(0x007d20)
 //# translated(0x007d64) end(0x007d6a)
@@ -300,11 +304,38 @@ function bool LevelSelect.innerUpdate()
 	// In oxygen, display the sound test history
 	#if !GAMEAPP
 	// System.writeDisplayLine(stringformat("0x%x", FlameQuest.soundTestHistory))
-	u32 tempValue // = FlameQuest.Util.rgbToHSL(0xffe6cd5b)
-	tempValue = FlameQuest.Util.hslToABGR(0x85981ac6)
-	System.writeDisplayLine(stringformat("0x%08x", tempValue))
+	u32 tempValue // = FlameQuest.Util.abgrToHSL(0xffe6cd5b)
+	// tempValue = FlameQuest.Util.hslToABGR(0x85981ac6)
+	// tempValue = FlameQuest.Util.shiftHSL(0x2134c864, 700)
+	// System.writeDisplayLine(stringformat("0x%08x", tempValue))
 	#endif
 
+	// Handle RGB Knux stuff
+	if(FlameQuest.Secret.useRGBKnux)
+	{
+		// For testing, just change one of Knux' colors
+		u32 colorAddress = 0x802000 + (2 * (0x40 + 2))
+		u32 rgbColor
+
+		if(!tempHSLKnuxColor)
+		{
+			rgbColor = FlameQuest.Util.unpackColor(u16[colorAddress])
+			tempHSLKnuxColor = FlameQuest.Util.abgrToHSL(rgbColor)
+		}
+
+		tempHSLKnuxColor = FlameQuest.Util.shiftHSL(tempHSLKnuxColor, 1)
+
+		u16 hue = (tempHSLKnuxColor & 0xffff0000) >> 16
+
+		System.writeDisplayLine(stringformat("%08x | %d", tempHSLKnuxColor, hue))
+
+		// Convert HSL color to RGB
+		rgbColor = FlameQuest.Util.hslToABGR(tempHSLKnuxColor)
+
+		Renderer.setPaletteEntry(0x82, rgbColor)
+
+		// u16[colorAddress] = FlameQuest.Util.packColor(rgbColor, false)
+	}
 	// Render sprites & custom background
 	Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x20, 0, 0x1fff)
 	FlameQuest.LevelSelect.drawSidebar()

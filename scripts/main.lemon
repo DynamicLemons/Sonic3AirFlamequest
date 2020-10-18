@@ -30,7 +30,9 @@ function void Init()
 		FlameQuest.soundTestHistory = 0x00
 
 		// Easter eggs
-		FlameQuest.Secret.useRGBKnux = false
+		FlameQuest.Secret.useRGBKnux = true
+		tempRGBKnuxColor = 0
+		tempHSLKnuxColor = 0
 
 	}
 

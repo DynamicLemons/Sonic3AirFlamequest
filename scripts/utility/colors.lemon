@@ -2,7 +2,7 @@
 // Copyright Team Flame Quest
 // 09/19/20
 
-/* ALGORITHM CREDITS (should probably add this guy to the credits
+/* ALGORITHM CREDITS (should probably add this guy to the credits)
  * Nikolai Waldman (Article Author)
  *
  * Article Source:
@@ -32,7 +32,7 @@
 
 
 // Function to convert RGB(A) -> HSL
-function u32 FlameQuest.Util.rgbToHSL(u32 abgrColor)
+function u32 FlameQuest.Util.abgrToHSL(u32 abgrColor)
 {
 	/* Some of the math here's a bit wonky due to the lack of floating-point
 	 * data types. For example, all the RGB values are multiplied by 10K before
@@ -189,7 +189,7 @@ function u32 FlameQuest.Util.hslToABGR(u32 hslColor)
 		// Red
 		if(tempRed * 6 < 10000)
 		{
-			red = tempTwo + 6 * ((tempOne - tempTwo) * tempRed) / 10000
+			red = tempTwo + 6 * u64((tempOne - tempTwo) * tempRed) / 10000
 		}
 		else if(tempRed * 2 < 10000)
 		{
@@ -197,7 +197,7 @@ function u32 FlameQuest.Util.hslToABGR(u32 hslColor)
 		}
 		else if(tempRed * 3 < 20000)
 		{
-			red = tempTwo + 6 * ((tempOne - tempTwo) * (6660 - tempRed)) / 10000
+			red = tempTwo + 6 * u64((tempOne - tempTwo) * (6660 - tempRed)) / 10000
 		}
 		else
 		{
@@ -207,7 +207,7 @@ function u32 FlameQuest.Util.hslToABGR(u32 hslColor)
 		// Green
 		if(tempGreen * 6 < 10000)
 		{
-			green = tempTwo + 6 * ((tempOne - tempTwo) * tempGreen) / 10000
+			green = tempTwo + 6 * u64((tempOne - tempTwo) * tempGreen) / 10000
 		}
 		else if(tempGreen * 2 < 10000)
 		{
@@ -215,7 +215,7 @@ function u32 FlameQuest.Util.hslToABGR(u32 hslColor)
 		}
 		else if(tempGreen * 3 < 20000)
 		{
-			green = tempTwo + 6 * ((tempOne - tempTwo) * (6660 - tempGreen)) / 10000
+			green = tempTwo + 6 * u64((tempOne - tempTwo) * (6660 - tempGreen)) / 10000
 		}
 		else
 		{
@@ -225,7 +225,7 @@ function u32 FlameQuest.Util.hslToABGR(u32 hslColor)
 		// Blue
 		if(tempBlue * 6 < 10000)
 		{
-			blue = tempTwo + 6 * ((tempOne - tempTwo) * tempBlue) / 10000
+			blue = tempTwo + 6 * u64((tempOne - tempTwo) * tempBlue) / 10000
 		}
 		else if(tempBlue * 2 < 10000)
 		{
@@ -233,7 +233,7 @@ function u32 FlameQuest.Util.hslToABGR(u32 hslColor)
 		}
 		else if(tempBlue * 3 < 20000)
 		{
-			blue = tempTwo + 6 * ((tempOne - tempTwo) * (6660 - tempBlue)) / 10000
+			blue = tempTwo + 6 * u64((tempOne - tempTwo) * (6660 - tempBlue)) / 10000
 		}
 		else
 		{
@@ -258,8 +258,101 @@ function u32 FlameQuest.Util.hslToABGR(u32 hslColor)
 }
 
 // Function to hue shift HSL by a certain degree
+function u32 FlameQuest.Util.shiftHSL(u32 hslColor, s16 degree)
+{
+	// Extract HSL values
+	u32 hue = (hslColor & 0xffff0000) >> 16
+	u8 saturation = (hslColor & 0x0000ff00) >> 8
+	u8 luminance = hslColor & 0x0000000ff
 
+	if(degree < 0)
+		degree += 360
+
+	hue = ((hue + degree * 100) % 36000)
+
+	return u32(hue << 16) + u32(saturation << 8) + luminance
+}
 // Function to hue shift RGB(A) by a certain degree by calling ^
+function u32 FlameQuest.Util.shiftABGR(u32 rgbColor, s16 degree)
+{
+	// Variables
+	u8 alpha
+	u32 hslColor
+	u32 returnRGBColor
 
+	// Since the HSL format doesn't have room for alpha, extract it
+	alpha = (rgbColor & 0xff000000) >> 24
+
+	// Convert to HSL and call shiftHSL
+	hslColor = FlameQuest.Util.abgrToHSL(rgbColor)
+	hslColor = FlameQuest.Util.shiftHSL(hslColor, degree)
+
+	// Convert back to RGB
+	returnRGBColor = FlameQuest.Util.hslToABGR(hslColor)
+
+	return u32(alpha << 24) + (returnRGBColor & 0x00ffffff)
+}
+
+// Function to unpack colors, either in AIR's extended format or the VDP's
+// color format
+function u32 FlameQuest.Util.unpackColor(u16 color)
+{
+	// RGB
+	u8 red
+	u8 green
+	u8 blue
+
+	// Extended format
+	if(color & 0x8000)
+	{
+		blue = (color & 0x7c00) >> 7
+		green = (color & 0x03e0) >> 2
+		red = (color & 0x001f) << 3
+	}
+	// VDP Format
+	else
+	{
+		blue = (color & 0x0e00) >> 4
+		green = color & 0x00e0
+		red = (color & 0x000e) << 4
+	}
+
+	// Assume all colors have 100% opacity (which i've assumed to be 0xff)
+	return 0xff000000 + u32(blue << 16) + u32(green << 8) + red
+}
+
+// Function to pack colors, either to AIR's extended format or the VDP's
+// color format.
+// bool useVDPFormat
+	// Whether or not to pack into the VDP's color format.
+	// True = returns in VDP format
+	// False = returns in extended format
+function u16 FlameQuest.Util.packColor(u32 color, bool useVDPFormat)
+{
+	// Variables
+	u16 returnColor
+	// extract RGB Values
+	u8 blue = (color & 0x00ff0000) >> 16
+	u8 green = (color & 0x0000ff00) >> 8
+	u8 red = (color & 0x000000ff)
+
+	// Convert to VDP format
+	if(useVDPFormat)
+	{
+		assert(false, "VDP COLOR FORMAT NOT SUPPORTED")
+	}
+	// Convert to extended format
+	else
+	{
+		// Truncate RGB values to only 5 bits
+		blue &= 0xf8
+		green &= 0xf8
+		red &= 0xf8
+
+		returnColor = u16(blue << 7) + u16(green << 2) + u16(red >> 3)
+	}
+
+	return returnColor
+}
 // Function(s) to work directly on memory?
 

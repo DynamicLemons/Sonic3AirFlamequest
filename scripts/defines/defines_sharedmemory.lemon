@@ -5,3 +5,6 @@
 define u32 FlameQuest.SOUNDTEST_HISTORY_TEMP = 0x8a0000
 define u32 FlameQuest.SOUNDTEST_CODE_TEMP = 0x8a0000 + 0x08
 
+define u32 FlameQuest.RGB_KNUX_PALETTE_TEMP = 0x8a0010 // 128 bytes (0x80 bytes) used
+
+define u32 FlameQuest.LEGO_THE_BOUWER_NINE_STUFF = 0x825000 // 768 bytes used
