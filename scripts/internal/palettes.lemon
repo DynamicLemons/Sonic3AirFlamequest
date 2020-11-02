@@ -2,8 +2,24 @@ function u64 getCharacterPaletteKey(u8 character)
 {
 	bool isBonusStage = (global.zone >= 0x13 && global.zone <= 0x15)
 
+	// TODO: Restore this function to vanilla and use the HSL functions to
+	// generate palettes instead
+
+	// Current zone
+	bool isCorrectZone = (!isBonusStage) && (global.zone.apparent != 0x00) && !(global.zone.apparent >= 0x0a && global.zone.apparent <= 0x0c)
+
+	// Character and current state
+	u64 characterString = (character == CHARACTER_SONIC) ? "sonic" : ((character == CHARACTER_TAILS) ? "tails" : "knuckles")
+	u64 characterForm = (super.active & 0x80 || super.active.tails & 0x80) ? "scorching" : "burning"
+	u64 characterTemp = isCorrectZone ? "hot" : "normal"
+
+	return stringformat("character_palette_%s_%s_%s", characterForm, characterString, characterTemp)
+
+	/* Legacy Code
 	if ((!isBonusStage) && (global.zone.apparent != 0x00) && !(global.zone.apparent >= 0x0a && global.zone.apparent <= 0x0c))
 	{
+
+
 		if (character == CHARACTER_SONIC)
 		{
 			if (super.active & 0x80 || super.active.tails & 0x80)
@@ -37,6 +53,7 @@ function u64 getCharacterPaletteKey(u8 character)
 				return "character_palette_burning_knuckles_hot"
 			}
 		}
+
 	}
 	else
 	{
@@ -74,6 +91,7 @@ function u64 getCharacterPaletteKey(u8 character)
 			}
 		}
 	}
+	*/
 }
 
 // Load Knux' palette into RAM as HSL for palette shenanigans
