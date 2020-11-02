@@ -1,6 +1,5 @@
-// temp var
-global u32 tempRGBKnuxColor
-global u32 tempHSLKnuxColor
+// Global Variables
+global u64 FlameQuest.LevelSelect.background
 
 // Main Level Select Update loop
 //# address-hook(0x007a74) end(0x007d20)
@@ -191,7 +190,7 @@ function void LevelSelect.init()
 	waitForNextFrame()
 
 	// Draw the background, characters, and sidebar
-	Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x20, 0, 0x1fff)
+	Renderer.drawCustomSprite(FlameQuest.LevelSelect.background, 0, 0, 0x20, 0, 0x1fff)
 	FlameQuest.LevelSelect.drawSidebar()
 
 	RenderSprites()

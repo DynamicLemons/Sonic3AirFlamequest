@@ -26,11 +26,15 @@ function void Init()
 	base.Init()
 
 	// Initialize variables (In a code block for editor folding)
+	// Since Init() gets called in multiple places in AIR (not just at
+	// the start), it might be worth locking some of these initializations
+	// behind a second global variable (e.g. for persistent level select background)
 	{
+		// Clear sound test history
 		FlameQuest.soundTestHistory = 0x00
 
-
-
+		// Initialize sound test background to default value
+		FlameQuest.LevelSelect.background = "level_select_bg"
 	}
 
 	// Load palettes during initialization so the sprites don't appear
