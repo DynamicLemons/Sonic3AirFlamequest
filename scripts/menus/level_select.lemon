@@ -315,8 +315,8 @@ function bool LevelSelect.innerUpdate()
 		FlameQuest.LevelSelect.updateRGBKnux()
 	}
 
-	// Render sprites & custom background
-	Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x20, 0, 0x1fff)
+	// Render sprites & background
+	Renderer.drawCustomSprite(FlameQuest.LevelSelect.background, 0, 0, 0x20, 0, 0x1fff)
 	FlameQuest.LevelSelect.drawSidebar()
 
 	RenderSprites()
