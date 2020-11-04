@@ -1,4 +1,7 @@
 {
 	"data_select_bg":  { "File": "menu_bg.png", "Rect": "0,0,400,224", "Center": "0,0" },
-	"flamequest_bg_level_select":  { "File": "level_select_bg.bmp", "Rect": "0,0,400,224", "Center": "0,0" }
+
+	// Level Select Backgrounds (Including easter eggs)
+	"flamequest_bg_level_select":  { "File": "menu_backgrounds/level_select_bg.bmp", "Rect": "0,0,400,224", "Center": "0,0" }
+
 }

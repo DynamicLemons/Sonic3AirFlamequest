@@ -1,6 +1,6 @@
 {
-    "lrz_smoke1": { "File": "lrz_smoke1.png", "Rect": "0,0,1800,1008", "Center": "900,504"},
-    "lrz_smoke2": { "File": "lrz_smoke2.png", "Rect": "0,0,1800,1008", "Center": "900,0"},
-    "lrz_smoke3": { "File": "lrz_smoke3.png", "Rect": "0,0,1800,1008", "Center": "0,504"},
-    "lrz_smoke4": { "File": "lrz_smoke4.png", "Rect": "0,0,1800,1008", "Center": "0,0"}
+    "lrz_smoke1": { "File": "ice_bumper.png", "Rect": "0,0,1800,1008", "Center": "900,504"},
+    "lrz_smoke2": { "File": "ice_bumper.png", "Rect": "0,0,1800,1008", "Center": "900,0"},
+    "lrz_smoke3": { "File": "ice_bumper.png", "Rect": "0,0,1800,1008", "Center": "0,504"},
+    "lrz_smoke4": { "File": "ice_bumper.png", "Rect": "0,0,1800,1008", "Center": "0,0"}
 }
