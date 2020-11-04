@@ -1,4 +1,5 @@
 {
+	// Use ice bumper sprites to stop crashing
     "lrz_smoke1": { "File": "ice_bumper.png", "Rect": "0,0,1800,1008", "Center": "900,504"},
     "lrz_smoke2": { "File": "ice_bumper.png", "Rect": "0,0,1800,1008", "Center": "900,0"},
     "lrz_smoke3": { "File": "ice_bumper.png", "Rect": "0,0,1800,1008", "Center": "0,504"},

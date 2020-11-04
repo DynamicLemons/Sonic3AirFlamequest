@@ -1,7 +1,7 @@
 {
 	"splash_screen_white_bg":  { "File": "splash_screen_white_bg.png", "Rect": "0,0,400,224", "Center": "0,0" },
 	"splash_screen_black_bg":  { "File": "splash_screen_black_bg.png", "Rect": "0,0,400,224", "Center": "0,0" },
-	"splash_screen_warning":  { "File": "splash_screen_warning.png", "Rect": "0,0,400,224", "Center": "0,0" },
+	"splash_screen_warning":  { "File": "warning_flare.png", "Rect": "0,0,400,224", "Center": "0,0" }, // Use warning text as temp
 	"splash_screen_sega_white":  { "File": "splash_screen_sega_white.png", "Rect": "0,0,400,224", "Center": "0,0" },
 	"splash_screen_sega_orange":  { "File": "splash_screen_sega_orange.png", "Rect": "0,0,400,224", "Center": "0,0" },
 	"splash_screen_sega_red":  { "File": "splash_screen_sega_red.png", "Rect": "0,0,400,224", "Center": "0,0" },
