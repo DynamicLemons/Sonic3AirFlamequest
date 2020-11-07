@@ -148,7 +148,7 @@ function void Character.UpdateNormalState.Sonic()
 			if (char.flags & char.flag.UNDERWATER) && (ring_counter > 0)
 			{
 				--ring_counter
-			
+
 			}
 		}
 	}
@@ -292,10 +292,17 @@ function void Character.UpdateNormalState.Tails()
 	}
 }
 
-
+// RGB Knux & whatever this needs to do for "custom animations"
 //# address-hook(0x01656c) end(0x016640)
 function void Character.UpdateNormalState.Knuckles()
 {
+	// Handle RGB Knux stuff here. Might not be the best place to do it,
+	// but it'll be fine here for now
+	if(FlameQuest.Secret.useRGBKnux)
+	{
+		FlameQuest.Character.updateRGBKnux()
+	}
+
 	if (updateDebugModeInput(false))
 		return
 
@@ -372,5 +379,48 @@ function void Character.UpdateNormalState.Knuckles()
 	else
 	{
 		FastAfterImages = 0
+	}
+}
+
+// Function that updates RGB Knux
+function void FlameQuest.Character.updateRGBKnux()
+{
+	#if !GAMEAPP
+	System.writeDisplayLine("Using RGB Knux")
+	#endif
+
+	for(u8 i = 1; i < 32; i++)
+	{
+		// Choose how much to shift the color by
+		u16 shiftDegree = super.active == 0xff ? 8 : (super.active ? 4 : 1)
+
+		// Shift current color
+		u32[FlameQuest.RGB_KNUX_PALETTE + i * 4] = FlameQuest.Util.shiftHSL(u32[FlameQuest.RGB_KNUX_PALETTE + i * 4], shiftDegree)
+
+		// Convert color to RGB
+		u32 rgbColor = FlameQuest.Util.hslToABGR(u32[FlameQuest.RGB_KNUX_PALETTE + i * 4])
+
+
+		u16[0x802080 + i * 2] = packColor(rgbColor)
+
+		// Renderer.setPaletteEntry(0x80 + i, rgbColor)
+	}
+
+	// Underwater Knux
+	for(u8 i = 1; i < 32; i++)
+	{
+		// Choose how much to shift the color by
+		u16 shiftDegree = super.active == 0xff ? 8 : (super.active ? 4 : 1)
+
+		// Shift current color
+		u32[FlameQuest.RGB_KNUX_PALETTE_WATER + i * 4] = FlameQuest.Util.shiftHSL(u32[FlameQuest.RGB_KNUX_PALETTE_WATER + i * 4], shiftDegree)
+
+		// Convert color to RGB
+		u32 rgbColor = FlameQuest.Util.hslToABGR(u32[FlameQuest.RGB_KNUX_PALETTE_WATER + i * 4])
+
+
+		u16[0x802380 + i * 2] = packColor(rgbColor)
+
+		// Renderer.setPaletteEntry(0x80 + i, rgbColor)
 	}
 }
