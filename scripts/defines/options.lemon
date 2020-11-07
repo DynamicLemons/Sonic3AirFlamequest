@@ -9,3 +9,4 @@ global u8 GameplayCDSpindash
 
 // For now, easter egg options go here
 global bool FlameQuest.Secret.useRGBKnux
+global bool FlameQuest.Secret.milesThePrower

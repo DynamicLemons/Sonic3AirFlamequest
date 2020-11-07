@@ -66,6 +66,11 @@ function bool FlameQuest.updateSoundTestEasterEggs()
 		FlameQuest.applySecretRGBKnux()
 		return true
 	}
+	else if(FlameQuest.checkEasterEgg(FlameQuest.SoundTest.MILES_THE_PROWER_SECRET))
+	{
+		FlameQuest.applySecretMilesThePrower()
+		return true
+	}
 	// Test for other secrets here
 	// else if( ... )
 
@@ -128,6 +133,13 @@ function void FlameQuest.applySecretRGBKnux()
 	ZoneTimesMenu.drawString(0xc4d0, "RGB KNUX")
 	FlameQuest.Secret.useRGBKnux = true
 }
+
+// Miles the Prower
+function void FlameQuest.applySecretMilesThePrower()
+{
+	FlameQuest.Secret.milesThePrower = true
+}
+
 
 // omega legacy code
 /*
