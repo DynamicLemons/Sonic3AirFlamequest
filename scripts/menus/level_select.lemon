@@ -305,11 +305,7 @@ function bool LevelSelect.innerUpdate()
 
 	// In oxygen, display the sound test history
 	#if !GAMEAPP
-	// System.writeDisplayLine(stringformat("0x%x", FlameQuest.soundTestHistory))
-	u32 tempValue // = FlameQuest.Util.abgrToHSL(0xffe6cd5b)
-	// tempValue = FlameQuest.Util.hslToABGR(0x85981ac6)
-	// tempValue = FlameQuest.Util.shiftHSL(0x2134c864, 700)
-	// System.writeDisplayLine(stringformat("0x%08x", tempValue))
+	System.writeDisplayLine(stringformat("History: 0x%x", FlameQuest.soundTestHistory))
 	#endif
 
 	// Handle RGB Knux stuff
@@ -507,23 +503,23 @@ function void FlameQuest.LevelSelect.updateRGBKnux()
 	for(u8 i = 1; i < 32; i++)
 	{
 		// Shift current color
-		u32[FlameQuest.RGB_KNUX_PALETTE + i * 4] = FlameQuest.Util.shiftHSL(u32[FlameQuest.RGB_KNUX_PALETTE + i * 4], 1)
+		u32[FlameQuest.RGB_KNUX_PALETTE + i * 4] = DKoC.Util.shiftHSL(u32[FlameQuest.RGB_KNUX_PALETTE + i * 4], 1)
 
 		// Convert color to RGB
-		u32 rgbColor = FlameQuest.Util.hslToABGR(u32[FlameQuest.RGB_KNUX_PALETTE + i * 4])
+		u32 rgbColor = DKoC.Util.hslToABGR(u32[FlameQuest.RGB_KNUX_PALETTE + i * 4])
 		Renderer.setPaletteEntry(0x80 + i, rgbColor)
 	}
 
 	/*
 	// Shift temp color
-	tempHSLKnuxColor = FlameQuest.Util.shiftHSL(tempHSLKnuxColor, 1)
+	tempHSLKnuxColor = DKoC.Util.shiftHSL(tempHSLKnuxColor, 1)
 
 	// Convert HSL color to RGB
-	rgbColor = FlameQuest.Util.hslToABGR(tempHSLKnuxColor)
+	rgbColor = DKoC.Util.hslToABGR(tempHSLKnuxColor)
 
 	Renderer.setPaletteEntry(0x82, rgbColor)
 
-	// u16[colorAddress] = FlameQuest.Util.packColor(rgbColor, false)
+	// u16[colorAddress] = DKoC.Util.packColor(rgbColor, false)
 	*/
 }
 

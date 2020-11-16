@@ -112,7 +112,7 @@ function void loadCharacterPalette(u8 character, u32 targetAddress, u8 paletteVa
 			for (u8 i = 0; i < 0x20; ++i)
 			{
 				u32 rgba = u32[0x800000 + i * 4]
-				u32[FlameQuest.RGB_KNUX_PALETTE + i * 4] = FlameQuest.Util.abgrToHSL(rgba)
+				u32[FlameQuest.RGB_KNUX_PALETTE + i * 4] = DKoC.Util.abgrToHSL(rgba)
 			}
 		}
 		// Underwater palette
@@ -121,7 +121,7 @@ function void loadCharacterPalette(u8 character, u32 targetAddress, u8 paletteVa
 			for (u8 i = 0; i < 0x20; ++i)
 			{
 				u32 rgba = u32[0x800000 + i * 4]
-				u32[FlameQuest.RGB_KNUX_PALETTE_WATER + i * 4] = FlameQuest.Util.abgrToHSL(rgba)
+				u32[FlameQuest.RGB_KNUX_PALETTE_WATER + i * 4] = DKoC.Util.abgrToHSL(rgba)
 			}
 		}
 	}

@@ -32,7 +32,7 @@
 
 
 // Function to convert RGB(A) -> HSL
-function u32 FlameQuest.Util.abgrToHSL(u32 abgrColor)
+function u32 DKoC.Util.abgrToHSL(u32 abgrColor)
 {
 	/* Some of the math here's a bit wonky due to the lack of floating-point
 	 * data types. For example, all the RGB values are multiplied by 10K before
@@ -124,7 +124,7 @@ function u32 FlameQuest.Util.abgrToHSL(u32 abgrColor)
 // to call them) and try and reduce the number of calculations (maybe
 // by finding a different algorithm?)
 // Function to convert HSL -> (A)BGR
-function u32 FlameQuest.Util.hslToABGR(u32 hslColor)
+function u32 DKoC.Util.hslToABGR(u32 hslColor)
 {
 	// Separate HSL color into its components
 	u16 hue = 		(hslColor & 0xffff0000) >> 16
@@ -258,7 +258,7 @@ function u32 FlameQuest.Util.hslToABGR(u32 hslColor)
 }
 
 // Function to hue shift HSL by a certain degree
-function u32 FlameQuest.Util.shiftHSL(u32 hslColor, s16 degree)
+function u32 DKoC.Util.shiftHSL(u32 hslColor, s16 degree)
 {
 	// Extract HSL values
 	u32 hue = (hslColor & 0xffff0000) >> 16
@@ -274,7 +274,7 @@ function u32 FlameQuest.Util.shiftHSL(u32 hslColor, s16 degree)
 }
 
 // Function to hue shift RGB(A) by a certain degree by calling ^
-function u32 FlameQuest.Util.shiftABGR(u32 rgbColor, s16 degree)
+function u32 DKoC.Util.shiftABGR(u32 rgbColor, s16 degree)
 {
 	// Variables
 	u8 alpha
@@ -285,18 +285,18 @@ function u32 FlameQuest.Util.shiftABGR(u32 rgbColor, s16 degree)
 	alpha = (rgbColor & 0xff000000) >> 24
 
 	// Convert to HSL and call shiftHSL
-	hslColor = FlameQuest.Util.abgrToHSL(rgbColor)
-	hslColor = FlameQuest.Util.shiftHSL(hslColor, degree)
+	hslColor = DKoC.Util.abgrToHSL(rgbColor)
+	hslColor = DKoC.Util.shiftHSL(hslColor, degree)
 
 	// Convert back to RGB
-	returnRGBColor = FlameQuest.Util.hslToABGR(hslColor)
+	returnRGBColor = DKoC.Util.hslToABGR(hslColor)
 
 	return u32(alpha << 24) + (returnRGBColor & 0x00ffffff)
 }
 
 // Function to unpack colors, either in AIR's extended format or the VDP's
 // color format
-function u32 FlameQuest.Util.unpackColor(u16 color)
+function u32 DKoC.Util.unpackColor(u16 color)
 {
 	// RGB
 	u8 red
@@ -328,7 +328,7 @@ function u32 FlameQuest.Util.unpackColor(u16 color)
 	// Whether or not to pack into the VDP's color format.
 	// True = returns in VDP format
 	// False = returns in extended format
-function u16 FlameQuest.Util.packColor(u32 color, bool useVDPFormat)
+function u16 DKoC.Util.packColor(u32 color, bool useVDPFormat)
 {
 	// Variables
 	u16 returnColor

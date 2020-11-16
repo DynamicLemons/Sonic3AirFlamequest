@@ -395,10 +395,10 @@ function void FlameQuest.Character.updateRGBKnux()
 		u16 shiftDegree = super.active == 0xff ? 8 : (super.active ? 4 : 1)
 
 		// Shift current color
-		u32[FlameQuest.RGB_KNUX_PALETTE + i * 4] = FlameQuest.Util.shiftHSL(u32[FlameQuest.RGB_KNUX_PALETTE + i * 4], shiftDegree)
+		u32[FlameQuest.RGB_KNUX_PALETTE + i * 4] = DKoC.Util.shiftHSL(u32[FlameQuest.RGB_KNUX_PALETTE + i * 4], shiftDegree)
 
 		// Convert color to RGB
-		u32 rgbColor = FlameQuest.Util.hslToABGR(u32[FlameQuest.RGB_KNUX_PALETTE + i * 4])
+		u32 rgbColor = DKoC.Util.hslToABGR(u32[FlameQuest.RGB_KNUX_PALETTE + i * 4])
 
 
 		u16[0x802080 + i * 2] = packColor(rgbColor)
@@ -413,10 +413,10 @@ function void FlameQuest.Character.updateRGBKnux()
 		u16 shiftDegree = super.active == 0xff ? 8 : (super.active ? 4 : 1)
 
 		// Shift current color
-		u32[FlameQuest.RGB_KNUX_PALETTE_WATER + i * 4] = FlameQuest.Util.shiftHSL(u32[FlameQuest.RGB_KNUX_PALETTE_WATER + i * 4], shiftDegree)
+		u32[FlameQuest.RGB_KNUX_PALETTE_WATER + i * 4] = DKoC.Util.shiftHSL(u32[FlameQuest.RGB_KNUX_PALETTE_WATER + i * 4], shiftDegree)
 
 		// Convert color to RGB
-		u32 rgbColor = FlameQuest.Util.hslToABGR(u32[FlameQuest.RGB_KNUX_PALETTE_WATER + i * 4])
+		u32 rgbColor = DKoC.Util.hslToABGR(u32[FlameQuest.RGB_KNUX_PALETTE_WATER + i * 4])
 
 
 		u16[0x802380 + i * 2] = packColor(rgbColor)
