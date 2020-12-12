@@ -305,7 +305,7 @@ function bool LevelSelect.innerUpdate()
 
 	// In oxygen, display the sound test history
 	#if !GAMEAPP
-	System.writeDisplayLine(stringformat("History: 0x%x", FlameQuest.soundTestHistory))
+	System.writeDisplayLine(stringformat("History: 0x%08x%08x", (FlameQuest.soundTestHistory & 0xffffffff00000000) >> 32, FlameQuest.soundTestHistory & 0x00000000ffffffff))
 	#endif
 
 	// Handle RGB Knux stuff
