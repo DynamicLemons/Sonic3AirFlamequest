@@ -257,6 +257,26 @@ function u32 DKoC.Util.hslToABGR(u32 hslColor)
 	return 0xff000000 + u32(u8(blue) << 16) + u32(u8(green) << 8) + u8(red)
 }
 
+// Function to change luminance of by a certain amount
+// Note that amount is in the DKoC HSL format, where luminance ranges from
+// 0 - 200 (instead of 0 - 100)
+// hslColor - Color to modify
+// amount - amount to shift by (can be positive or negative)
+function u32 DKoC.Util.modifyHSLLuminance(u32 hslColor, s16 amount)
+{
+	// Extract HSL values
+	u32 hue = (hslColor & 0xffff0000) >> 16
+	u8 saturation = (hslColor & 0x0000ff00) >> 8
+	u8 luminance = hslColor & 0x0000000ff
+
+	// Apply luminance change
+	luminance = clamp(luminance + amount, 0, 200)
+
+	// Return modified color
+	return u32(hue << 16) + u32(saturation << 8) + luminance
+
+}
+
 // Function to hue shift HSL by a certain degree
 function u32 DKoC.Util.shiftHSL(u32 hslColor, s16 degree)
 {

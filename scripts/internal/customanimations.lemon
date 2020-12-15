@@ -300,6 +300,8 @@ function void Character.UpdateNormalState.Knuckles()
 	// but it'll be fine here for now
 	if(FlameQuest.Secret.useRGBKnux)
 	{
+
+
 		FlameQuest.Character.updateRGBKnux()
 	}
 
