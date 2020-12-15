@@ -1,0 +1,2 @@
+// Global variables
+define s16 FlameQuest.rgbKnux.superGlowOffset // Offset for RGB Knux' luminance when super/hyper
