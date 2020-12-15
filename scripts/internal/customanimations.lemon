@@ -300,7 +300,15 @@ function void Character.UpdateNormalState.Knuckles()
 	// but it'll be fine here for now
 	if(FlameQuest.Secret.useRGBKnux)
 	{
-
+		// Update RGB Knux' super glow
+		if(super.active)
+		{
+			FlameQuest.rgbKnux.superGlowOffset += (super.active == 0xff) ? 4 : 2
+		}
+		else
+		{
+			FlameQuest.rgbKnux.superGlowOffset = 0
+		}
 
 		FlameQuest.Character.updateRGBKnux()
 	}
@@ -399,9 +407,16 @@ function void FlameQuest.Character.updateRGBKnux()
 		// Shift current color
 		u32[FlameQuest.RGB_KNUX_PALETTE + i * 4] = DKoC.Util.shiftHSL(u32[FlameQuest.RGB_KNUX_PALETTE + i * 4], shiftDegree)
 
-		// Convert color to RGB
-		u32 rgbColor = DKoC.Util.hslToABGR(u32[FlameQuest.RGB_KNUX_PALETTE + i * 4])
+		// Get current color & apply any RGB Knux luminance shifting
+		u32 hslColor = u32[FlameQuest.RGB_KNUX_PALETTE + i * 4]
 
+		hslColor = DKoC.Util.modifyHSLLuminance(hslColor, super.palettefx.frame / 2)
+
+		// Convert color to RGB
+		u32 rgbColor = DKoC.Util.hslToABGR(hslColor)
+
+
+		// rgbColor = blendColors(rgbColor, 0x00000000, FlameQuest.Character.getRGBKnuxBlendFactor())
 
 		u16[0x802080 + i * 2] = packColor(rgbColor)
 
@@ -426,3 +441,34 @@ function void FlameQuest.Character.updateRGBKnux()
 		// Renderer.setPaletteEntry(0x80 + i, rgbColor)
 	}
 }
+
+// Blend factor for Super/Hyper RGB Knux
+function u16 FlameQuest.Character.getRGBKnuxBlendFactor()
+{
+	// Blend factor
+	u16 blendFactor
+
+	// If Super's active, calculate the blend factor
+	if(super.active)
+	{
+		if (super.palettefx.state & 0x80)
+		{
+			// Super/Hyper Knuckles
+			u16 nextFrame = (super.palettefx.frame + 6) % 60
+			u8 cycles = (nextFrame == 0) ? 0x0f : 0x03
+			super.palettefx.timer = min(super.palettefx.timer, cycles - 1)
+			blendFactor = super.palettefx.timer * 0x100 / cycles
+		}
+		else  // (super.palettefx.state == 2)
+		{
+			blendFactor = clamp(u16(super.palettefx.timer) * 0x100 / 0x12, 0, 0x100)
+		}
+	}
+	// Otherwise return 0
+	else
+	{
+		blendFactor = 0
+	}
+	return blendFactor
+}
+

@@ -272,9 +272,11 @@ function u32 DKoC.Util.modifyHSLLuminance(u32 hslColor, s16 amount)
 	// Apply luminance change
 	luminance = clamp(luminance + amount, 0, 200)
 
+	if(saturation)
+		System.writeDisplayLine(stringformat("%08x | %04d %02d %02d",hslColor, hue, saturation, luminance))
+
 	// Return modified color
 	return u32(hue << 16) + u32(saturation << 8) + luminance
-
 }
 
 // Function to hue shift HSL by a certain degree
