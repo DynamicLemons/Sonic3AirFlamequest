@@ -410,7 +410,14 @@ function void FlameQuest.Character.updateRGBKnux()
 		// Get current color & apply any RGB Knux luminance shifting
 		u32 hslColor = u32[FlameQuest.RGB_KNUX_PALETTE + i * 4]
 
-		hslColor = DKoC.Util.modifyHSLLuminance(hslColor, super.palettefx.frame)
+
+		// Super/Hyper RGB Knux Glowing
+		if(super.active)
+		{
+			u16 superKnuxLuminanceOffset = super.palettefx.frame >> 2
+			System.writeDisplayLine(stringformat("%04x", super.palettefx.frame))
+			hslColor = DKoC.Util.modifyHSLLuminance(hslColor, superKnuxLuminanceOffset)
+		}
 
 		// Convert color to RGB
 		u32 rgbColor = DKoC.Util.hslToABGR(hslColor)

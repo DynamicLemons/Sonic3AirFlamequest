@@ -283,10 +283,12 @@ function u32 DKoC.Util.modifyHSLLuminance(u32 hslColor, s16 amount)
 	// Apply luminance change
 	luminance = clamp(s16(luminance + amount), 0, 200)
 
+	/*
 	#if !GAMEAPP
 	if(saturation)
 		debugLog(stringformat("%08x | H: %04d S: %02d L: %02d",hslColor, hue, saturation, luminance))
 	#endif
+	*/
 
 	// Return modified color
 	return u32(hue << 16) + u32(saturation << 8) + luminance
