@@ -165,19 +165,28 @@ function u32 DKoC.Util.hslToABGR(u32 hslColor)
 		if(luminance < 5000)
 		{
 			tempOne = u32((luminance / 100) * (100 + (saturation / 100)))
+
+			// If tempOne is outside theoretical legal range, throw an error
+			// (invert condition since assert throws errors if false)
+			assert(!(tempOne > 10000), stringformat("temp1 calc invalid (first formula), (%04d, %04d, %04d)", hue, saturation, luminance))
 		}
 		else
 		{
-			tempOne = luminance + saturation - u32((luminance / 100) * (saturation / 100))
+			tempOne = u32(luminance + saturation) - ((u32(luminance) * u32(saturation)) / 10000)
+
+			if(tempOne > 10000)
+			{
+				debugLog(stringformat("temp1 calc invalid (2nd formula), (%04d, %04d, %04d | %04d)", hue, saturation, luminance, tempOne))
+			}
 		}
 
 		// Second temp var
 		tempTwo = 2 * luminance - tempOne
 
 		// Set temp RGB values
-		tempRed = hue + 3330
+		tempRed = hue + 3333
 		tempGreen = hue
-		tempBlue = hue - 3330
+		tempBlue = hue - 3333
 
 		// Values must be between 0 and 1
 		if(tempRed > 10000)
@@ -197,7 +206,7 @@ function u32 DKoC.Util.hslToABGR(u32 hslColor)
 		}
 		else if(tempRed * 3 < 20000)
 		{
-			red = tempTwo + 6 * ((tempOne - tempTwo) * (6660 - tempRed)) / 10000
+			red = tempTwo + 6 * ((tempOne - tempTwo) * (6666 - tempRed)) / 10000
 		}
 		else
 		{
@@ -215,7 +224,7 @@ function u32 DKoC.Util.hslToABGR(u32 hslColor)
 		}
 		else if(tempGreen * 3 < 20000)
 		{
-			green = tempTwo + 6 * ((tempOne - tempTwo) * (6660 - tempGreen)) / 10000
+			green = tempTwo + 6 * ((tempOne - tempTwo) * (6666 - tempGreen)) / 10000
 		}
 		else
 		{
@@ -233,17 +242,19 @@ function u32 DKoC.Util.hslToABGR(u32 hslColor)
 		}
 		else if(tempBlue * 3 < 20000)
 		{
-			blue = tempTwo + 6 * ((tempOne - tempTwo) * (6660 - tempBlue)) / 10000
+			blue = tempTwo + 6 * ((tempOne - tempTwo) * (6666 - tempBlue)) / 10000
 		}
 		else
 		{
 			blue = tempTwo
 		}
 
-		u64 hslString = stringformat("H:%d, S:%d, L:%d", hue, saturation, luminance)
+		#if !GAMEAPP
+		u64 hslString = stringformat("H:%05d, S:%05d, L:%05d", hue, saturation, luminance)
 		u64 tempRGBString = stringformat("TR:%d, TG:%d, TB:%d", tempRed, tempGreen, tempBlue)
 		u64 rgbString = stringformat("R:%d G:%d B:%d", red, green, blue)
-		// System.writeDisplayLine(stringformat("%s, T1:%d T2:%d, %s, %s",hslString, tempOne, tempTwo, tempRGBString, rgbString))
+		debugLog(stringformat("%s | T1:%d T2:%d | %s | %s",hslString, tempOne, tempTwo, tempRGBString, rgbString))
+		#endif
 
 		// Final calculations
 		red = (red * 255) / 10000
@@ -270,10 +281,12 @@ function u32 DKoC.Util.modifyHSLLuminance(u32 hslColor, s16 amount)
 	u8 luminance = hslColor & 0x0000000ff
 
 	// Apply luminance change
-	luminance = clamp(luminance + amount, 0, 200)
+	luminance = clamp(s16(luminance + amount), 0, 200)
 
+	#if !GAMEAPP
 	if(saturation)
-		System.writeDisplayLine(stringformat("%08x | %04d %02d %02d",hslColor, hue, saturation, luminance))
+		debugLog(stringformat("%08x | H: %04d S: %02d L: %02d",hslColor, hue, saturation, luminance))
+	#endif
 
 	// Return modified color
 	return u32(hue << 16) + u32(saturation << 8) + luminance
