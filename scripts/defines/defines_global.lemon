@@ -1,2 +1,3 @@
 // Global variables
-global s16 FlameQuest.rgbKnux.superGlowOffset // Offset for RGB Knux' luminance when super/hyper
+global s16 FlameQuest.RGBKnux.superGlowOffset // Offset for RGB Knux' luminance when super/hyper
+global bool FlameQuest.RGBKnux.superGlowIsIncreasing // Flag for whether or not super glow is increasing

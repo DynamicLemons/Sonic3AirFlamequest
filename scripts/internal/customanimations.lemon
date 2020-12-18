@@ -300,16 +300,6 @@ function void Character.UpdateNormalState.Knuckles()
 	// but it'll be fine here for now
 	if(FlameQuest.Secret.useRGBKnux)
 	{
-		// Update RGB Knux' super glow
-		if(super.active)
-		{
-			FlameQuest.rgbKnux.superGlowOffset += (super.active == 0xff) ? 4 : 2
-		}
-		else
-		{
-			FlameQuest.rgbKnux.superGlowOffset = 0
-		}
-
 		FlameQuest.Character.updateRGBKnux()
 	}
 
@@ -399,6 +389,8 @@ function void FlameQuest.Character.updateRGBKnux()
 	debugLog("Using RGB Knux")
 	#endif
 
+	FlameQuest.Character.updateSuperRGBKnux()
+
 	for(u8 i = 1; i < 32; i++)
 	{
 		// Choose how much to shift the color by
@@ -410,20 +402,10 @@ function void FlameQuest.Character.updateRGBKnux()
 		// Get current color & apply any RGB Knux luminance shifting
 		u32 hslColor = u32[FlameQuest.RGB_KNUX_PALETTE + i * 4]
 
-
-		// Super/Hyper RGB Knux Glowing
-		if(super.active)
-		{
-			u16 superKnuxLuminanceOffset = super.palettefx.frame >> 2
-			System.writeDisplayLine(stringformat("%04x", super.palettefx.frame))
-			hslColor = DKoC.Util.modifyHSLLuminance(hslColor, superKnuxLuminanceOffset)
-		}
+		hslColor = DKoC.Util.modifyHSLLuminance(hslColor, FlameQuest.RGBKnux.superGlowOffset)
 
 		// Convert color to RGB
 		u32 rgbColor = DKoC.Util.hslToABGR(hslColor)
-
-
-		// rgbColor = blendColors(rgbColor, 0x00000000, FlameQuest.Character.getRGBKnuxBlendFactor())
 
 		u16[0x802080 + i * 2] = packColor(rgbColor)
 
@@ -449,33 +431,44 @@ function void FlameQuest.Character.updateRGBKnux()
 	}
 }
 
-// Blend factor for Super/Hyper RGB Knux
-function u16 FlameQuest.Character.getRGBKnuxBlendFactor()
+// Update Super RGB Knux specific stuff (i.e. palettes)
+function void FlameQuest.Character.updateSuperRGBKnux()
 {
-	// Blend factor
-	u16 blendFactor
-
-	// If Super's active, calculate the blend factor
+	// Update RGB Knux' super glow
 	if(super.active)
 	{
-		if (super.palettefx.state & 0x80)
+		if(FlameQuest.RGBKnux.superGlowIsIncreasing)
+			FlameQuest.RGBKnux.superGlowOffset += (super.active == 0xff ? 6 : 3)
+		else
+			FlameQuest.RGBKnux.superGlowOffset -= (super.active == 0xff ? 6 : 3)
+		/*
+		FlameQuest.RGBKnux.superGlowOffset = abs(0x67 - super.palettefx.frame)
+
+		if(super.active != 0xff)
+			FlameQuest.RGBKnux.superGlowOffset /= 2
+		*/
+
+		// Prevent glow offset from becoming too large (or small)
+		FlameQuest.RGBKnux.superGlowOffset = clamp(FlameQuest.RGBKnux.superGlowOffset, 0, 64)
+
+		// If either boundary was hit, switch between increasing/decreasing mode
+		if(FlameQuest.RGBKnux.superGlowOffset == 64)
 		{
-			// Super/Hyper Knuckles
-			u16 nextFrame = (super.palettefx.frame + 6) % 60
-			u8 cycles = (nextFrame == 0) ? 0x0f : 0x03
-			super.palettefx.timer = min(super.palettefx.timer, cycles - 1)
-			blendFactor = super.palettefx.timer * 0x100 / cycles
+			FlameQuest.RGBKnux.superGlowIsIncreasing = false
 		}
-		else  // (super.palettefx.state == 2)
+		else if(FlameQuest.RGBKnux.superGlowOffset == 0)
 		{
-			blendFactor = clamp(u16(super.palettefx.timer) * 0x100 / 0x12, 0, 0x100)
+			FlameQuest.RGBKnux.superGlowIsIncreasing = true
 		}
 	}
-	// Otherwise return 0
 	else
 	{
-		blendFactor = 0
-	}
-	return blendFactor
-}
+		if(FlameQuest.RGBKnux.superGlowOffset)
+		{
+			FlameQuest.RGBKnux.superGlowOffset -= 3
 
+			if(FlameQuest.RGBKnux.superGlowOffset < 0)
+				FlameQuest.RGBKnux.superGlowOffset = 0
+		}
+	}
+}
