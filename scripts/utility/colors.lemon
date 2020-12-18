@@ -253,7 +253,7 @@ function u32 DKoC.Util.hslToABGR(u32 hslColor)
 		u64 hslString = stringformat("H:%05d, S:%05d, L:%05d", hue, saturation, luminance)
 		u64 tempRGBString = stringformat("TR:%d, TG:%d, TB:%d", tempRed, tempGreen, tempBlue)
 		u64 rgbString = stringformat("R:%d G:%d B:%d", red, green, blue)
-		debugLog(stringformat("%s | T1:%d T2:%d | %s | %s",hslString, tempOne, tempTwo, tempRGBString, rgbString))
+		//debugLog(stringformat("%s | T1:%d T2:%d | %s | %s",hslString, tempOne, tempTwo, tempRGBString, rgbString))
 		#endif
 
 		// Final calculations

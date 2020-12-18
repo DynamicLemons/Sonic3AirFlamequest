@@ -66,11 +66,12 @@ function bool FlameQuest.updateSoundTestEasterEggs()
 		FlameQuest.applySecretRGBKnux()
 		return true
 	}
+	/*
 	else if(FlameQuest.checkEasterEgg(FlameQuest.SoundTest.MILES_THE_PROWER_SECRET))
 	{
 		FlameQuest.applySecretMilesThePrower()
 		return true
-	}
+	}*/
 	// Test for other secrets here
 	// else if( ... )
 
@@ -101,14 +102,17 @@ function bool FlameQuest.checkEasterEgg(u64 easterEggCode)
 
 	// Throw an error if the sound test code contains 1 or fewer digits
 	if(i == 0x08)
-		assert(true, "Sound test code only 1 digit")
+		assert(false, "Sound test code only 1 digit")
 	else if(i > 0x08)
-		assert(true, "Sound test code contains no digits")
+		assert(false, "Sound test code contains no digits")
 
 	// Test the remaining bytes of the Easter Egg Code against the
 	// Sound test history
-	while(i < 9)
+	while(i < 8)
 	{
+		#if !GAMEAPP
+		debugLog(stringformat("%d: %02x | %02x", i, u8[FlameQuest.SOUNDTEST_HISTORY_TEMP + i], u8[FlameQuest.SOUNDTEST_CODE_TEMP + i]))
+		#endif
 		// If the current byte in the Sound Test History isn't the same
 		// as the byte in the Easter Egg Code, set the result to false
 		if(u8[FlameQuest.SOUNDTEST_HISTORY_TEMP + i] != u8[FlameQuest.SOUNDTEST_CODE_TEMP + i])
