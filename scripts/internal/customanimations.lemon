@@ -382,6 +382,34 @@ function void Character.UpdateNormalState.Knuckles()
 	}
 }
 
+// Function that (probably) updates slot machine characters
+//# address-hook(0x04b958) end(0x04b978)
+function void fn04b958()
+{
+	if(getMainCharacter() == CHARACTER_KNUCKLES && FlameQuest.Secret.useRGBKnux)
+	{
+		FlameQuest.Character.updateRGBKnux()
+	}
+
+	control.player1 = control.pad1
+	if (debug_mode.state)
+	{
+		DebugMode.BaseUpdate()
+		fn04bbf4()
+	}
+	else
+	{
+		// Targets:
+		//  - 0x04b9ce	-> objA0.base_state = 0x00
+		//  - 0x04ba4e	-> objA0.base_state = 0x02
+		//  - 0x04bc1e	-> objA0.base_state = 0x04
+		call tableLookupAddress(0x04b9bc, objA0.base_state)
+
+		fn04b97c()
+	}
+}
+
+
 // Function that updates RGB Knux
 function void FlameQuest.Character.updateRGBKnux()
 {
