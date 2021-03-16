@@ -34,12 +34,12 @@
 		"File": "FBZ2.bin",
 		"RomInject": "0xA909C"
 	},
-	"PaletteAIZ2": 
+	"PaletteAIZ2":
 	{
 		"File": "AIZ2.bin",
 		"RomInject": "0x0A8BDC"
 	},
-	"PaletteAIZ2Water": 
+	"PaletteAIZ2Water":
 	{
 		"File": "AIZ2Water.bin",
 		"RomInject": "0xA8D1C"
@@ -101,7 +101,7 @@
 		"File": "FBZ BG Outdoors.bin",
 		"RomInject": "0x052DD0"
 	},
-	
+
 	"cnz flash and dark":
 	{
 		"File": "Flash.bin",
@@ -173,12 +173,12 @@
 		"File": "SOZ2.bin",
 		"RomInject": "0x0A961C"
 	},
-	"PaletteLRZ1": 
+	"PaletteLRZ1":
 	{
 		"File": "LRZ1.bin",
 		"RomInject": "0xA967C"
 	},
-	"PaletteLRZ2": 
+	"PaletteLRZ2":
 	{
 		"File": "LRZ2.bin",
 		"RomInject": "0xA96DC"
@@ -196,48 +196,53 @@
 		"File" : "level_select_palette.bin",
 		"RomInject": "0xa8a7c"
 	},
+	// Level Select Easter Egg Backgrounds
+	"flamequest_level_select_bluestonks":
+	{
+		"File" : "level_select/level_select_bluestonks_palette.bin"
+	},
 	// Replaces Mushroom Hill Zone Act 1 Palette
-	"PaletteMHZ1": 
+	"PaletteMHZ1":
 	{
 		"File": "MHZ1.bin",
 		"RomInject": "0x0a943c"
 	},
 	// Replaces Mushroom Hill Zone Act 2 Palettes
-	"PaletteMHZ2Autumn": 
+	"PaletteMHZ2Autumn":
 	{
 		"File": "MHZAct 2 Gold.bin",
 		"RomInject": "0x0550fe"
 	},
-	"PaletteMHZ2Winter": 
+	"PaletteMHZ2Winter":
 	{
 		"File": "MHZ2.bin",
 		"RomInject": "0x0a949c"
 	},
-	
+
 	// Replaces Lava Reef Zone Act 1 Palette
-	"PaletteLRZ1": 
+	"PaletteLRZ1":
 	{
 	    "File": "LRZ1.bin",
 		"RomInject": "0x0a967c"
 	},
-	
+
     "lrz rocks":
 	{
 		"File": "Act 1 Rock Placement.bin",
 		"RomInject": "0x0cAD06"
 	},
 	// Replaces Lava Reef Zone Act 2 Palettes
-	"PaletteLRZ2": 
+	"PaletteLRZ2":
 	{
 		"File": "PaletteLRZ2.bin",
 		"RomInject": "0x0a96dc"
 	},
-	"PaletteLRZ2Boss": 
+	"PaletteLRZ2Boss":
 	{
 		"File": "PaletteLRZ2Boss.bin",
 		"RomInject": "0x0a9cdc"
 	},
-	"PaletteLRZ2BossFire": 
+	"PaletteLRZ2BossFire":
 	{
 		"File": "PaletteLRZ2BossFire.bin",
 		"RomInject": "0x079726" // as seen in lrz_deatheggstarting.lemon

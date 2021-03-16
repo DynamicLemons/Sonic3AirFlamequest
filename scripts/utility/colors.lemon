@@ -122,8 +122,12 @@ function u32 DKoC.Util.abgrToHSL(u32 abgrColor)
 
 // TODO: Clean up code (figure out what the temp vars are for and what to
 // to call them) and try and reduce the number of calculations (maybe
-// by finding a different algorithm?)
+// by finding a different algorithm?). Probably won't happen since this works
+
 // Function to convert HSL -> (A)BGR
+// Parameters
+//	 u32 hslColor - Color to convert (in DKoC format)
+// Returns color in AIR's (A)BGR format
 function u32 DKoC.Util.hslToABGR(u32 hslColor)
 {
 	// Separate HSL color into its components
@@ -268,11 +272,12 @@ function u32 DKoC.Util.hslToABGR(u32 hslColor)
 	return 0xff000000 + u32(u8(blue) << 16) + u32(u8(green) << 8) + u8(red)
 }
 
-// Function to change luminance of by a certain amount
+// Function to change luminance of an HSL color by a certain amount
 // Note that amount is in the DKoC HSL format, where luminance ranges from
 // 0 - 200 (instead of 0 - 100)
-// hslColor - Color to modify
-// amount - amount to shift by (can be positive or negative)
+// Parameters:
+//	 u32 hslColor - Color to modify (in DKoC HSL format)
+//	 s16 amount - amount to shift by (can be positive or negative), 1~200
 function u32 DKoC.Util.modifyHSLLuminance(u32 hslColor, s16 amount)
 {
 	// Extract HSL values
@@ -310,7 +315,11 @@ function u32 DKoC.Util.shiftHSL(u32 hslColor, s16 degree)
 	return u32(hue << 16) + u32(saturation << 8) + luminance
 }
 
-// Function to hue shift RGB(A) by a certain degree by calling ^
+// Function to hue shift RGB(A) by a certain degree by calling DKoC.Util.shiftHSL
+// Parameters
+//	 u32 rgbColor - Color to hue shift
+//	 s16 degree - Amount to shift color by in degrees (NOT in DKoC format)
+// Returns shifted color in ABGR format, keeping the alpha of the original color
 function u32 DKoC.Util.shiftABGR(u32 rgbColor, s16 degree)
 {
 	// Variables
@@ -333,6 +342,9 @@ function u32 DKoC.Util.shiftABGR(u32 rgbColor, s16 degree)
 
 // Function to unpack colors, either in AIR's extended format or the VDP's
 // color format
+// DEPRECATED, use unpackColor instead (this function essentially does the
+// same thing, but with full alpha instead of no alpha for unpacked colors.
+// If you need alpha, just add it to the ABGR color unpackColor returns)
 function u32 DKoC.Util.unpackColor(u16 color)
 {
 	// RGB

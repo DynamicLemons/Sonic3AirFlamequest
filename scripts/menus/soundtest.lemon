@@ -66,12 +66,16 @@ function bool FlameQuest.updateSoundTestEasterEggs()
 		FlameQuest.applySecretRGBKnux()
 		return true
 	}
-	/*
 	else if(FlameQuest.checkEasterEgg(FlameQuest.SoundTest.MILES_THE_PROWER_SECRET))
 	{
 		FlameQuest.applySecretMilesThePrower()
 		return true
-	}*/
+	}
+	else if(FlameQuest.checkEasterEgg(FlameQuest.SoundTest.BLUESTONKS_SECRET))
+	{
+		FlameQuest.applySecretBluestonks()
+		return true
+	}
 	// Test for other secrets here
 	// else if( ... )
 
@@ -143,3 +147,13 @@ function void FlameQuest.applySecretMilesThePrower()
 {
 	FlameQuest.Secret.milesThePrower = true
 }
+
+// Bluestonks
+function void FlameQuest.applySecretBluestonks()
+{
+	FlameQuest.LevelSelect.background = "flamequest_bg_bluestonks"
+
+	// Load bluestonks palette directly into CRAM (BG uses line 2 by default)
+	System.loadExternalRawData("flamequest_level_select_bluestonks", 0xfffffc00 + 0x20 * 2)
+}
+
