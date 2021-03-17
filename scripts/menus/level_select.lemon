@@ -70,7 +70,7 @@ function void LevelSelect.init()
 	zeroMemory(0xffff0000, 0x460 * 2)
 
 	A3 = 0xffff0000
-        A1 = 0x0080e6
+	A1 = 0x0080e6
 	A5 = 0x0080c4
 	D0 = 0
 	D1.u16 = 0x10
@@ -104,6 +104,7 @@ function void LevelSelect.init()
 	u16[A2] = 0
 	A2 = A2 - 0x50
 	u16[A2] = 0x1a
+
 	// Bunch of byte stuff in a code block for collapsability
 	{
 		u16[0xffff018a] = 0x11
@@ -156,7 +157,9 @@ function void LevelSelect.init()
 	u16[0xfffff7f0] = 0
 
 	A2 = 0x0081b0
-	LevelTilesAnim.Default()
+
+	// Don't load the SONIC/MILES background (for background shenanigans)
+	// LevelTilesAnim.Default()
 
 	Level.loadNonfadingPaletteData(0x04)
 
