@@ -1,0 +1,58 @@
+{
+
+	//----------------------------------------------//
+	// Music and jingles                            //
+	//----------------------------------------------//
+
+	// CNZ 1
+	"07":      { "File": "music/stage/4_cnz/BlazingCarnival1.ogg", "Type": "Music", "Loop": "1" },
+	"07_proto":      { "File": "music/stage/4_cnz/BlazingCarnival1.ogg", "Type": "Music", "Loop": "1" },
+
+	// FBZ 1
+	"09":      { "File": "music/stage/8_fbz/FlyingBattery1.ogg", "Type": "Music", "Loop": "1" },
+	"09_fast": { "File": "music/stage/8_fbz/FlyingBattery1F.ogg", "Type": "Music", "Loop": "1" },
+
+	// FBZ 2
+	"0A":      { "File": "music/stage/8_fbz/FlyingBattery2.ogg", "Type": "Music", "LoopStart": "90435" },
+	"0A_fast": { "File": "music/stage/8_fbz/FlyingBattery2F.ogg", "Type": "Music", "LoopStart": "72347" },
+
+	"0Aalt":      { "File": "music/stage/8_fbz/FlyingBattery2ALT.ogg", "Type": "Music", "LoopStart": "76101" },
+	"0Aalt_fast": { "File": "music/stage/8_fbz/FlyingBattery2FALT.ogg", "Type": "Music", "LoopStart": "76877" },
+
+	// ICZ 1
+	"0B":      { "File": "music/stage/5_icz/MeltingIceCap1.ogg", "Type": "Music", "Loop": "2542576" },
+	"0B_fast": { "File": "music/stage/5_icz/MeltingIceCap1F.ogg", "Type": "Music", "Loop": "157695" },
+
+	// ICZ 2
+	"0C":      { "File": "music/stage/5_icz/MeltingIceCap2.ogg", "Type": "Music", "Loop": "1939143" },
+	"0C_fast": { "File": "music/stage/5_icz/MeltingIceCap2F.ogg", "Type": "Music", "Loop": "159279" },
+
+	// SOZ 2
+	"12":      { "File": "music/stage/9_soz/FlamingSandopolis2.ogg", "Type": "Music", "Loop": "1" },
+
+	// Mini-boss
+	//  -> First ID is S&K version, second is S3 version
+	"18": { "File": "music/other/Miniboss.ogg", "Type": "Music", "Loop": "1" },
+	"2E_sonic3": { "File": "music/other/Miniboss.ogg", "Type": "Music", "Loop": "1" },
+
+	// Main boss
+	"19": { "File": "music/other/S4CyberneticOutbreakBoss.ogg", "Type": "Music", "Loop": "1" },
+
+	// DDZ
+	"1A":      { "File": "music/stage/e_ddz/Doomsday.ogg", "Type": "Music", "Loop": "369218" },
+	"1A_fast": { "File": "music/stage/e_ddz/DoomsdayF.ogg", "Type": "Music", "Loop": "501938" },
+
+	// Glowing Spheres bonus stage
+	"1B": { "File": "musicother/BonusStage.ogg", "Type": "Music", "Loop": "1" },
+
+	// Competition Mode menu (Sonic 3 Prototype)
+	//It's already in the game, I have no idea why (I assume) Blue did this
+	"2D": { "File": "music/other/CompMenu.ogg", "Type": "Music", "LoopStart": "426340" },
+	"2D_proto": { "File": "music/other/CompMenu.ogg", "Type": "Music", "LoopStart": "426340" },
+
+	"hyper_ring":  { "File": "sfx/other/HyperRing.ogg", "Type": "Sound" },
+
+	"3C":  { "File": "sfx/player/Roll.ogg", "Type": "Sound" },
+	"peelout_charge":  { "File": "sfx/player/PeelCharge.ogg", "Type": "Sound" },
+	"peelout_release": { "File": "sfx/player/PeelRelease.ogg", "Type": "Sound" },
+}
