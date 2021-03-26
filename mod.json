@@ -1,0 +1,112 @@
+{
+	"Metadata":
+	{
+		"Name": "Sonic 3 Flame Quest",
+		"Author": "Team Flame Quest",
+		"Description": "No Description",
+		"ModVersion": "In Development",
+		"GameVersion": "20.04.26.0"
+	},
+	"Settings":
+	{
+		"Options":
+		[
+			{
+				"InternalName": "JumpballColours",
+				"DisplayName": "# Of Colours In Jump/Roll",
+				"Variable": "VisualJumpballColours",
+				"Category": "Visual",
+				"DefaultValue": "0x1",
+				"Options":
+				{
+					"0x0": "1 Colour",
+					"0x1": "2 Colours"
+				}
+			},
+			{
+				"InternalName": "ScreenShakeEffects",
+				"DisplayName": "Screen Shake Effects",
+				"Variable": "VisualScreenShakeEffects",
+				"Category": "Visual",
+				"DefaultValue": "0x1",
+				"Options":
+				{
+					"0x0": "Disabled",
+					"0x1": "Enabled"
+				}
+			},
+			{
+				"InternalName": "CDSpindash",
+				"DisplayName": "Spindash Style",
+				"Variable": "GameplayCDSpindash",
+				"Category": "Gameplay",
+				"DefaultValue": "0x0",
+				"Options":
+				{
+					"0x0": "CD",
+					"0x1": "Classic"
+				}
+			},
+			{
+				"InternalName": "FastForward",
+				"DisplayName": "Fast Forward (locks controls)",
+				"Variable": "DevToolsFastForward",
+				"Category": "Dev Tools",
+				"DefaultValue": "0x0",
+				"Options":
+				{
+					"0x0": "Off",
+					"0x1": "On"
+				}
+			},
+			{
+				"InternalName": "DebugGravitySwitch",
+				"DisplayName": "Debug Gravity Switch",
+				"Variable": "DevToolsDebugGravitySwitch",
+				"Category": "Dev Tools",
+				"DefaultValue": "0x1",
+				"Options":
+				{
+					"0x0": "Off",
+					"0x1": "On"
+				}
+			},
+			{
+				"InternalName": "BHZRingDrain",
+				"DisplayName": "B. Hydrocity Ring Drain",
+				"Variable": "DevToolsHCZRingDrain",
+				"Category": "Dev Tools",
+				"DefaultValue": "0x1",
+				"Options":
+				{
+					"0x0": "Off",
+					"0x1": "On"
+				}
+			},
+			{
+				"InternalName": "BBZ2TimeLimit",
+				"DisplayName": "B. Battery 2 Time Limit",
+				"Variable": "DevToolsFBZ2TimeLimit",
+				"Category": "Dev Tools",
+				"DefaultValue": "0x1",
+				"Options":
+				{
+					"0x0": "Off",
+					"0x1": "On"
+				}
+			},
+			{
+				"InternalName": "MRZSmoke",
+				"DisplayName": "Magma Reef Smoke",
+				"Variable": "DevToolsLRZSmoke",
+				"Category": "Dev Tools",
+				"DefaultValue": "0x1",
+				"Options":
+				{
+					"0x0": "Off",
+					"0x1": "On"
+				}
+			},
+		]
+	}
+	}
