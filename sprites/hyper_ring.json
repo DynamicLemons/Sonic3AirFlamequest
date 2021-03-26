@@ -1,0 +1,10 @@
+{
+	"hyper_ring_00":  { "File": "objects/items/HyperRing.bmp", "Rect": "0,0,32,32", "Center": "16,24" },
+	"hyper_ring_01":  { "File": "objects/items/HyperRing.bmp", "Rect": "34,0,32,32", "Center": "16,24" },
+	"hyper_ring_02":  { "File": "objects/items/HyperRing.bmp", "Rect": "68,0,32,32", "Center": "16,24" },
+	"hyper_ring_03":  { "File": "objects/items/HyperRing.bmp", "Rect": "102,0,32,32", "Center": "16,24" },
+	"hyper_ring_04":  { "File": "objects/items/HyperRing.bmp", "Rect": "136,0,32,32", "Center": "16,24" },
+	"hyper_ring_05":  { "File": "objects/items/HyperRing.bmp", "Rect": "170,0,32,32", "Center": "16,24" },
+	"hyper_ring_06":  { "File": "objects/items/HyperRing.bmp", "Rect": "204,0,32,32", "Center": "16,24" },
+	"hyper_ring_07":  { "File": "objects/items/HyperRing.bmp", "Rect": "238,0,32,32", "Center": "16,24" }
+}

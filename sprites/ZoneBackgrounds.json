@@ -1,0 +1,14 @@
+{
+	"fbz_fgclouds":  { "File": "stages/08_fbz/FGClouds.png", "Rect": "0,0,640,128", "Center": "0,0" },
+	"fbz_bgplaceholder":  { "File": "stages/08_fbz/BG.png", "Rect": "0,0,640,256", "Center": "0,0" },
+	"fbz_bg_1":  { "File": "stages/08_fbz/BG.png", "Rect": "0,0,640,42", "Center": "0,0" },
+	"fbz_bg_2":  { "File": "stages/08_fbz/BG.png", "Rect": "0,42,640,25", "Center": "0,-42" },
+	"fbz_bg_3":  { "File": "stages/08_fbz/BG.png", "Rect": "0,67,640,17", "Center": "0,-67" },
+	"fbz_bg_4":  { "File": "stages/08_fbz/BG.png", "Rect": "0,84,640,25", "Center": "0,-84" },
+	"bg_dez2":  { "File": "stages/13_dez/dezbg0.png", "Rect": "0,0,400,224", "Center": "0,0" },
+	"dez2bg2_1":  { "File": "stages/13_dez/dezbg1.png", "Rect": "0,0,2048,17", "Center": "0,0" },
+	"dez2bg2_2":  { "File": "stages/13_dez/dezbg2.png", "Rect": "0,0,2048,64", "Center": "0,0" },
+	"dez2bg2_3":  { "File": "stages/13_dez/dezbg3.png", "Rect": "0,0,2048,64", "Center": "0,0" },
+	"dez2bg2_4":  { "File": "stages/13_dez/dezbg4.png", "Rect": "0,0,2048,64", "Center": "0,0" },
+	"dez2bg2_5":  { "File": "stages/13_dez/dezbg5.png", "Rect": "0,0,2048,64", "Center": "0,0" }
+}

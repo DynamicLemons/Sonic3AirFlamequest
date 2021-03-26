@@ -1,0 +1,10 @@
+{
+	//Classic
+	"topblue":    { "File": "ui/titlecard/classic/TopBlue.png", "Rect": "0,0,500,240", "Center": "110,0" },
+	"botred":    { "File": "ui/titlecard/classic/BottomRed.png", "Rect": "0,0,500,240", "Center": "110,0" },
+	"bg":    { "File": "ui/titlecard/classic/Back.png", "Rect": "0,0,500,240", "Center": "110,0" },
+
+	//Modern
+	"moderntcbottom":    { "File": "ui/titlecard/modern/ModernTitleCard.png", "Rect": "0,0,1150,240", "Center": "300,0" },
+	"moderntcyop":    { "File": "ui/titlecard/modern/ModernTitleCardYFlip.png", "Rect": "0,0,1150,240", "Center": "300,0" }
+}

@@ -1,0 +1,20 @@
+{
+	"monitor_s3_intact":  { "File": "objects/items/monitors.bmp", "Rect": "0,0,32,32", "Center": "16,16" },
+	"monitor_s3_broken":  { "File": "objects/items/monitors.bmp", "Rect": "32,0,32,32", "Center": "16,16" },
+	"monitor_s2_intact":  { "File": "objects/items/monitors.bmp", "Rect": "0,32,32,32", "Center": "16,16" },
+	"monitor_s2_broken":  { "File": "objects/items/monitors.bmp", "Rect": "32,32,32,32", "Center": "16,16" },
+	"monitor_icon_ring":  { "File": "objects/items/monitors.bmp", "Rect": "64,0,16,16", "Center": "8,6" },
+	"monitor_icon_hyperring":  { "File": "objects/items/monitors.bmp", "Rect": "112,32,16,16", "Center": "8,6" },
+	"monitor_icon_speedshoes":  { "File": "objects/items/monitors.bmp", "Rect": "80,0,16,16", "Center": "8,6" },
+	"monitor_icon_invincibility":  { "File": "objects/items/monitors.bmp", "Rect": "96,0,16,16", "Center": "8,6" },
+	"monitor_icon_super":  { "File": "objects/items/monitors.bmp", "Rect": "112,0,16,16", "Center": "8,6" },
+	"monitor_icon_lightningshield":  { "File": "objects/items/monitors.bmp", "Rect": "64,16,16,16", "Center": "8,6" },
+	"monitor_icon_fireshield":  { "File": "objects/items/monitors.bmp", "Rect": "80,16,16,16", "Center": "8,6" },
+	"monitor_icon_bubbleshield":  { "File": "objects/items/monitors.bmp", "Rect": "96,16,16,16", "Center": "8,6" },
+	"monitor_icon_classicshield":  { "File": "objects/items/monitors.bmp", "Rect": "112,16,16,16", "Center": "8,6" },
+	"monitor_icon_sonic":  { "File": "objects/items/monitors.bmp", "Rect": "64,32,16,16", "Center": "8,6" },
+	"monitor_icon_tails":  { "File": "objects/items/monitors.bmp", "Rect": "80,32,16,16", "Center": "8,6" },
+	"monitor_icon_knuckles":  { "File": "objects/items/monitors.bmp", "Rect": "96,32,16,16", "Center": "8,6" },
+	"monitor_icon_static":  { "File": "objects/items/monitors.bmp", "Rect": "64,48,16,16", "Center": "8,6" },
+	"monitor_icon_robotnik":  { "File": "objects/items/monitors.bmp", "Rect": "80,48,16,16", "Center": "8,6" }
+}

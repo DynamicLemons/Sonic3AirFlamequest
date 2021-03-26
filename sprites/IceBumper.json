@@ -1,0 +1,8 @@
+{
+	"ice_bumper_01":    { "File": "objects/5_icz/ice_bumper.png", "Rect": "0,0,32,32", "Center": "16,16" },
+	"ice_bumper_02":    { "File": "objects/5_icz/ice_bumper.png", "Rect": "0,0,32,32", "Center": "16,16" },
+	"ice_bumper_03":    { "File": "objects/5_icz/ice_bumper.png", "Rect": "0,0,32,32", "Center": "16,16" },
+	"ice_bumper_04":    { "File": "objects/5_icz/ice_bumper.png", "Rect": "0,0,32,32", "Center": "16,16" },
+	"ice_bumper_05":    { "File": "objects/5_icz/ice_bumper.png", "Rect": "0,0,32,32", "Center": "16,16" },
+	"ice_bumper_06":    { "File": "objects/5_icz/ice_bumper.png", "Rect": "0,0,32,32", "Center": "16,16" }
+}

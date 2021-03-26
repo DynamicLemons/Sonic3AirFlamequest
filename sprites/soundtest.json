@@ -1,0 +1,7 @@
+{
+    "you":  { "File": "secrets/talshavenolisne.png", "Rect": "0,0,400,224"},
+    "tube":  { "File": "secrets/egg.png", "Rect": "0,0,400,224"},
+    "gill":  { "File": "secrets/gills.png", "Rect": "0,0,400,224"},
+    "dkoc":  { "File": "secrets/ew.png", "Rect": "0,0,400,224"}
+    //Maybe use https://cdn.discordapp.com/attachments/647910195338674215/727744905530703882/unknown.png?
+}

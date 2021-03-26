@@ -1,0 +1,10 @@
+{
+	"burning_sonic_flame_effect_0":  { "File": "effects/hotsonic/burning_sonic_flame_effect.png", "Rect": "0,0,8,16", "Center": "4,8" },
+	"burning_sonic_flame_effect_1":  { "File": "effects/hotsonic/burning_sonic_flame_effect.png", "Rect": "0,16,8,16", "Center": "4,8" },
+	"burning_sonic_flame_effect_2":  { "File": "effects/hotsonic/burning_sonic_flame_effect.png", "Rect": "0,33,8,16", "Center": "4,8" },
+	"burning_sonic_flame_effect_3":  { "File": "effects/hotsonic/burning_sonic_flame_effect.png", "Rect": "0,16,8,16", "Center": "4,8" },
+	"scorching_sonic_flame_effect_0":  { "File": "effects/hotsonic/scorching_sonic_flame_effect.png", "Rect": "0,0,16,32", "Center": "8,16" },
+	"scorching_sonic_flame_effect_1":  { "File": "effects/hotsonic/scorching_sonic_flame_effect.png", "Rect": "0,32,16,32", "Center": "8,16" },
+	"scorching_sonic_flame_effect_2":  { "File": "effects/hotsonic/scorching_sonic_flame_effect.png", "Rect": "0,66,16,32", "Center": "8,16" },
+	"scorching_sonic_flame_effect_3":  { "File": "effects/hotsonic/scorching_sonic_flame_effect.png", "Rect": "0,32,16,32", "Center": "8,16" }
+}

@@ -1,0 +1,10 @@
+{
+	"mhz1_fire_01":  { "File": "level_gimmicks/7_mhz/mhz_fire1.png", "Rect": "0,0,640,256", "Center": "0,-128" },
+	"mhz1_fire_02":  { "File": "level_gimmicks/7_mhz/mhz_fire2.png", "Rect": "0,0,640,256", "Center": "0,-128" },
+	"mhz1_fire_03":  { "File": "level_gimmicks/7_mhz/mhz_fire3.png", "Rect": "0,0,640,256", "Center": "0,-128" },
+	"mhz1_fire_04":  { "File": "level_gimmicks/7_mhz/mhz_fire4.png", "Rect": "0,0,640,256", "Center": "0,-128" },
+	"mhz2_fire_01":  { "File": "level_gimmicks/7_mhz/mhz_fire1.png", "Rect": "0,0,640,256", "Center": "0,-64" },
+	"mhz2_fire_02":  { "File": "level_gimmicks/7_mhz/mhz_fire2.png", "Rect": "0,0,640,256", "Center": "0,-64" },
+	"mhz2_fire_03":  { "File": "level_gimmicks/7_mhz/mhz_fire3.png", "Rect": "0,0,640,256", "Center": "0,-64" },
+	"mhz2_fire_04":  { "File": "level_gimmicks/7_mhz/mhz_fire4.png", "Rect": "0,0,640,256", "Center": "0,-64" }
+}
