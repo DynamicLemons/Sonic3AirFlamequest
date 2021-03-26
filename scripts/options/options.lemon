@@ -1,0 +1,9 @@
+global u8 DevToolsFastForward
+global u8 DevToolsDebugGravitySwitch
+global u8 DevToolsFBZ2TimeLimit
+global u8 DevToolsHCZRingDrain
+global u8 DevToolsLRZSmoke
+global u8 VisualJumpballColours
+global u8 VisualTitleCardTheme
+global u8 VisualScreenShakeEffects
+global u8 GameplayCDSpindash

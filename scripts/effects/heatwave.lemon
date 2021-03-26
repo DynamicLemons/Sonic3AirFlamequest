@@ -1,0 +1,64 @@
+//# address-hook(0x055df2) end(0x055e48)
+function void fn055df2()
+{
+	// Heat haze effect in foreground
+	A1 = 0xffffa810
+	A6 = 0x05077e
+	D0.u16 = camera.foreground.y.u16
+	D1.u16 = 223
+	D2.u16 = level.framecounter
+	D2.u16 += D0.u16 * 2
+	D2.u16 &= 0x3e
+	A6 += D2.u16
+	D6.s16 = -camera.foreground.x.u16
+	fn04f0b6()
+
+	// Heat haze effect in background
+	A1 = 0xffffe000		// Location of linewise scroll offsets
+	A2 = 0xffffa810
+	A4 = (global.zone == 0x03) ? 0x0520fe : 0x0560dc
+	A5 = 0xffffa800
+	A6 = 0x05077e
+	D0.u16 = camera.background.y.u16
+	D1.u16 = getScreenHeight() - 1
+	D2.u16 = ((level.framecounter) + D0.u16 * 2) & 0x3e
+	A6 += D2.u16
+	fn04f1f0()
+}
+
+
+
+//# address-hook(0x0529fc) end(0x052a26)
+function void fn0529fc()
+{
+	D1.u16 = u16[0xffffeed6]
+	if (D1.u16 != 0)
+		D1.u16 = 0x0200
+
+	A6 = 0xffffee90		// Address of camera.background.y
+	A5 = 0xffffee96		// Address of camera.background.y.old
+	D6 = 0x20
+	LoadTileContentInDirY()
+
+	A4 = (u16[0xffffeed6] == 0) ? 0x052d28 : 0x052d6e
+	A5 = 0xffffa800
+	fn055df2()
+}
+
+//# address-hook(0x0530ba) end(0x0530e8)
+function void fn0530ba()
+{
+	D1.u16 = u16[0xffffeed6]
+	if (D1.u16 != 0)
+		D1.u16 = 0x0200
+
+	A6 = 0xffffee90		// Address of camera.background.y
+	A5 = 0xffffee96		// Address of camera.background.y.old
+	D6 = 0x20
+	LoadTileContentInDirY()
+
+	A4 = (u16[0xffffeed6] == 0) ? 0x052d28 : 0x052d6e
+	A5 = 0xffffa800
+	fn055df2()
+	UpdateScreenShake()
+}

@@ -1,0 +1,52 @@
+// Includes
+include player/?
+include effects/?
+include bosses/?
+include objects/?
+include transitions/?
+include internal/?
+include music/?
+include rendering/?
+include levels/?
+include titlescreen/?
+include menus/?
+include specialstages/?
+include options/?
+include cutscenes/?
+include credits/?
+include eastereggs/?
+include compatibility/?
+
+include utility/?
+
+
+// Load character palettes at the start of the game so that the level
+// select functions properly.
+function void Init()
+{
+	// Run vanilla/Other mods' Init() functions
+	base.Init()
+
+	// Load palettes during initialization so the sprites don't appear
+	// blank in the menu
+	loadCharacterPalette(CHARACTER_SONIC, 0x802180 + 0x00, 0)
+	loadCharacterPalette(CHARACTER_TAILS, 0x802180 + 0x40, 0)
+	loadCharacterPalette(CHARACTER_KNUCKLES, 0x802180 + 0x80, 0)
+
+}
+
+function void EntryFunctions.actSelect()
+{
+       System.setupCallFrame("GameModeControlLoop", "@EntryPoint")
+   System.setupCallFrame("LevelSelect")
+
+global.game_mode = 0x1c
+}
+
+function void EntryFunctions.dataSelect()
+{
+   System.setupCallFrame("GameModeControlLoop", "@EntryPoint")
+   System.setupCallFrame("LevelSelect")
+
+global.game_mode = 0x1c
+}

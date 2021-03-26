@@ -1,0 +1,28 @@
+// Scripts for dealing with colors
+// Copyright Team Flame Quest
+// 09/19/20
+
+/* HSL COLOR FORMAT
+ *
+ * u32 value:
+ * Upper 16 bits are for the Hue
+ * Lower 16 bits are for the Saturation and Luminance
+  		* Upper 8 bits of this is saturation, lower 8 bits is Luminance
+ * | 16 bit hue	| 8 bit Saturation | 8 bit Luminance|
+ *
+ * Hue is stored in degrees * 100. E.g. 360 degrees -> 36,000. This gives
+ * the percentage a precision of two decimal places
+ *
+ * Saturation and Luminance are stored as percentages multiplied by two.
+ * This allows for the Saturation and Luminance to take on more values
+ * (namely half-steps between percentages). E.g. 10.5% -> 21, 100% -> 200, 50% -> 100
+ *
+ * AIR's RGBA format is documented in the Oxygen handbook.
+*/
+
+
+// Function to convert RGB(A) -> HSL
+// Function to convert HSL -> RGB(A)
+// Function to hue shift HSL by a certain degree
+// Function to hue shift RGB(A) by a certain degree by calling ^
+// Function(s) to work directly on memory?

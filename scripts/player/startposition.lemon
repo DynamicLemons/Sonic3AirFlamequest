@@ -1,0 +1,27 @@
+function void ROMManipulation.AIZ2.StartPosition()
+{
+	// Unburnt aiz 1
+	u16[0x1e3c18] = 0x147D
+	u16[0x1e3c1a] = 0x02FE
+
+	u16[0x1e3c18] = 0x147D
+	u16[0x1e3c1a] = 0x02FE
+
+	u16[0x1e3cd8] = 0x147D
+	u16[0x1e3cda] = 0x02FE	
+}
+
+function bool isSonicIntro() // why do i have to do this
+{
+	/*
+	if (global.zone_act == 0x0000 && checkpoint.number == 0 && isMainCharacter(CHARACTER_SONIC))
+	{
+	#if STANDALONE
+		return !Game.isTimeAttack()
+	#else
+		return true
+	#endif
+	}
+	*/
+	return false
+}

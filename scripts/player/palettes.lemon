@@ -1,0 +1,7 @@
+function u64 getCharacterPaletteKey(u8 character)
+{
+	if (super.active & 0x80 || super.active.tails & 0x80)
+		return (character == CHARACTER_SONIC) ? "sonic_burning" : (character == CHARACTER_TAILS) ? "tails_burning" : "knuckles_burning"	
+	else
+		return (character == CHARACTER_SONIC) ? "sonic_super" : (character == CHARACTER_TAILS) ? "tails_super" : "knuckles_super"	
+}

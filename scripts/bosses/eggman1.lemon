@@ -1,0 +1,451 @@
+#if STANDALONE
+
+global u8 EggmanBlue.laughTimer = 0
+
+function bool EggmanBlue.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
+{	
+	//Normal Eggmobile Bosses
+	if(objA0.update_address == 0x067b66 || objA0.update_address == 0x067aca || objA0.update_address == 0x067c38 || objA0.update_address == 0x067cd2)
+    {
+		if(getMainCharacter() != CHARACTER_KNUCKLES || global.zone_act == 0x1700)
+		{
+			u64 key = 0x00
+			if(objA0.animation.sprite == 0x00 || objA0.animation.sprite == 0x01)
+			{
+				if(EggmanBlue.showRegular())
+				{
+					if (global.zone_act == 0x0601 && camera.position.y.u16 == 0x0668)
+						key = stringformat("eggman-blue-%02x", ((level.framecounter << 0x01 & 0x10) ? 1 : 0))
+					else
+						key = stringformat("eggman-blue-%02x", objA0.animation.sprite)
+				}
+				else
+				{
+					key = stringformat("eggman-laugh-blue-%02x", ((level.framecounter << 0x01 & 0x10) ? 1 : 0))
+				}
+			}
+			else 
+			{
+				if(objA0.animation.sprite == 0x02)
+				{
+					EggmanBlue.laughTimer = 0
+				}
+				key = stringformat("eggman-blue-%02x", objA0.animation.sprite)
+			}
+			if(EggmanBlue.spritesType)
+			{
+				key = stringformat("%s-png", key)
+			}
+			if(key != 0x00 && Renderer.hasCustomSprite(key))
+			{
+				bool prioFlag = (objA0.sprite_attributes & 0x8000) != 0
+				Renderer.drawCustomSprite(key, px, py, 0x60, (objA0.render_flags & 0x01) | (prioFlag ? SPRITE_FLAG_PRIO : 0), renderQueue)
+				return true
+			}
+		}
+    }
+	
+	//FBZ2 Second Boss
+	if (objA0.update_address == 0x067b96)
+	{
+		if(getMainCharacter() != CHARACTER_KNUCKLES)
+		{
+			u64 key = 0x00
+			if(objA0.animation.sprite == 0x00 || objA0.animation.sprite == 0x01)
+			{
+				u8 frame = (level.framecounter << 0x01 & 0x10) ? 1 : 0
+				if(EggmanBlue.showRegular())
+					key = stringformat("eggman-fbz-blue-%02x", (objA0.animation.sprite + frame * 0x04))
+				else 
+					key = stringformat("eggman-laugh-fbz-blue-%02x", frame)
+			}
+			else 
+			{
+				if(objA0.animation.sprite == 0x02)
+				{
+					EggmanBlue.laughTimer = 0
+				}
+				key = stringformat("eggman-fbz-blue-%02x", objA0.animation.sprite)
+			}
+			if(EggmanBlue.spritesType)
+			{
+				key = stringformat("%s-png", key)
+			}
+			if(key != 0x00 && Renderer.hasCustomSprite(key))
+			{
+				bool prioFlag = (objA0.sprite_attributes & 0x8000) != 0
+				Renderer.drawCustomSprite(key, px, py, 0x60, (objA0.render_flags & 0x01) | (prioFlag ? SPRITE_FLAG_PRIO : 0), renderQueue)
+				return true
+			}
+		}
+	}
+	
+	//LRZ2 Boss
+	if (objA0.update_address == 0x079c1c)
+	{
+		u64 key = 0x00
+		if(objA0.animation.sprite == 0x0f)
+		{
+			u8 frame = (level.framecounter << 0x01 & 0x10) ? 1 : 0
+			if(EggmanBlue.showRegular())
+				key = stringformat("eggman-lrz-blue-%02x", (objA0.animation.sprite + frame * 0x03))
+			else
+				key = stringformat("eggman-laugh-lrz-blue-%02x", frame)
+		}
+		else 
+		{
+			if(objA0.animation.sprite == 0x10)
+			{
+				EggmanBlue.laughTimer = 0
+			}
+			key = stringformat("eggman-lrz-blue-%02x", objA0.animation.sprite)
+		}
+		if(EggmanBlue.spritesType)
+		{
+			key = stringformat("%s-png", key)
+		}
+		if(key != 0x00 && Renderer.hasCustomSprite(key))
+		{
+			bool prioFlag = (objA0.sprite_attributes & 0x8000) != 0
+			Renderer.drawCustomSprite(key, px, py, 0x60, (objA0.render_flags & 0x01) | (prioFlag ? SPRITE_FLAG_PRIO : 0), renderQueue)
+			return true
+		}
+	}
+	
+	//FBZ2 Mini Boss and DEZ2 Boss
+	if (objA0.update_address == 0x070068 || objA0.update_address == 0x07009a) 
+	{
+		if(getMainCharacter() != CHARACTER_KNUCKLES || global.zone_act == 0x1700)
+		{
+			u64 key = 0x00
+			if(objA0.animation.sprite == 0x00 || objA0.animation.sprite == 0x01)
+			{
+				if(EggmanBlue.showRegular())
+					key = stringformat("eggman-fbz-mini-blue-%02x", objA0.animation.sprite)
+				else
+					key = stringformat("eggman-laugh-fbz-mini-blue-%02x", ((level.framecounter << 0x01 & 0x10) ? 1 : 0))
+			}
+			else 
+			{
+				if(objA0.animation.sprite == 0x02) 
+				{
+					EggmanBlue.laughTimer = 0
+				}
+				key = stringformat("eggman-fbz-mini-blue-%02x", objA0.animation.sprite)
+			}
+			if(EggmanBlue.spritesType)
+			{
+				key = stringformat("%s-png", key)
+			}
+			if(key != 0x00 && Renderer.hasCustomSprite(key))
+			{
+				bool prioFlag = (objA0.sprite_attributes & 0x8000) != 0
+				Renderer.drawCustomSprite(key, px, py, 0x60, (objA0.render_flags & 0x01) | (prioFlag ? SPRITE_FLAG_PRIO : 0), renderQueue)
+				return true
+			}
+		}
+	}
+	
+	//LBZ2 1st Boss
+	if(objA0.update_address == 0x073e0e)
+	{
+		u64 key = 0x00
+		if(objA0.animation.sprite == 0x00 || objA0.animation.sprite == 0x01)
+		{
+			if(EggmanBlue.showRegular())
+				key = stringformat("eggman-blue-%02x", objA0.animation.sprite)
+			else
+				key = stringformat("eggman-laugh-blue-%02x", ((level.framecounter << 0x01 & 0x10) ? 1 : 0))
+		}
+		else 
+		{
+			if(objA0.animation.sprite == 0x02)
+			{
+				EggmanBlue.laughTimer = 0
+			}
+			key = stringformat("eggman-blue-%02x", objA0.animation.sprite)
+		}
+		if(EggmanBlue.spritesType)
+		{
+			key = stringformat("%s-png", key)
+		}
+		if(key != 0x00 && Renderer.hasCustomSprite(key))
+		{
+			bool prioFlag = (objA0.sprite_attributes & 0x8000) != 0
+			Renderer.drawCustomSprite(key, px, py, 0x60, (objA0.render_flags & 0x01) | (prioFlag ? SPRITE_FLAG_PRIO : 0), renderQueue)
+			return true
+		}
+	}
+		
+	//AIZ2 Boss Intro
+	if(objA0.update_address == 0x050700)
+	{
+		u64 key = stringformat("eggman-aiz-intro-%02x", ((level.framecounter << 0x01 & 0x10) ? 1 : 0))
+		if(Renderer.hasCustomSprite(key))
+		{
+			bool prioFlag = (objA0.sprite_attributes & 0x8000) != 0
+			Renderer.drawCustomSprite(key, px, py, 0x60, (objA0.render_flags & 0x01) | (prioFlag ? SPRITE_FLAG_PRIO : 0), renderQueue)
+			return true
+		}
+	}
+	
+	//LRZ2 Boss Intro
+	if(objA0.update_address == 0x079002 || objA0.update_address == 0x079072)
+	{
+		u64 key = 0x00
+		u8 frame = (level.framecounter << 0x01 & 0x10) ? 1 : 0
+		if(EggmanBlue.showRegular())
+			key = stringformat("eggman-lrz-intro-%02x", frame)
+		else
+			key = stringformat("eggman-laugh-lrz-intro-%02x", frame)
+		if(key != 0x00 && Renderer.hasCustomSprite(key))
+		{
+			bool prioFlag = (objA0.sprite_attributes & 0x8000) != 0
+			Renderer.drawCustomSprite(key, px, py, 0x60, (objA0.render_flags & 0x01) | (prioFlag ? SPRITE_FLAG_PRIO : 0), renderQueue)
+			return true
+		}
+	}
+	
+	//Dr. Eggman outside the Eggmobile
+	if(objA0.update_address == 0x080e02 || objA0.update_address == 0x0700ea || objA0.update_address == 0x073d74 || objA0.update_address == 0x07f74c) 
+	{
+		if(getMainCharacter() != CHARACTER_KNUCKLES || global.zone_act == 0x0b01 || global.zone_act == 0x1700 || global.zone_act == 0x0601)
+		{
+			u8 animationSprite = objA0.animation.sprite
+			
+			//For Misc Fixes and Tweaks Compability
+			s16 scaredConfig = EggmanBlue.getScaredConfig()	
+			if(objA0.animation.sprite < 0x04 && scaredConfig > 0)
+			{
+				if(global.zone_act == 0x0401 && (scaredConfig == 1 || scaredConfig == 3))
+				{
+					animationSprite += 0x04
+				}
+				else if((global.zone_act == 0x0b01 || global.zone_act == 0x1700) && (scaredConfig == 2 || scaredConfig == 3))
+				{
+					animationSprite += 0x04
+				}
+			}
+			
+			u64 key = stringformat("character-eggman-blue-%02x", animationSprite)
+			if(EggmanBlue.spritesType)
+			{
+				key = stringformat("%s-png", key)
+			}
+			if(Renderer.hasCustomSprite(key))
+			{
+				bool prioFlag = (objA0.sprite_attributes & 0x8000) != 0
+				Renderer.drawCustomSprite(key, px, py, 0x60, (objA0.render_flags & 0x01) | (prioFlag ? SPRITE_FLAG_PRIO : 0), renderQueue)
+				return true
+			}
+		}
+	}
+	
+	//Dr. Eggman outside the Eggmobile - single lost frame in LBZ2
+	//Some other sprites, like some explosions, use this update_address
+	if(objA0.update_address == 0x01abb6 && objA0.animation.sprite == 0x00 && global.zone_act == 0x0601) 
+	{
+		u64 key = "character-eggman-blue-03"
+		if(EggmanBlue.spritesType)
+		{
+			key = stringformat("%s-png", key)
+		}
+		if(Renderer.hasCustomSprite(key))
+		{
+			bool prioFlag = (objA0.sprite_attributes & 0x8000) != 0
+			Renderer.drawCustomSprite(key, px, py, 0x60, (objA0.render_flags & 0x01) | (prioFlag ? SPRITE_FLAG_PRIO : 0), renderQueue)
+			return true
+		}
+	}
+	
+	//Bad Ending
+	if(objA0.update_address == 0x05f5b4)
+	{
+		u64 key = stringformat("eggman-ending-blue-%02x", objA0.animation.sprite)
+		if(EggmanBlue.spritesType)
+		{
+			key = stringformat("%s-png", key)
+		}
+		if(Renderer.hasCustomSprite(key))
+		{
+			bool prioFlag = (objA0.sprite_attributes & 0x8000) != 0
+			Renderer.drawCustomSprite(key, px, py, 0x60, (objA0.render_flags & 0x01) | (prioFlag ? SPRITE_FLAG_PRIO : 0), renderQueue)
+			return true
+		}
+	}
+		
+	// Eggman in Savedata Screen
+	if(objA0.update_address == 0x00d782)
+	{
+		u64 key
+		if(EggmanBlue.getShineConfig() != 3)
+		{
+			key = stringformat("eggman-delete-%x%x", objA0.animation.sprite, u8[0xffffb0b1])
+		}
+		else
+		{
+			//Try to render sprite from Misc Fixes & Tweaks
+			key = stringformat("robotnik_dataselect_%x%x", objA0.animation.sprite, u8[0xffffb0b1])
+		}		
+		if(Renderer.hasCustomSprite(key))
+		{
+			bool prioFlag = (objA0.sprite_attributes & 0x8000) != 0
+			Renderer.drawCustomSprite(key, px, py, 0x00, (objA0.render_flags & 0x01) | (prioFlag ? SPRITE_FLAG_PRIO : 0), renderQueue)
+			if(EggmanBlue.isMiscFixesHere())
+			{
+				u64 key2 = stringformat("eggman-delete-1%x", EggmanBlue.getShineConfig())
+				if(Renderer.hasCustomSprite(key2))
+				{
+					Renderer.drawCustomSprite(key2, px, py, 0x00, (objA0.render_flags & 0x01) | (prioFlag ? SPRITE_FLAG_PRIO : 0), renderQueue+1)
+				}
+			}
+			return true
+		}
+	}
+		
+    if(objA0.update_address == 0x0837b2)
+    {
+		u64 plateName = 0x00
+		if(objA0.animation.sprite == 0x03)
+		{
+			plateName = stringformat("eggman-goal-sign-%02x", (objA0.animation.sprite + (EggmanBlue.cdStyledGoal * 0x10)))
+		}
+		if(plateName != 0x00 && Renderer.hasCustomSprite(plateName))
+		{
+			bool prioFlag = (objA0.sprite_attributes & 0x8000) != 0
+			Renderer.drawCustomSprite(plateName, px, py, 0x60, prioFlag ? SPRITE_FLAG_PRIO : 0 , renderQueue)
+			return true
+		}
+    }
+	
+	//System.writeDisplayLine(stringformat("%x",objA0.update_address))
+	return false
+}
+
+function bool Standalone.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
+{
+	if(EggmanBlue.onWriteToSpriteTable(px, py,renderQueue))
+		return true
+	else if(base.Standalone.onWriteToSpriteTable(px, py, renderQueue))
+		return true
+	else
+		return false
+}
+
+function u64 Monitor.getIconSpriteKey(u8 type)
+{
+	if (type == 0x02)
+	{
+		return "monitor_icon_eggman"
+	}
+	return base.Monitor.getIconSpriteKey(type)
+}
+
+function bool EggmanBlue.showRegular()
+{
+	bool gameOverCondition = ((global.time_over == 0 && lives_counter > 0) || EggmanBlue.disableDeadLaugh == 1)
+	return (EggmanBlue.laughTimer <= 0 && gameOverCondition)
+}
+
+function void EggmanBlue.decreaseTimer()
+{
+	if(EggmanBlue.laughTimer > 0)
+	{
+		--EggmanBlue.laughTimer
+	}
+}
+
+//# address-hook(0x010a94) end(0x010ae8)
+function void Character.BaseUpdate.Sonic()
+{
+	if(isMainCharacter(CHARACTER_SONIC))
+	{
+		EggmanBlue.decreaseTimer()
+	}
+	base.Character.BaseUpdate.Sonic()
+}
+
+//# address-hook(0x01365c) end(0x0136b8)
+function void Character.BaseUpdate.Tails()
+{
+	if(isMainCharacter(CHARACTER_TAILS))
+	{
+		EggmanBlue.decreaseTimer()
+	}
+	base.Character.BaseUpdate.Tails()
+}
+
+//# address-hook(0x016444) end(0x016498)
+function void Character.BaseUpdate.Knuckles()
+{
+	if(isMainCharacter(CHARACTER_KNUCKLES))
+	{
+		EggmanBlue.decreaseTimer()
+	}
+	base.Character.BaseUpdate.Knuckles()
+}
+
+//# address-hook(0x010294) end(0x010364)
+function void Character.GettingHurt()
+{
+	base.Character.GettingHurt()
+	//EggmanBlue.laughTimer < 64 is to avoid 2nd player Tails cutting death laughs short
+	if(char.state == char.state.GOT_HURT && EggmanBlue.laughTimer < 64 && EggmanBlue.disableHurtLaugh != 1)
+	{
+		EggmanBlue.laughTimer = 64
+	}
+}
+
+function void EggmanBlue.DeathLaugh()
+{
+	if(char.state == char.state.DIED && EggmanBlue.disableDeadLaugh != 1)
+	{
+		if(A0 == 0xffffb000) //This is true if it's the first player dying
+		{
+			EggmanBlue.laughTimer = 176
+		}
+		else if(EggmanBlue.laughTimer < 64) //To avoid 2nd player Tails cutting death laughs short
+		{
+			EggmanBlue.laughTimer = 64 //if 2nd Player dies it's regular laugh time
+		}
+	}
+}
+
+//# address-hook(0x01036e) end(0x0103b8)
+function void Character.Die_internal()
+{
+	base.Character.Die_internal()
+	EggmanBlue.DeathLaugh()
+}
+
+//# address-hook(0x010366) end(0x01036c)
+function void Character.Die()
+{
+	base.Character.Die()
+	EggmanBlue.DeathLaugh()
+}
+
+function void EggmanBlue.KnucklesTasedLaugh()
+{
+	//For HPZ
+	if(EggmanBlue.disableHurtLaugh != 1) 
+	{
+		EggmanBlue.laughTimer = 64
+	}
+}
+
+//# address-hook(0x0654fa) end(0x06554a)
+function void fn0654fa()
+{
+	EggmanBlue.KnucklesTasedLaugh()
+	base.fn0654fa()
+}
+
+//# address-hook(0x065564) end(0x0655a6)
+function void fn065564()
+{
+	EggmanBlue.KnucklesTasedLaugh()
+	base.fn065564()
+}
+
+#endif

@@ -1,0 +1,29 @@
+function bool Standalone.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
+{
+	// This function gets called once when rendering an object, even if it consists of multiple VDP sprites
+	//  -> That is in contrast to e.g. "Standalone.onDrawVdpSprite" which gets called for each VDP sprite
+	//  -> So if an object's sprites should be replaced with a new loaded graphics, this here is the place to go
+
+	u8 gameMode = global.game_mode & 0x7f
+	bool prioFlag = (objA0.sprite_attributes & 0x8000) != 0
+
+	// Pull Switch
+	if (objA0.update_address == 0x029086)
+	{
+		Renderer.drawCustomSprite("pull_switch", px, py, 0, render_flag.WORLD, renderQueue)
+		return true
+	}
+
+	// Oil
+	if ((objA0.update_address == 0x032aae) && (global.zone == 0x06))
+	{
+		u64 oilanimframe = ""
+		oilanimframe = stringformat("oil_surface_%d", (level.framecounter >> 4) % 3)
+		Renderer.drawCustomSprite(oilanimframe, px, py - 15, 0, render_flag.WORLD, renderQueue)
+		Renderer.drawCustomSprite("oil_depths", px, py + 48, 0, render_flag.WORLD, renderQueue+100)
+		Renderer.drawCustomSprite("oil_depths", px, py + 64, 0, render_flag.WORLD, renderQueue+100)
+		return true
+	}
+
+    return base.Standalone.onWriteToSpriteTable(px, py, renderQueue)
+}

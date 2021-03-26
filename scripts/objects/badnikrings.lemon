@@ -1,0 +1,50 @@
+global u8 BadnikRingXOffset
+/*
+//# address-hook(0x02c8b8) end(0x02c9d4)
+function void fn02c8b8()
+{
+	// Spawn rings
+	setupObjectAttributesFull(0x089e9c)
+	objA0.update_address = 0x01a64a
+
+	spilled_rings.speed = 0xff
+	objA0.hitbox_extends.x = 0x08
+	objA0.hitbox_extends.y = 0x08
+
+	if (char.flags & char.flag.IN_AIR)
+	{
+		if (char.flags & char.flag.IN_AIR) && (char.character == CHARACTER_SONIC) && (char.double_jump_state == 1)
+		{
+			objA0.position.y.u16 += -0x26
+		}
+		else
+		{
+			objA0.position.y.u16 += -0x21
+		}
+	}
+	else
+	{
+			objA0.position.y.u16 += -0x16	
+	}
+	
+	objA0.render_flags = 0x84
+
+	D0 = 4
+	fn0852d0()
+	DrawObject()
+	objA0.velocity.y = -0x375
+
+	if (level.framecounter & 0x01)
+	{
+		objA0.velocity.x = -BadnikRingXOffset
+	}
+	else
+	{
+		objA0.velocity.x = BadnikRingXOffset
+	}
+}
+*/
+function void FlameQuest.badnikRingOffsetUpdate()
+{
+	BadnikRingXOffset = getRandomNumber() % 301
+}

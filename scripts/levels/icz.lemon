@@ -1,0 +1,168 @@
+//# address-hook(0x08a50c) end(0x08a516)
+function void fn08a50c()
+{
+
+}
+
+
+//# address-hook(0x071420) end(0x07143e)
+function void fn071420()
+{
+}
+
+//# address-hook(0x23e1aa) end(0x23e1d8)
+function void fn23e1aa()
+{
+
+}
+
+
+//# address-hook(0x23e1da) end(0x23e20c)
+function void fn23e1da()
+{
+
+}
+
+//# address-hook(0x00244e) end(0x002506)
+function void LevelPaletteUpdate.ICZ()
+{
+
+}
+
+//# address-hook(0x23de96) end(0x23dec4)
+function void fn23de96()
+{
+System.loadExternalRawData("PaletteICZ1", 0x0A915C)
+}
+
+//# address-hook(0x23ded6) end(0x23def8)
+function void fn23ded6()
+{
+System.loadExternalRawData("PaletteICZ1", 0x0A915C)
+}
+
+//# address-hook(0x053740) end(0x053740)
+//# address-hook(0x053886) end(0x05393c)
+function void ICZ1.TransitionToOutdoorArea()
+{
+	if (kosinski.queue_size == 0)
+	{
+		global.zone_act = 0x0501
+		camera.update_routine = 0
+		dynobjects.routine = 0
+		rings.update_routine = 0
+		level.boss_encounter = 0
+		global.in_extra_stage = 0
+		fn04f8f8()
+
+		push(A3)
+		push(A2)
+		push(A0)
+		push(D7)
+
+		fn01c362()
+		fn0076a6()
+
+		Level.InitializeWater()
+		VDP.Config.enableHInt(true)
+
+System.loadExternalRawData("PaletteICZ2", 0x0A915C)
+
+		D7 = pop()
+		A0 = pop()
+		A2 = pop()
+		A3 = pop()
+
+		D0.u16 = 0x6880
+		D1.u16 = 0xff00
+		u16[0xffffb010] -= D0.u16
+		u16[0xffffb014] -= D1.u16
+		u16[0xffffb05a] -= D0.u16
+		u16[0xffffb05e] -= D1.u16
+		fn04f3b0()
+		fn04f3a0()
+
+		camera.position.x.u16 -= D0.u16
+		camera.position.y.u16 -= D1.u16
+		camera.foreground.x.u16 -= D0.u16
+		camera.foreground.y.u16 -= D1.u16
+		move_area.left = 0
+		move_area.right = 0x7000
+		u32[0xffffee18] = 0x0b20
+		move_area.bottom.target = 0x0b20
+		level.height.bitmask = 0x0fff
+		level.height.tilemask = 0x0ff0
+		level.chunksize.bitmask = 0x7c
+		Level.GetCameraPosition()
+		level.scrolling_routine = 0
+	}
+
+	UpdateBackgroundScrolling.ICZ1.Indoors()
+	WriteScrollOffsets()
+}
+
+//# address-hook(0x039502) end(0x03954e)
+function void fn039502()
+{
+	if ((level.framecounter.low & 0x0f) == 0)
+	{
+		playSound(0xc8)
+	}
+
+	D0 = 0
+	if (u16[A2 + 0x10] >= 0x1310 && u16[A2 + 0x10] < 0x1330)
+	{
+		D0 = 2
+	}
+	else if (u16[A2 + 0x10] >= 0x2210 && u16[A2 + 0x10] < 0x2230)
+	{
+		D0 = 2
+	}
+
+	fn039554()
+}
+
+//# address-hook(0x039554) end(0x0395f8)
+function void fn039554()
+{
+	Object.animationUpdate(0x039476)
+	if (s16[A2 + 0x1c] >= 0x1000)
+	{
+		u16[A2 + 0x1c] -= 8
+	}
+	else
+	{
+		if (s16[A2 + 0x1c] < 0x1000)
+			u16[A2 + 0x1c] = 0x1000
+	}
+
+	if (u16[A2 + 0x10] >= 0x3880 && u16[A2 + 0x18] == 0)
+	{
+		objA0.update_address = 0x039676
+		u16[A2 + 0x18] = 0x300
+		u16[A2 + 0x1a] = -0x400
+		u8[A2 + 0x20] = char.state.RUNNING
+		u8[A2 + 0x2a] |= char.flag.IN_AIR
+		u8[A2 + 0x2e] = 0
+		playSound(SFX_JUMP)
+
+	#if STANDALONE
+		tails.respawn_counter = 0
+	#endif
+		tails.ai_routine = 0x02
+	}
+
+	if ((u8[A2 + 0x2a] & char.flag.IN_AIR) == 0)
+	{
+		D0.u8 = objA0.animation.sprite
+		if (D0.u8 != u8[A0 + 0x32])
+		{
+			if (D0.u8 == 0x07 || D0.u8 == 0x08)
+			{
+				playSound(0x7e)
+			}
+		}
+	}
+	fn03968e()
+	DrawObject()
+}

@@ -1,0 +1,34 @@
+function void UpdateGlobalRingAnimation()
+{
+	// Update for Hyper Rings animation
+	if (FlameQuest.hyperRingSpeed > 0)
+	{
+		FlameQuest.hyperRingProgress += FlameQuest.hyperRingSpeed
+		FlameQuest.hyperRingAnimFrame = (FlameQuest.hyperRingProgress >> 9) % 4
+		FlameQuest.hyperRingSpeed--
+	}
+
+	// In Oxygen, ouptut some debug stuff
+	#if !GAMEAPP
+	debugLog(stringformat("H: %04x | %04x | %04x", FlameQuest.hyperRingSpeed, FlameQuest.hyperRingAnimFrame, FlameQuest.hyperRingProgress))
+	debugLog(stringformat("S: %04x | %04x | %04x", spilled_rings.speed, spilled_rings.animframe, spilled_rings.progress))
+	#endif
+
+	base.UpdateGlobalRingAnimation()
+}
+
+/*
+function void FlameQuest.updateHyperRingCollectionTimer()
+{
+	// Update Hyper Ring timer (should probably be done elsewhere tbh)
+	if (FlameQuest.hyperRingSpeed > 0)
+	{
+		--FlameQuest.hyperRingSpeed
+	}
+	else
+	{
+		FlameQuest.hyperRingSpeed = 0
+	}
+
+}
+*/

@@ -1,0 +1,35 @@
+// Utility
+
+global u8 IsLosingRings  // Slowly losing rings, used in LBZ2 when the smog gets too thick and HCZ when the boiling water drains your rings.
+
+// Hyper Ring
+global u8 FlameQuest.hyperRingActive // Determines if the player currently has a Hyper Ring or not.
+
+// Spilled Hyper Ring variables
+// The vanilla scripts say that spilled_rings.speed is used as the speed for
+// spilled rings, but none of the Hyper Ring replacements I've done seemed
+// to directly affect speed. Maybe it's based on something else?
+global u8 FlameQuest.hyperRingSpeed // Used as (speed &) timer for Hyper Rings (like spilled_rings.speed)
+
+global u8 FlameQuest.hyperRingAnimFrame // Used like spilled_rings.animframe
+
+global u16 FlameQuest.hyperRingProgress // Used like spilled_rings.progress in vanilla script
+
+
+// Unless the HUD does more than just display currently equipped shields, these
+// 4 shield variables are useless (can just directly check which shield the player has)
+global u8 HUDHasFireShield // Determines if the HUD icon for the Fire Shield will show.
+
+global u8 HUDHasBubbleShield // Determines if the HUD icon for the Bubble Shield will show.
+
+global u8 HUDHasLightningShield // Determines if the HUD icon for the Lightning Shield will show.
+
+global u8 HUDHasBlueShield // Determines if the HUD icon for the Blue Shield will show.
+
+
+// For now, put defines here
+define u8 FlameQuest.Monitor.HYPER_RING = 0x36 // Hyper Ring monitor define
+
+// Stage
+
+global u8 LBZSmogValue // Capped at 255

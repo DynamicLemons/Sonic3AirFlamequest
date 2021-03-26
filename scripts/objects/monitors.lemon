@@ -1,0 +1,163 @@
+function u64 Monitor.getIconSpriteKey(u8 type)
+{
+	if (type == FlameQuest.Monitor.HYPER_RING)
+		return "monitor_icon_hyperring"
+
+	return base.Monitor.getIconSpriteKey(type)
+}
+
+// Fix an issue that causes certain monitor types to behave incorrectly
+function u8 Monitor.getRandomizedType(u8 type, bool hiddenMonitor)
+{
+	// If randomzied monitors are off, or if they're set to randomzie
+	// shields only
+	// If we ever add custom shields, this will probably need to be
+	// reworked
+	if(type == FlameQuest.Monitor.HYPER_RING && Game.getSetting(SETTING_RANDOM_MONITORS) != 2)
+	{
+		return FlameQuest.Monitor.HYPER_RING
+	}
+	else
+	{
+		return base.Monitor.getRandomizedType(type, hiddenMonitor)
+	}
+
+
+}
+
+// Add Hyper Ring Monitor to possible random monitor types
+function u8 Monitor.getRandomMonitorType(bool hiddenMonitor)
+{
+	u8 random = (global.level_random_base ^ objA0.position.x.u16 ^ objA0.position.y.u16) % 100
+
+	// 7% chance to get a Hyper Ring Monitor (regardless if it's hidden
+	// or not), use default randomizer logic otherwise
+	if(random < 7)
+	{
+		return FlameQuest.Monitor.HYPER_RING // Hyper Ring Monitor
+	}
+	else
+	{
+		// Vanilla random monitor logic
+		return base.Monitor.getRandomMonitorType(hiddenMonitor)
+	}
+
+}
+
+
+// Add Hyper Ring Monitor support
+//# address-hook(0x01d820) end(0x01d878)
+function void ItemEffect.UpdateDefaultInternal()
+{
+	// If it's not the hyper ring monitor, run vanilla/other mods' monitor
+	// logic
+	if (objA0.state != FlameQuest.Monitor.HYPER_RING)	// Hyper Ring
+	{
+		base.ItemEffect.UpdateDefaultInternal()
+		return
+	}
+
+	// Hyper Ring stuff (mostly copied from vanilla scripts)
+
+	if (u8[A0 + 0x49] != objA0.state)
+	{
+		// Go back from Classic Shield to original if player acquired a shield meanwhile
+		//  -> E.g. when opening two shield monitor quickly one after another
+		if (!Monitor.enforceClassicShield())
+		{
+			objA0.state = u8[A0 + 0x49]
+		}
+	}
+
+	if ((objA0.render_flags & render_flag.FLIP_Y) == 0)
+	{
+		if (objA0.velocity.y < 0)
+		{
+			UpdateMovementStraightSimple()
+			objA0.velocity.y += 0x18
+			return
+		}
+	}
+	else
+	{
+		if (objA0.velocity.y >= 0)
+		{
+			UpdateMovementStraightSimple()
+			objA0.velocity.y -= 0x18
+			return
+		}
+	}
+
+	objA0.base_state += 2
+	u16[A0 + 0x24] = 0x1d
+
+	A1 = 0xffff0000 + u16[A0 + 0x42]
+	A2 = (A1 == 0xffffb000) ? 0xfffffecc : 0xfffffece
+
+	ItemEffect.ApplyHyperRing()
+}
+
+/* Old Code
+//# address-hook(0x01d820) end(0x01d878)
+function void ItemEffect.UpdateDefaultInternal()
+{
+	if (u8[A0 + 0x49] != objA0.state)
+	{
+		// Go back from Classic Shield to original if player acquired a shield meanwhile
+		//  -> E.g. when opening two shield monitor quickly one after another
+		if (!Monitor.enforceClassicShield())
+		{
+			objA0.state = u8[A0 + 0x49]
+		}
+	}
+
+	if ((objA0.render_flags & render_flag.FLIP_Y) == 0)
+	{
+		if (objA0.velocity.y < 0)
+		{
+			UpdateMovementStraightSimple()
+			objA0.velocity.y += 0x18
+			return
+		}
+	}
+	else
+	{
+		if (objA0.velocity.y >= 0)
+		{
+			UpdateMovementStraightSimple()
+			objA0.velocity.y -= 0x18
+			return
+		}
+	}
+
+	objA0.base_state += 2
+	u16[A0 + 0x24] = 0x1d
+
+	A1 = 0xffff0000 + u16[A0 + 0x42]
+	A2 = (A1 == 0xffffb000) ? 0xfffffecc : 0xfffffece
+	if (objA0.state == 0x0b)	// Classic Shield
+	{
+		ItemEffect.applyShield(0, 0x0194ce, 0x3a)
+	}
+
+	{
+		// Targets:
+		//  - 0x01d898	-> objA0.base_state = 0x01
+		//  - 0x01d890	-> objA0.base_state = 0x02
+		//  - 0x01d8ac	-> objA0.base_state = 0x03
+		//  - 0x01d90a	-> objA0.base_state = 0x04
+		//  - 0x01d954	-> objA0.base_state = 0x05
+		//  - 0x01d992	-> objA0.base_state = 0x06
+		//  - 0x01d9d0	-> objA0.base_state = 0x07
+		//  - 0x01da0e	-> objA0.base_state = 0x08
+		//  - 0x01da60	-> objA0.base_state = 0x09
+		call tableLookupAddress(0x01d87c, objA0.state * 2)
+	}
+}
+*/
+
+function void ItemEffect.ApplyHyperRing()
+{
+	Audio.playAudio("hyper_ring", AudioContext.CONTEXT_SOUND)
+    FlameQuest.hyperRingActive = 1
+}

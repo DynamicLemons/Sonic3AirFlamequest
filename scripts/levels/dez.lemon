@@ -1,0 +1,38 @@
+//# address-hook(0x05951e) end(0x059522)
+function void UpdateLevelScrolling.DEZ2()
+{
+	#if STANDALONE
+		// Draw our own widescreen version of the background
+		Renderer.drawCustomSprite("bg_dez2", getScreenExtend() - 40, -63, 0x00, 0, 0x1100)
+
+		Renderer.drawCustomSprite("dez2bg2_1", -(camera.position.x.u16 / 24), 161, SPRITE_FLAG_WORLDSPACE, 0, 0x1111)
+		Renderer.drawCustomSprite("dez2bg2_2", -(camera.position.x.u16 / 20), 178, SPRITE_FLAG_WORLDSPACE, 0, 0x1111)
+		Renderer.drawCustomSprite("dez2bg2_3", -(camera.position.x.u16 / 16), 184, SPRITE_FLAG_WORLDSPACE, 0, 0x1111)
+		Renderer.drawCustomSprite("dez2bg2_4", -(camera.position.x.u16 / 12), 192, SPRITE_FLAG_WORLDSPACE, 0, 0x1111)
+		Renderer.drawCustomSprite("dez2bg2_5", -(camera.position.x.u16 / 8), 208, SPRITE_FLAG_WORLDSPACE, 0, 0x1111)
+	#endif
+
+	call 0x059526 + level.scrolling_routine
+}
+
+//# address-hook(0x05a544) end(0x05a554)
+function void UpdateLevelScrolling.DEZ_Boss()
+{
+	#if STANDALONE
+		// Draw our own widescreen version of the background
+		Renderer.drawCustomSprite("bg_dez2", getScreenExtend() - 40, -63, 0x00, 0, 0x1100)
+
+		Renderer.drawCustomSprite("dez2bg2_1", -(camera.position.x.u16 / 24), 161, SPRITE_FLAG_WORLDSPACE, 0, 0x1111)
+		Renderer.drawCustomSprite("dez2bg2_2", -(camera.position.x.u16 / 20), 178, SPRITE_FLAG_WORLDSPACE, 0, 0x1111)
+		Renderer.drawCustomSprite("dez2bg2_3", -(camera.position.x.u16 / 16), 184, SPRITE_FLAG_WORLDSPACE, 0, 0x1111)
+		Renderer.drawCustomSprite("dez2bg2_4", -(camera.position.x.u16 / 12), 192, SPRITE_FLAG_WORLDSPACE, 0, 0x1111)
+		Renderer.drawCustomSprite("dez2bg2_5", -(camera.position.x.u16 / 8), 208, SPRITE_FLAG_WORLDSPACE, 0, 0x1111)
+	#endif
+
+	A3 = 0xffff8008
+	D7.u16 = 0xc000
+	fn05a76c()
+
+	D0.u16 = level.scrolling_routine
+	call 0x05a558 + D0.s16
+}
