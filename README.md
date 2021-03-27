@@ -1,4 +1,4 @@
-# Sonic3FlameQuestRepo
+# Sonic3AirFlamequest
 Sonic 3 Flame Quest is a mod for Sonic the Hedgehog 3: Angel Island Revisited by Sega/Eukaryot. It's a pseudo sequel to the ROM hack Sonic Scorched Quest, incorporating many of its ideas but with a Sonic 3 (AIR) twist. Experience a new adventure through the flaming landscapes of Angel Island as Sonic & co. attempt to stop Robotnik from getting his hands on the Flame Emeralds!
 
 ### Features: ###
