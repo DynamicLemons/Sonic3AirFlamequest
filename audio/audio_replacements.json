@@ -32,8 +32,8 @@
 
 	// Mini-boss
 	//  -> First ID is S&K version, second is S3 version
-	"18": { "File": "music/other/Miniboss.ogg", "Type": "Music", "Loop": "1" },
-	"2E_sonic3": { "File": "music/other/Miniboss.ogg", "Type": "Music", "Loop": "1" },
+	"18": { "File": "music/other/minibossfq.ogg", "Type": "Music", "LoopStart": "117573" },
+	"2E_sonic3": { "File": "music/other/minibossfq.ogg", "Type": "Music", "LoopStart": "117573" },
 
 	// Main boss
 	"19": { "File": "music/other/S4CyberneticOutbreakBoss.ogg", "Type": "Music", "Loop": "1" },
