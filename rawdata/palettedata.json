@@ -54,6 +54,11 @@
 		"File": "HCZ1.bin",
 		"RomInject": "0xA8D9C"
 	},
+	"HCZ1Waterfall":
+	{
+		"File": "HCZ1Waterfall.bin",
+		"RomInject": "0x2D0E"
+	},
 	"PaletteHCZ2":
 	{
 		"File": "HCZ1.bin",
