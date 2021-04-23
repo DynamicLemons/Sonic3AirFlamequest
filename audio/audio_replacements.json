@@ -39,8 +39,8 @@
 	"19": { "File": "music/other/S4CyberneticOutbreakBoss.ogg", "Type": "Music", "Loop": "1" },
 
 	// DDZ
-	"1A":      { "File": "music/stage/e_ddz/Doomsday.ogg", "Type": "Music", "Loop": "369218" },
-	"1A_fast": { "File": "music/stage/e_ddz/DoomsdayF.ogg", "Type": "Music", "Loop": "501938" },
+	"1A":      { "File": "music/stage/e_ddz/Doomsday.ogg", "Type": "Music", "LoopStart": "501211" },
+	"1A_fast": { "File": "music/stage/e_ddz/DoomsdayF.ogg", "Type": "Music", "LoopStart": "423678" },
 
 	// Glowing Spheres bonus stage
 	"1B": { "File": "musicother/BonusStage.ogg", "Type": "Music", "Loop": "1" },
