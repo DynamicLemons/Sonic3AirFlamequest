@@ -40,7 +40,7 @@
 
 	// DDZ
 	"1A":      { "File": "music/stage/e_ddz/Doomsday.ogg", "Type": "Music", "LoopStart": "501211" },
-	"1A_fast": { "File": "music/stage/e_ddz/DoomsdayF.ogg", "Type": "Music", "LoopStart": "423678" },
+	"1A_fast": { "File": "music/stage/e_ddz/DoomsdayF.ogg", "Type": "Music", "LoopStart": "400669" },
 
 	// Glowing Spheres bonus stage
 	"1B": { "File": "musicother/BonusStage.ogg", "Type": "Music", "Loop": "1" },
