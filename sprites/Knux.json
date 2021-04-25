@@ -1,4 +1,5 @@
 {
+	/*
 	"character_knuckles_0x01": { "File": "players/character_knuckles.bmp", "Rect": "8,8,40,40", "Center": "21,20" },
 	"character_knuckles_0x02": { "File": "players/character_knuckles.bmp", "Rect": "64,8,40,40", "Center": "23,20" },
 	"character_knuckles_0x03": { "File": "players/character_knuckles.bmp", "Rect": "124,8,32,40", "Center": "20,20" },
@@ -249,4 +250,5 @@
 	"character_knuckles_0xf8": { "File": "players/character_knuckles.bmp", "Rect": "408,848,24,40", "Center": "12,20" },
 	"character_knuckles_0xf9": { "File": "players/character_knuckles.bmp", "Rect": "460,848,32,40", "Center": "16,21" },
 	"character_knuckles_0xfa": { "File": "players/character_knuckles.bmp", "Rect": "516,848,32,40", "Center": "16,21" }
+	*/
 }
