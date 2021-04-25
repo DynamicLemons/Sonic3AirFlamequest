@@ -1,6 +1,8 @@
 {
+	/*
 	"sonic_peelout_0":  { "File": "players/character_sonic_peelout.bmp", "Rect": "0,0,40,40", "Center": "20,24" },
 	"sonic_peelout_1":  { "File": "players/character_sonic_peelout.bmp", "Rect": "40,0,40,40", "Center": "20,24" },
 	"sonic_peelout_2":  { "File": "players/character_sonic_peelout.bmp", "Rect": "80,0,40,40", "Center": "20,24" },
 	"sonic_peelout_3":  { "File": "players/character_sonic_peelout.bmp", "Rect": "120,0,40,40", "Center": "20,24" }
+	*/
 }
