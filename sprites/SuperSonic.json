@@ -1,4 +1,5 @@
 {
+	/*
 	"character_supersonic_0x01": { "File": "players/character_supersonic.bmp", "Rect": "8,4,40,48", "Center": "20,28" },
 	"character_supersonic_0x02": { "File": "players/character_supersonic.bmp", "Rect": "64,4,40,48", "Center": "20,27" },
 	"character_supersonic_0x03": { "File": "players/character_supersonic.bmp", "Rect": "124,4,32,48", "Center": "20,26" },
@@ -249,4 +250,5 @@
 	"character_supersonic_0xf8": { "File": "players/character_supersonic.bmp", "Rect": "408,848,24,40", "Center": "12,20" },
 	"character_supersonic_0xf9": { "File": "players/character_supersonic.bmp", "Rect": "464,848,24,40", "Center": "12,20" },
 	"character_supersonic_0xfa": { "File": "players/character_supersonic.bmp", "Rect": "516,848,32,40", "Center": "16,20" }
+	*/
 }
