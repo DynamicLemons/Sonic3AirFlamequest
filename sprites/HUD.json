@@ -43,5 +43,12 @@
 	"hud_lives_icon_knuckles":  { "File": "ui/HUD.png", "Rect": "16,104,16,16", "Center": "0,0" },
 	"hud_lives_icon_amy":  { "File": "ui/HUD.png", "Rect": "0,88,16,16", "Center": "0,0" },
 	"hud_x":  { "File": "ui/HUD.png", "Rect": "0,104,16,16", "Center": "0,0" },
-	"hud_item_display_blank":  { "File": "ui/HUD.png", "Rect": "0,72,16,16", "Center": "0,0" }
+	"hud_item_display_blank":  { "File": "ui/HUD.png", "Rect": "0,72,16,16", "Center": "0,0" },
+	"hud_item_display_shield_fire":  { "File": "ui/HUD.png", "Rect": "96,72,16,16", "Center": "0,0" },
+	"hud_item_display_shield_lightning":  { "File": "ui/HUD.png", "Rect": "32,72,16,16", "Center": "0,0" },
+	"hud_item_display_shield_bubble":  { "File": "ui/HUD.png", "Rect": "112,72,16,16", "Center": "0,0" },
+	"hud_item_display_shield_classic":  { "File": "ui/HUD.png", "Rect": "48,72,16,16", "Center": "0,0" },
+	"hud_item_display_speedshoes":  { "File": "ui/HUD.png", "Rect": "64,72,16,16", "Center": "0,0" },
+	"hud_item_display_invincible":  { "File": "ui/HUD.png", "Rect": "128,72,16,16", "Center": "0,0" },
+	"hud_item_display_super":  { "File": "ui/HUD.png", "Rect": "80,72,16,16", "Center": "0,0" }
 }
