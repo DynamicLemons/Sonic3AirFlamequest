@@ -25,8 +25,6 @@ function void Renderer.drawJumpballShine(u16 px, u16 py)
 // Standalone-specific character rendering               //
 //-------------------------------------------------------//
 
-global u8 oldRotationPlayer1
-global u8 oldRotationPlayer2
 global u8 RollRotationValue
 
 function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s16 py, bool asSmallGhost)
@@ -216,6 +214,17 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 
 		if (key == 0)
 		{
+			if (char.animation.sprite >= 0x96 && char.animation.sprite <= 0x9a) && (character != CHARACTER_TAILS) && (A0 == 0xffffb000)
+			{
+				if (character == CHARACTER_SONIC)
+				{
+					animationSprite = 0x97
+				}
+				if (character == CHARACTER_KNUCKLES)
+				{
+					animationSprite = 0x96
+				}
+			}
 			if (character == CHARACTER_SONIC)
 			{
 				key = stringformat(super.active ? "character_supersonic_0x%02x" : "character_sonic_0x%02x", animationSprite)
@@ -318,14 +327,7 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 			}
 			else
 			{
-				if (character == CHARACTER_SONIC)
-				{
-					Renderer.drawCustomSprite("character_sonic_0x97", px, py, atex, flags, renderQueue, RollRotationValue, 255)
-				}
-				if (character == CHARACTER_KNUCKLES)
-				{
-					Renderer.drawCustomSprite("character_knuckles_0x96", px, py, atex, flags, renderQueue, RollRotationValue, 255)
-				}
+				Renderer.drawCustomSprite(key, px, py, atex, flags, renderQueue, RollRotationValue, 255)
 			}
 		}
 		else
@@ -422,13 +424,4 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 
 	// Prevent emulator-like rendering
 	return true
-}
-
-
-
-// Helper functions
-
-function u64 getCharacterBonusTextIcon(u8 character)
-{
-	return (character == CHARACTER_KNUCKLES) ? "hud_bonus_icon_red" : (character == CHARACTER_TAILS) ? "hud_bonus_icon_orange" : "hud_bonus_icon_blue"
 }
