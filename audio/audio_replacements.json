@@ -36,7 +36,7 @@
 	"2E_sonic3": { "File": "music/other/minibossfq.ogg", "Type": "Music", "LoopStart": "117573" },
 
 	// Main boss
-	"19": { "File": "music/other/S4CyberneticOutbreakBoss.ogg", "Type": "Music", "Loop": "1" },
+	"19": { "File": "music/other/bossfq.ogg", "Type": "Music", "LoopStart": "70559" },
 
 	// DDZ
 	"1A":      { "File": "music/stage/e_ddz/Doomsday.ogg", "Type": "Music", "LoopStart": "501211" },
