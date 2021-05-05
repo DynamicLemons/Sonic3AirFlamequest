@@ -4,21 +4,17 @@ function u8 FlameQuest.SelectSpecialStage()
 	//  0 = Special Stage
 	//  1 = Bonus Stage
 	u8 stage = stage
-	if (global.super_emeralds != 6) && (global.super_emeralds != 7)
+
+	if ((global.super_emeralds != 6) && (global.super_emeralds != 7))
 	{
-    if (ring_counter >= 25) && (ring_counter <= 50)
-    {
-        stage = 1 // Bonus Stage
-    }
-    else
-    {
-        stage = 0 // Special Stage
-    }
+		if ((ring_counter >= 25) && (ring_counter <= 50))
+			stage = 1 // Bonus Stage
+		else
+			stage = 0 // Special Stage
 	}
 	else if (ring_counter <= 25)
-	{
 		stage = 1 // Bonus Stage
-	}
+
 	return stage
 }
 
@@ -61,15 +57,11 @@ function void fn02d3c8()
 		// Slot machine
 		A1 = 0x187c4e
 	}
-	else if (stage == 1)
+	else
 	{
 		// Glowing spheres
 		A1 = 0x187b8a
 	}
-	else
-	{
-		// Gumball machine
-		A1 = 0x187b8a
-	}
+
 	Kosinski.addToDMAQueue(A1, 0xbd80)
 }
