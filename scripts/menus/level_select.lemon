@@ -721,3 +721,47 @@ function void ZoneTimesMenu.drawString(u32 vramAddress, u64 stringToDraw, u8 pal
 		vramAddress += 2
 	}
 }
+
+//# address-hook(0x007f62) end(0x008010)
+//# translated(0x008012) end(0x00803e)
+function void fn007f62()
+{
+	A4 = 0xffff0000
+	A5 = 0x008040
+	A3 = A5 + levelselect.selection * 4
+	D0 = u32(u8[A3]) * 0x50 + u8[A3 + 1]
+	A1 = A4 + D0.s16
+
+	D1 = u32(u8[A3]) * 0x80 + u8[A3 + 1]
+	D1.u16 += 0xc000
+	VDP.setupVRAMWrite(D1.u16)
+
+	for (u8 i = 0; i < 0x0f; ++i)
+	{
+		D0.u16 = u16[A1] + D3.u16
+		VDP.writeData16(D0.u16)
+		A1 += 2
+	}
+
+	A3 += 2
+	D0 = u8[A3]
+	if (D0.u8 != 0)
+	{
+		D0 = u32(D0.u16) * 0x50 + u8[A3 + 1]
+		A1 = A4 + D0.u16
+
+		D1 = 0xc000 + u8[A3] * 0x80 + u8[A3 + 1]
+		VDP.setupVRAMWrite(D1.u16)
+
+		D0.u16 = u16[A1] + D3.u16
+		VDP.writeData16(D0.u16)
+		A1 += 2
+	}
+
+	if (levelselect.selection == 0x20)
+	{
+		VDP.setupVRAMWrite(0xcb46)
+		LevelSelect.writeHexDigit(levelselect.soundtest >> 4,   D3.u16)
+		LevelSelect.writeHexDigit(levelselect.soundtest & 0x0f, D3.u16)
+	}
+}
