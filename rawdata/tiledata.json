@@ -17,7 +17,11 @@
 	"File": "fbz chunks.bin",
 	"RomInject": "0x01974a2"
 },
-	
+	"AIZ chunks": 
+{
+	"File": "AIZ2Collision.bin",
+	"RomInject": "0x3b51e8" 
+},
 "mhz chunks 1":
 {
 	"File": " mhz primary chunks.bin",
