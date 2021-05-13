@@ -3,6 +3,10 @@
 	"aiz1_objects": { "File": "../SonicFlameQuestProjDisam/Levels/AIZ/Object Pos/1.bin" },
 	"aiz1_rings": { "File": "../SonicFlameQuestProjDisam/Levels/AIZ/Ring Pos/1.bin" },
 	
+	"aiz2_layout": { "File": "../SonicFlameQuestProjDisam/Levels/AIZ/Layout/2.bin" },
+	"aiz2_objects": { "File": "../SonicFlameQuestProjDisam/Levels/AIZ/Object Pos/2.bin" },
+	"aiz2_rings": { "File": "../SonicFlameQuestProjDisam/Levels/AIZ/Ring Pos/2.bin" },
+	
 	"hcz1_layout": { "File": "../SonicFlameQuestProjDisam/Levels/HCZ/Layout/1.bin" },
 	"hcz1_objects": { "File": "../SonicFlameQuestProjDisam/Levels/HCZ/Object Pos/1.bin" },
 	"hcz1_rings": { "File": "../SonicFlameQuestProjDisam/Levels/HCZ/Ring Pos/1.bin" },
