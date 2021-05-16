@@ -4,6 +4,10 @@
 	// Music and jingles                            //
 	//----------------------------------------------//
 
+	// AIZ 1
+	"01":      { "File": "music/stage/1_aiz/aia1.ogg", "Type": "Music" },
+	"01_fast": { "File": "music/stage/1_aiz/aia1f.ogg", "Type": "Music" },
+
 	// CNZ 1
 	"07":      { "File": "music/stage/4_cnz/BlazingCarnival1.ogg", "Type": "Music", "Loop": "1" },
 	"07_proto":      { "File": "music/stage/4_cnz/BlazingCarnival1.ogg", "Type": "Music", "Loop": "1" },
