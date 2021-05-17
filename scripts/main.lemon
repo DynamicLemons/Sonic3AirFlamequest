@@ -16,7 +16,7 @@ include cutscenes/?
 include credits/?
 include eastereggs/?
 include compatibility/?
-
+include audio
 include utility/?
 
 
