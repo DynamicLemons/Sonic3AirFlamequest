@@ -10,6 +10,7 @@
 
 	// AIZ 1 FIRE
 	"flamequest_aiz_fire":      { "File": "music/stage/1_aiz/aia1fire.ogg", "Type": "Music", "LoopStart":  "41156" },
+	"flamequest_aiz_fire_fast":      { "File": "music/stage/1_aiz/aia1firef.ogg", "Type": "Music", "LoopStart":  "35281" },
 	
 	// CNZ 1
 	"07":      { "File": "music/stage/4_cnz/BlazingCarnival1.ogg", "Type": "Music", "Loop": "1" },
