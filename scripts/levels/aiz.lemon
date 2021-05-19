@@ -13,3 +13,11 @@ function void fn01c550()
 		camera.update_routine += 2
 	}
 }
+
+//# address-hook(0x04ff0a) end(0x04ff12)
+function void InitLevelTiles.AIZ2()
+{
+	System.loadExternalRawData("AIZ2 chunks", 0x3b51e8)
+
+	base.InitLevelTiles.AIZ2()
+}
