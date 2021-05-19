@@ -17,7 +17,12 @@
 	"File": "fbz chunks.bin",
 	"RomInject": "0x01974a2"
 },
-	"AIZ chunks": 
+	"AIZ1 chunks": 
+{
+	"File": "AIZ1Collision.bin",
+	"RomInject": "0x3ABC40" 
+},
+	"AIZ2 chunks": 
 {
 	"File": "AIZ2Collision.bin",
 	"RomInject": "0x3b51e8" 
