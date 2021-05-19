@@ -1,0 +1,15 @@
+//# address-hook(0x01c550) end(0x01c5c4)
+function void fn01c550()
+{
+	//Remove camera lock
+	move_area.bottom.target = 0x04C0
+	move_area.bottom.current = move_area.bottom.target
+	level.vertical_wrap = 0
+	if (camera.position.x.u16 >= 0x2d80)
+	{
+		u16[0xfffffc5e] = (isMainCharacter(CHARACTER_KNUCKLES)) ? u16[0x04faea] : 0x0c02
+		move_area.left = 0x2d80
+		requestLoadingPatterns(0x5a)
+		camera.update_routine += 2
+	}
+}
