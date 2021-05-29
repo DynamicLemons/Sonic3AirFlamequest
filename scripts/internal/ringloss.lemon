@@ -84,7 +84,9 @@ function void CollectRing()
 // Remove the Hyper Ring state upon death
 function void Character.Die_noSound()
 {
-	FlameQuest.hyperRingActive = false
+	if (A0 == 0xffffb000)
+		FlameQuest.hyperRingActive = false
+
 	base.Character.Die_noSound()
 }
 
