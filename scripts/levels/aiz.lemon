@@ -21,3 +21,93 @@ function void InitLevelTiles.AIZ2()
 
 	base.InitLevelTiles.AIZ2()
 }
+
+//# address-hook(0x04f906) end(0x04f90e)
+function void InitLevelTiles.AIZ1()
+{
+	AIZ1.ChangeBackgroundForKnuckles()
+
+	Level.GetCameraPosition()
+	Level.InitialTilesFill()
+/*
+#if STANDALONE
+	// Update some chunks on the left of the start area that look broken
+	// due with the border being a bit further left in S3AIR (see "fn01c4d0()")
+	for (u32 i = 0; i < 7; ++i)
+		u16[0xffff80ac + i * 0x61] = 0x64
+#endif
+*/
+}
+
+//# address-hook(0x04f912) end(0x04fa0a)
+function void UpdateLevelTiles.AIZ1()
+{
+	LoadTileContentDefault()
+
+	D0.u16 = u16[0xffffeec4]
+	if (D0.u16 == 0)
+		return
+	/*
+	// Handling of the hollow tree
+	if (camera.position.x.u16 < 0x2d30 && D0.u16 < 0x39)
+	{
+		if (D0.u16 >= 0x34)
+		{
+			fn04f912_internal(0x04)
+		}
+		if (D0.u16 >= 0x24)
+		{
+			fn04f912_internal(0x08)
+		}
+		if (D0.u16 >= 0x14)
+		{
+			fn04f912_internal(0x0c)
+		}
+
+		A6 = (D0 & 0x01) ? 0x23ac4a : 0x23ac5a
+
+		D0.u16 = (D0.u16 - 1) >> 1
+		level.display_routine = min(D0.u16, 2)
+		D0.s16 = 0x0470 - (D0.s16 << 4)
+
+		while (true)
+		{
+			if (D0.u16 < camera.foreground.y.old)
+			{
+				A6 += 0x20
+				D0.u16 += 0x10
+
+				--level.display_routine
+				if (level.display_routine & 0x80)
+					break
+			}
+			else
+			{
+				D1.u16 = 0x2c80		// Tree left side's x-position
+				D6 = 0x10
+
+				u32 backupA0 = A0
+				LoadTileContentSingleLine()
+				A0 = backupA0
+
+				D0.u16 -= 0x280
+				D1 = 0
+				D6 = 0x0f
+				fn23ab96()
+
+				A6 += 0x10
+				D0.u16 += 0x290
+
+				--level.display_routine
+				if (level.display_routine & 0x80)
+					return
+			}
+		}
+	}
+	*/
+	u16[0xffffeec4] = 0
+	fn04f912_internal(0x00)
+	fn04f912_internal(0x04)
+	fn04f912_internal(0x08)
+	fn04f912_internal(0x0c)
+}
