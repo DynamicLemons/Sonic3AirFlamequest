@@ -296,13 +296,6 @@ function void Character.UpdateNormalState.Tails()
 //# address-hook(0x01656c) end(0x016640)
 function void Character.UpdateNormalState.Knuckles()
 {
-	// Handle RGB Knux stuff here. Might not be the best place to do it,
-	// but it'll be fine here for now
-	if(FlameQuest.Secret.useRGBKnux)
-	{
-		FlameQuest.Character.updateRGBKnux()
-	}
-
 	if (updateDebugModeInput(false))
 		return
 
@@ -386,11 +379,6 @@ function void Character.UpdateNormalState.Knuckles()
 //# address-hook(0x04b958) end(0x04b978)
 function void fn04b958()
 {
-	if(getMainCharacter() == CHARACTER_KNUCKLES && FlameQuest.Secret.useRGBKnux)
-	{
-		FlameQuest.Character.updateRGBKnux()
-	}
-
 	control.player1 = control.pad1
 	if (debug_mode.state)
 	{
@@ -406,102 +394,5 @@ function void fn04b958()
 		call tableLookupAddress(0x04b9bc, objA0.base_state)
 
 		fn04b97c()
-	}
-}
-
-
-// Function that updates RGB Knux
-function void FlameQuest.Character.updateRGBKnux()
-{
-	#if !GAMEAPP
-	debugLog("Using RGB Knux")
-	#endif
-
-	FlameQuest.Character.updateSuperRGBKnux()
-
-	for(u8 i = 1; i < 32; i++)
-	{
-		// Choose how much to shift the color by
-		u16 shiftDegree = super.active == 0xff ? 8 : (super.active ? 4 : 1)
-
-		// Shift current color
-		u32[FlameQuest.RGB_KNUX_PALETTE + i * 4] = DKoC.Util.shiftHSL(u32[FlameQuest.RGB_KNUX_PALETTE + i * 4], shiftDegree)
-
-		// Get current color & apply any RGB Knux luminance shifting
-		u32 hslColor = u32[FlameQuest.RGB_KNUX_PALETTE + i * 4]
-
-		hslColor = DKoC.Util.modifyHSLLuminance(hslColor, FlameQuest.RGBKnux.superGlowOffset)
-
-		// Convert color to RGB
-		u32 rgbColor = DKoC.Util.hslToABGR(hslColor)
-
-		u16[0x802080 + i * 2] = packColor(rgbColor)
-
-		// Renderer.setPaletteEntry(0x80 + i, rgbColor)
-	}
-
-	// Underwater Knux
-	for(u8 i = 1; i < 32; i++)
-	{
-		// Choose how much to shift the color by
-		u16 shiftDegree = super.active == 0xff ? 8 : (super.active ? 4 : 1)
-
-		// Shift current color
-		u32[FlameQuest.RGB_KNUX_PALETTE_WATER + i * 4] = DKoC.Util.shiftHSL(u32[FlameQuest.RGB_KNUX_PALETTE_WATER + i * 4], shiftDegree)
-
-
-		u32 hslColor = u32[FlameQuest.RGB_KNUX_PALETTE_WATER + i * 4]
-
-		hslColor = DKoC.Util.modifyHSLLuminance(hslColor, FlameQuest.RGBKnux.superGlowOffset)
-
-		// Convert color to RGB
-		u32 rgbColor = DKoC.Util.hslToABGR(hslColor)
-
-
-		u16[0x802380 + i * 2] = packColor(rgbColor)
-
-		// Renderer.setPaletteEntry(0x80 + i, rgbColor)
-	}
-}
-
-// Update Super RGB Knux specific stuff (i.e. palettes)
-function void FlameQuest.Character.updateSuperRGBKnux()
-{
-	// Update RGB Knux' super glow
-	if(super.active)
-	{
-		if(FlameQuest.RGBKnux.superGlowIsIncreasing)
-			FlameQuest.RGBKnux.superGlowOffset += (super.active == 0xff ? 6 : 3)
-		else
-			FlameQuest.RGBKnux.superGlowOffset -= (super.active == 0xff ? 6 : 3)
-		/*
-		FlameQuest.RGBKnux.superGlowOffset = abs(0x67 - super.palettefx.frame)
-
-		if(super.active != 0xff)
-			FlameQuest.RGBKnux.superGlowOffset /= 2
-		*/
-
-		// Prevent glow offset from becoming too large (or small)
-		FlameQuest.RGBKnux.superGlowOffset = clamp(FlameQuest.RGBKnux.superGlowOffset, 0, 64)
-
-		// If either boundary was hit, switch between increasing/decreasing mode
-		if(FlameQuest.RGBKnux.superGlowOffset == 64)
-		{
-			FlameQuest.RGBKnux.superGlowIsIncreasing = false
-		}
-		else if(FlameQuest.RGBKnux.superGlowOffset == 0)
-		{
-			FlameQuest.RGBKnux.superGlowIsIncreasing = true
-		}
-	}
-	else
-	{
-		if(FlameQuest.RGBKnux.superGlowOffset)
-		{
-			FlameQuest.RGBKnux.superGlowOffset -= 3
-
-			if(FlameQuest.RGBKnux.superGlowOffset < 0)
-				FlameQuest.RGBKnux.superGlowOffset = 0
-		}
 	}
 }
