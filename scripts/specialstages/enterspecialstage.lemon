@@ -1,3 +1,4 @@
+/*
 function u8 FlameQuest.SelectSpecialStage()
 {
 	// Stages:
@@ -73,3 +74,4 @@ function void fn02d3c8()
 	}
 	Kosinski.addToDMAQueue(A1, 0xbd80)
 }
+*/

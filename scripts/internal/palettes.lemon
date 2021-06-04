@@ -1,3 +1,5 @@
+// TODO: Remove this in favor of using HSL functions to change character
+// paletes dynamically
 function u64 getCharacterPaletteKey(u8 character)
 {
 	bool isBonusStage = (global.zone >= 0x13 && global.zone <= 0x15)
@@ -13,7 +15,10 @@ function u64 getCharacterPaletteKey(u8 character)
 	u64 characterForm = (super.active & 0x80 || super.active.tails & 0x80) ? "scorching" : "burning"
 	u64 characterTemp = isCorrectZone ? "hot" : "normal"
 
-	return stringformat("character_palette_%s_%s_%s", characterForm, characterString, characterTemp)
+	if(character != CHARACTER_KNUCKLES)
+		return stringformat("character_palette_%s_%s_%s", characterForm, characterString, characterTemp)
+	else
+		return "character_palette_knuckles"
 
 	/* Legacy Code
 	if ((!isBonusStage) && (global.zone.apparent != 0x00) && !(global.zone.apparent >= 0x0a && global.zone.apparent <= 0x0c))
@@ -102,28 +107,32 @@ function void loadCharacterPalette(u8 character, u32 targetAddress, u8 paletteVa
 	// Run the vanilla palette loading code
 	base.loadCharacterPalette(character, targetAddress, paletteVariant)
 
-	// The vanilla palette loading code uses shared memory to store colors,
-	// so we can use this to easily convert all of Knux' colors to HSL
+	// Load knux palettes
 	if(character == CHARACTER_KNUCKLES)
 	{
-		// Normal palette
-		if(!paletteVariant)
+		// Get palette address based on palette variant
+		u32 paletteAddress = (!paletteVariant ? FlameQuest.RGB_KNUX_PALETTE : FlameQuest.RGB_KNUX_PALETTE_WATER)
+
+		if(EXTENDED_CHARACTER_PALETTES)
 		{
+			// The vanilla palette loading code uses shared memory to store colors,
+			// so we can use this to easily convert all of Knux' colors to HSL
 			for (u8 i = 0; i < 0x20; ++i)
 			{
 				u32 rgba = u32[0x800000 + i * 4]
-				u32[FlameQuest.RGB_KNUX_PALETTE + i * 4] = DKoC.Util.abgrToHSL(rgba)
+				u32[paletteAddress + i * 4] = DKoC.Util.abgrToHSL(rgba)
 			}
+
 		}
-		// Underwater palette
+		// Vanilla palette loading.
 		else
 		{
-			for (u8 i = 0; i < 0x20; ++i)
+			// Copy and unpack colors from ROM
+			for(u8 i = 0; i < 0x10; i++)
 			{
-				u32 rgba = u32[0x800000 + i * 4]
-				u32[FlameQuest.RGB_KNUX_PALETTE_WATER + i * 4] = DKoC.Util.abgrToHSL(rgba)
+				u32 rgba = unpackColor(u16[0x0a8afc + i * 2])
+				u32[paletteAddress + i * 4] = DKoC.Util.abgrToHSL(rgba)
 			}
 		}
 	}
-
 }
