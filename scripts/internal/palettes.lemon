@@ -137,7 +137,7 @@ function void loadCharacterPalette(u8 character, u32 targetAddress, u8 paletteVa
 	}
 }
 
-// Update RGB Knux
+// Palette Effects function
 function void UpdatePaletteEffects()
 {
 	base.UpdatePaletteEffects()
@@ -148,6 +148,10 @@ function void UpdatePaletteEffects()
 		FlameQuest.Character.updateRGBKnux()
 	}
 }
+
+///////////////////////////////
+/// 		RGB KNUX 		///
+///////////////////////////////
 
 // Function that updates RGB Knux
 function void FlameQuest.Character.updateRGBKnux()
