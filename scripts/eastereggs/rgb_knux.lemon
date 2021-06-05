@@ -1,0 +1,176 @@
+
+///////////////////////////////
+/// 		RGB KNUX 		///
+///////////////////////////////
+
+// Function that updates RGB Knux
+function void FlameQuest.RGBKnux.updateRGBKnux()
+{
+	#if !GAMEAPP
+	debugLog("Using RGB Knux")
+	#endif
+
+	FlameQuest.RGBKnux.updateSuperRGBKnux()
+
+	// Normal Knux
+	FlameQuest.RGBKnux.updateGameplayRGBKnuxColors(FlameQuest.RGB_KNUX_PALETTE, 0x802080, 32)
+
+	// Underwater Knux
+	FlameQuest.RGBKnux.updateGameplayRGBKnuxColors(FlameQuest.RGB_KNUX_PALETTE_WATER, 0x802380, 32)
+}
+
+/* Updates RGB Knux colors
+ *
+ * u32 sourceAddress - 		Address of RGB Knux palette in RAM
+ * u32 destinationAddress - Address in CRAM for RGB Knux palette
+ * u8  numColors - 			Number of colors to write to CRAM
+ * s16 shiftDegree - 		Degree to shift colors by (see colors.lemon for details)
+ */
+function void FlameQuest.RGBKnux.updateRGBKnuxColors(u32 sourceAddress, u32 destinationAddress, u8 numColors, s16 shiftDegree)
+{
+	for(u8 i = 1; i < numColors; i++)
+	{
+		// Shift current color
+		u32[sourceAddress + i * 4] = DKoC.Util.shiftHSL(u32[sourceAddress + i * 4], shiftDegree)
+
+		// Get current color & apply any RGB Knux luminance shifting
+		u32 hslColor = u32[sourceAddress + i * 4]
+		hslColor = DKoC.Util.modifyHSLLuminance(hslColor, FlameQuest.RGBKnux.superGlowOffset)
+
+		// Convert color to RGB
+		u32 rgbColor = DKoC.Util.hslToABGR(hslColor)
+
+		u16[destinationAddress + i * 2] = packColor(rgbColor)
+
+		// Renderer.setPaletteEntry(0x80 + i, rgbColor)
+	}
+}
+
+// Same as RGBKnux.updateRGBKnuxColors() but uses super.active to determine
+// shift degree.
+function void FlameQuest.RGBKnux.updateGameplayRGBKnuxColors(u32 sourceAddress, u32 destinationAddress, u8 numColors)
+{
+	// Choose how much to shift the color by
+	u16 shiftDegree = super.active == 0xff ? 8 : (super.active ? 4 : 1)
+
+	FlameQuest.RGBKnux.updateRGBKnuxColors(sourceAddress, destinationAddress, numColors, shiftDegree)
+}
+
+// Update Super RGB Knux specific stuff, based on super.active
+function void FlameQuest.RGBKnux.updateSuperRGBKnux()
+{
+	FlameQuest.RGBKnux.updateSuperRGBKnux(super.active)
+}
+
+/* Update Super RGB Knux specific stuff based on a form
+ * u8 currentForm - Form to use for calculations. Follows values based on
+ * 					super.active, i.e.:
+	* 0x00 - Not super
+	* 0x01 - Super Knux
+	* 0xff - Hyper Knux
+ */
+function void FlameQuest.RGBKnux.updateSuperRGBKnux(u8 currentForm)
+{
+	// Update RGB Knux' super glow
+	if(currentForm)
+	{
+		if(FlameQuest.RGBKnux.superGlowIsIncreasing)
+			FlameQuest.RGBKnux.superGlowOffset += (currentForm == 0xff ? 6 : 3)
+		else
+			FlameQuest.RGBKnux.superGlowOffset -= (currentForm == 0xff ? 6 : 3)
+		/*
+		FlameQuest.RGBKnux.superGlowOffset = abs(0x67 - super.palettefx.frame)
+
+		if(currentForm != 0xff)
+			FlameQuest.RGBKnux.superGlowOffset /= 2
+		*/
+
+		// Prevent glow offset from becoming too large (or small)
+		FlameQuest.RGBKnux.superGlowOffset = clamp(FlameQuest.RGBKnux.superGlowOffset, 0, 64)
+
+		// If either boundary was hit, switch between increasing/decreasing mode
+		if(FlameQuest.RGBKnux.superGlowOffset == 64)
+		{
+			FlameQuest.RGBKnux.superGlowIsIncreasing = false
+		}
+		else if(FlameQuest.RGBKnux.superGlowOffset == 0)
+		{
+			FlameQuest.RGBKnux.superGlowIsIncreasing = true
+		}
+	}
+	else
+	{
+		if(FlameQuest.RGBKnux.superGlowOffset)
+		{
+			FlameQuest.RGBKnux.superGlowOffset -= 3
+
+			if(FlameQuest.RGBKnux.superGlowOffset < 0)
+				FlameQuest.RGBKnux.superGlowOffset = 0
+		}
+	}
+}
+
+// RGB Knux Outro
+
+// Load RGB Knux palette into RAM
+//# address-hook(0x05f480) end(0x05f4e2)
+function void fn05f480()
+{
+	base.fn05f480()
+
+	for(u8 i = 0; i < 0x10; i++)
+	{
+		// Extract color from CRAM
+		u32 colorAddress = 0xfffffc00 + i * 0x02
+		u32 rgba = unpackColor(u16[colorAddress])
+
+		// Write to RGB Knux outro "CRAM"
+		u32[FlameQuest.RGB_KNUX_OUTRO_PALETTE + i * 0x04] = DKoC.Util.abgrToHSL(rgba)
+	}
+}
+
+// Apply RGB Knux effect to outro RGB Knux
+//# address-hook(0x05fba0) end(0x05fbe0)
+function void fn05fba0()
+{
+	if(FlameQuest.Secret.useRGBKnux)
+	{
+		if (u8[0xfffff650] != 0)
+		{
+			fn05ec36()
+			return
+		}
+		else
+		{
+			FlameQuest.RGBKnux.updateOutroRGBKnux()
+		}
+	}
+	else
+	{
+		base.fn05fba0()
+	}
+}
+
+// Updates outro RGB Knux
+function void FlameQuest.RGBKnux.updateOutroRGBKnux()
+{
+	u16 shiftDegree	// How much to shift RGB Knux colors each frame
+	u8 superForm	// Form to use in super glow calculation
+
+	// Should never be run during bad outro, therefore
+	// outro.ending_type == 2 implies hyper, otherwise Super
+	if(outro.ending_type)
+	{
+		shiftDegree = 8
+		superForm = 0xff
+	}
+	else
+	{
+		shiftDegree = 4
+		superForm = 0x01
+	}
+
+	// RGB Knux stuff
+	FlameQuest.RGBKnux.updateSuperRGBKnux(superForm)
+	FlameQuest.RGBKnux.updateRGBKnuxColors(FlameQuest.RGB_KNUX_OUTRO_PALETTE, 0xfffffc00, 0x10, shiftDegree)
+}
