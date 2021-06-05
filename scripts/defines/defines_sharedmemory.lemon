@@ -8,6 +8,7 @@ define u32 FlameQuest.SOUNDTEST_CODE_TEMP = 0x8a0000 + 0x08
 // Location of RGB Knux' palettes in RAM
 define u32 FlameQuest.RGB_KNUX_PALETTE = 0x8a0010 // 128 bytes (0x80 bytes) used
 define u32 FlameQuest.RGB_KNUX_PALETTE_WATER = 0x8a0010 + 0x80 // 128 bytes (0x80 bytes) used
+define u32 FlameQuest.RGB_KNUX_OUTRO_PALETTE = 0x8a0010 + 0x100 // 64 bytes (0x40 bytes) used
 
 // Temp address to store BG palette data for background loading
 // define u32 FlameQuest.LEVEL_SELECT_BG_PALETTE_TEMP = 0x8a0090 + 0x80 // Stored after RGB Knux stuff

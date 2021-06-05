@@ -162,6 +162,13 @@ function void FlameQuest.Character.updateRGBKnux()
 
 	FlameQuest.Character.updateSuperRGBKnux()
 
+	// Normal Knux
+	FlameQuest.RGBKnux.updateGameplayRGBKnuxColors(FlameQuest.RGB_KNUX_PALETTE, 0x802080, 32)
+
+	// Underwater Knux
+	FlameQuest.RGBKnux.updateGameplayRGBKnuxColors(FlameQuest.RGB_KNUX_PALETTE_WATER, 0x802380, 32)
+
+	/* Old codeing
 	for(u8 i = 1; i < 32; i++)
 	{
 		// Choose how much to shift the color by
@@ -178,7 +185,7 @@ function void FlameQuest.Character.updateRGBKnux()
 		// Convert color to RGB
 		u32 rgbColor = DKoC.Util.hslToABGR(hslColor)
 
-		u16[0x802080 + i * 2] = packColor(rgbColor)
+		u16[ + i * 2] = packColor(rgbColor)
 
 		// Renderer.setPaletteEntry(0x80 + i, rgbColor)
 	}
@@ -186,9 +193,6 @@ function void FlameQuest.Character.updateRGBKnux()
 	// Underwater Knux
 	for(u8 i = 1; i < 32; i++)
 	{
-		// Choose how much to shift the color by
-		u16 shiftDegree = super.active == 0xff ? 8 : (super.active ? 4 : 1)
-
 		// Shift current color
 		u32[FlameQuest.RGB_KNUX_PALETTE_WATER + i * 4] = DKoC.Util.shiftHSL(u32[FlameQuest.RGB_KNUX_PALETTE_WATER + i * 4], shiftDegree)
 
@@ -204,7 +208,44 @@ function void FlameQuest.Character.updateRGBKnux()
 		u16[0x802380 + i * 2] = packColor(rgbColor)
 
 		// Renderer.setPaletteEntry(0x80 + i, rgbColor)
+	}*/
+}
+
+/* Updates RGB Knux colors
+ *
+ * u32 sourceAddress - 		Address of RGB Knux palette in RAM
+ * u32 destinationAddress - Address in CRAM for RGB Knux palette
+ * u8  numColors - 			Number of colors to write to CRAM
+ * s16 shiftDegree - 		Degree to shift colors by (see colors.lemon for details)
+ */
+function void FlameQuest.RGBKnux.updateRGBKnuxColors(u32 sourceAddress, u32 destinationAddress, u8 numColors, s16 shiftDegree)
+{
+	for(u8 i = 1; i < numColors; i++)
+	{
+		// Shift current color
+		u32[sourceAddress + i * 4] = DKoC.Util.shiftHSL(u32[sourceAddress + i * 4], shiftDegree)
+
+		// Get current color & apply any RGB Knux luminance shifting
+		u32 hslColor = u32[sourceAddress + i * 4]
+		hslColor = DKoC.Util.modifyHSLLuminance(hslColor, FlameQuest.RGBKnux.superGlowOffset)
+
+		// Convert color to RGB
+		u32 rgbColor = DKoC.Util.hslToABGR(hslColor)
+
+		u16[destinationAddress + i * 2] = packColor(rgbColor)
+
+		// Renderer.setPaletteEntry(0x80 + i, rgbColor)
 	}
+}
+
+// Same as RGBKnux.updateRGBKnuxColors() but uses super.active to determine
+// shift degree.
+function void FlameQuest.RGBKnux.updateGameplayRGBKnuxColors(u32 sourceAddress, u32 destinationAddress, u8 numColors)
+{
+	// Choose how much to shift the color by
+	u16 shiftDegree = super.active == 0xff ? 8 : (super.active ? 4 : 1)
+
+	FlameQuest.RGBKnux.updateRGBKnuxColors(sourceAddress, destinationAddress, numColors, shiftDegree)
 }
 
 // Update Super RGB Knux specific stuff (i.e. palettes)
@@ -247,4 +288,80 @@ function void FlameQuest.Character.updateSuperRGBKnux()
 				FlameQuest.RGBKnux.superGlowOffset = 0
 		}
 	}
+}
+
+// RGB Knux Outro
+
+// Load RGB Knux palette into RAM
+//# address-hook(0x05f480) end(0x05f4e2)
+function void fn05f480()
+{
+	base.fn05f480()
+
+	for(u8 i = 0; i < 0x10; i++)
+	{
+		// Extract color from CRAM
+		u32 colorAddress = 0xfffffc00 + i * 0x02
+		u32 rgba = unpackColor(u16[colorAddress])
+
+		// Write to RGB Knux CRAM
+		u32[FlameQuest.RGB_KNUX_OUTRO_PALETTE + i * 0x04] = DKoC.Util.abgrToHSL(rgba)
+	}
+}
+
+// Apply RGB Knux effect to outro RGB Knux
+//# address-hook(0x05fba0) end(0x05fbe0)
+function void fn05fba0()
+{
+	if(FlameQuest.Secret.useRGBKnux)
+	{
+		if (u8[0xfffff650] != 0)
+		{
+			fn05ec36()
+			return
+		}
+		else
+		{
+			FlameQuest.RGBKnux.updateOutroRGBKnux()
+		}
+	}
+	else
+	{
+		base.fn05fba0()
+	}
+}
+
+// Updates outro RGB Knux
+function void FlameQuest.RGBKnux.updateOutroRGBKnux()
+{
+	// Should never be run during bad outro, therefore
+	// outro.ending_type == 2 implies hyper, otherwise Super
+	u16 shiftDegree = outro.ending_type ? 8 : 4
+
+	// RGB Knux stuff
+	FlameQuest.Character.updateSuperRGBKnux()
+	FlameQuest.RGBKnux.updateRGBKnuxColors(FlameQuest.RGB_KNUX_OUTRO_PALETTE, 0xfffffc00, 0x10, shiftDegree)
+
+	/*
+	for(u8 i = 0; i < 0x10; i++)
+	{
+
+		// Hue shift
+		color = DKoC.Util.shiftHSL(color, shiftDegree)
+
+		// Glow Effect
+		color = DKoC.Util.modifyHSLLuminance(color, FlameQuest.RGBKnux.superGlowOffset)
+
+		u32 newColorABGR = DKoC.Util.hslToABGR(color)
+
+		// Update color
+		Renderer.setPaletteEntry(i, newColorABGR)
+
+		/*
+		if(color != 0)
+			u32[colorAddress] = DKoC.Util.packColor(newColorABGR, false)
+
+
+		debugLog(stringformat("%08x > %08x | %08x > %04x >%04x", rgba, color, newColorABGR, DKoC.Util.packColor(newColorABGR, false), u16[colorAddress]))
+	}*/
 }
