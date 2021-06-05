@@ -20,83 +20,6 @@ function u64 getCharacterPaletteKey(u8 character)
 	else
 		return "character_palette_knuckles"
 
-	/* Legacy Code
-	if ((!isBonusStage) && (global.zone.apparent != 0x00) && !(global.zone.apparent >= 0x0a && global.zone.apparent <= 0x0c))
-	{
-
-
-		if (character == CHARACTER_SONIC)
-		{
-			if (super.active & 0x80 || super.active.tails & 0x80)
-			{
-				return "character_palette_scorching_sonic_hot"
-			}
-			else
-			{
-				return "character_palette_burning_sonic_hot"
-			}
-		}
-		else if (character == CHARACTER_TAILS)
-		{
-			if (super.active & 0x80 || super.active.tails & 0x80)
-			{
-				return "character_palette_scorching_tails_hot"
-			}
-			else
-			{
-				return "character_palette_burning_tails_hot"
-			}
-		}
-		else if (character == CHARACTER_KNUCKLES)
-		{
-			if (super.active & 0x80 || super.active.tails & 0x80)
-			{
-				return "character_palette_scorching_knuckles_hot"
-			}
-			else
-			{
-				return "character_palette_burning_knuckles_hot"
-			}
-		}
-
-	}
-	else
-	{
-		if (character == CHARACTER_SONIC)
-		{
-			if (super.active & 0x80 || super.active.tails & 0x80)
-			{
-				return "character_palette_scorching_sonic_normal"
-			}
-			else
-			{
-				return "character_palette_burning_sonic_normal"
-			}
-		}
-		else if (character == CHARACTER_TAILS)
-		{
-			if (super.active & 0x80 || super.active.tails & 0x80)
-			{
-				return "character_palette_scorching_tails_normal"
-			}
-			else
-			{
-				return "character_palette_burning_tails_normal"
-			}
-		}
-		else if (character == CHARACTER_KNUCKLES)
-		{
-			if (super.active & 0x80 || super.active.tails & 0x80)
-			{
-				return "character_palette_scorching_knuckles_normal"
-			}
-			else
-			{
-				return "character_palette_burning_knuckles_normal"
-			}
-		}
-	}
-	*/
 }
 
 // Load Knux' palette into RAM as HSL for palette shenanigans
@@ -167,48 +90,6 @@ function void FlameQuest.RGBKnux.updateRGBKnux()
 
 	// Underwater Knux
 	FlameQuest.RGBKnux.updateGameplayRGBKnuxColors(FlameQuest.RGB_KNUX_PALETTE_WATER, 0x802380, 32)
-
-	/* Old codeing
-	for(u8 i = 1; i < 32; i++)
-	{
-		// Choose how much to shift the color by
-		u16 shiftDegree = super.active == 0xff ? 8 : (super.active ? 4 : 1)
-
-		// Shift current color
-		u32[FlameQuest.RGB_KNUX_PALETTE + i * 4] = DKoC.Util.shiftHSL(u32[FlameQuest.RGB_KNUX_PALETTE + i * 4], shiftDegree)
-
-		// Get current color & apply any RGB Knux luminance shifting
-		u32 hslColor = u32[FlameQuest.RGB_KNUX_PALETTE + i * 4]
-
-		hslColor = DKoC.Util.modifyHSLLuminance(hslColor, FlameQuest.RGBKnux.superGlowOffset)
-
-		// Convert color to RGB
-		u32 rgbColor = DKoC.Util.hslToABGR(hslColor)
-
-		u16[ + i * 2] = packColor(rgbColor)
-
-		// Renderer.setPaletteEntry(0x80 + i, rgbColor)
-	}
-
-	// Underwater Knux
-	for(u8 i = 1; i < 32; i++)
-	{
-		// Shift current color
-		u32[FlameQuest.RGB_KNUX_PALETTE_WATER + i * 4] = DKoC.Util.shiftHSL(u32[FlameQuest.RGB_KNUX_PALETTE_WATER + i * 4], shiftDegree)
-
-
-		u32 hslColor = u32[FlameQuest.RGB_KNUX_PALETTE_WATER + i * 4]
-
-		hslColor = DKoC.Util.modifyHSLLuminance(hslColor, FlameQuest.RGBKnux.superGlowOffset)
-
-		// Convert color to RGB
-		u32 rgbColor = DKoC.Util.hslToABGR(hslColor)
-
-
-		u16[0x802380 + i * 2] = packColor(rgbColor)
-
-		// Renderer.setPaletteEntry(0x80 + i, rgbColor)
-	}*/
 }
 
 /* Updates RGB Knux colors
@@ -365,27 +246,4 @@ function void FlameQuest.RGBKnux.updateOutroRGBKnux()
 	// RGB Knux stuff
 	FlameQuest.RGBKnux.updateSuperRGBKnux(superForm)
 	FlameQuest.RGBKnux.updateRGBKnuxColors(FlameQuest.RGB_KNUX_OUTRO_PALETTE, 0xfffffc00, 0x10, shiftDegree)
-
-	/*
-	for(u8 i = 0; i < 0x10; i++)
-	{
-
-		// Hue shift
-		color = DKoC.Util.shiftHSL(color, shiftDegree)
-
-		// Glow Effect
-		color = DKoC.Util.modifyHSLLuminance(color, FlameQuest.RGBKnux.superGlowOffset)
-
-		u32 newColorABGR = DKoC.Util.hslToABGR(color)
-
-		// Update color
-		Renderer.setPaletteEntry(i, newColorABGR)
-
-		/*
-		if(color != 0)
-			u32[colorAddress] = DKoC.Util.packColor(newColorABGR, false)
-
-
-		debugLog(stringformat("%08x > %08x | %08x > %04x >%04x", rgba, color, newColorABGR, DKoC.Util.packColor(newColorABGR, false), u16[colorAddress]))
-	}*/
 }
