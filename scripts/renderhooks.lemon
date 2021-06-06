@@ -124,9 +124,19 @@ function bool Standalone.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
 
 		return true
 	}
+	// Good ending scene RGB Knux
+	else if(objA0.update_address == 0x05f46a)
+	{
+		// u64 spriteKey = stringformat("character_knuckles_%02x", objA0.animation.sprite)
+		Standalone.drawCharacterSpriteDirect(CHARACTER_KNUCKLES, px, py, objA0.animation.sprite, prioFlag ? SPRITE_FLAG_PRIO : 0, 0x80, renderQueue)
+		return true
+	}
 
 	if(EggmanBlue.onWriteToSpriteTable(px, py,renderQueue))
 		return true
 
 	return base.Standalone.onWriteToSpriteTable(px, py, renderQueue)
 }
+
+// Might be worth adding a function that tests for & draws a sprite
+// key
