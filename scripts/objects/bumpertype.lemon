@@ -157,30 +157,3 @@ function void fn032df2()
 	}
 }
 
-function bool Standalone.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
-{
-	// This function gets called once when rendering an object, even if it consists of multiple VDP sprites
-	//  -> That is in contrast to e.g. "Standalone.onDrawVdpSprite" which gets called for each VDP sprite
-	//  -> So if an object's sprites should be replaced with a new loaded graphics, this here is the place to go
-
-	u8 gameMode = global.game_mode & 0x7f
-	bool prioFlag = (objA0.sprite_attributes & 0x8000) != 0
-
-				// Goal Sphere
-		if (objA0.update_address == 0x032ef0) && (objA0.subtype2c == 0x01) || (objA0.update_address == 0x2322ce) && (objA0.subtype2c == 0x01)
-		{
-			u8 anim = (level.framecounter >> 2) % 8
-				Renderer.drawCustomSprite(stringformat("fire_decoration_object_0%d", anim+1), px, py, 0x00, prioFlag ? SPRITE_FLAG_PRIO : 0, renderQueue+0x100, 0, 255)
-			return true
-		}
-
-				// Ice Bumper
-		if (global.zone == 0x05) && (objA0.update_address == 0x032eaa) || (global.zone == 0x05) && (objA0.update_address == 0x032e7e)
-		{
-			u8 anim = (level.framecounter >> 2) % 6
-				Renderer.drawCustomSprite(stringformat("ice_bumper_0%d", anim+1), px, py, 0x00, prioFlag ? SPRITE_FLAG_PRIO : 0, renderQueue, 0, 255)
-			return true
-		}
-
-    return base.Standalone.onWriteToSpriteTable(px, py, renderQueue)
-}

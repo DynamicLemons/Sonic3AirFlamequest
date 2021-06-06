@@ -3,7 +3,7 @@
 global u8 EggmanBlue.laughTimer = 0
 
 function bool EggmanBlue.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
-{	
+{
 	//Normal Eggmobile Bosses
 	if(objA0.update_address == 0x067b66 || objA0.update_address == 0x067aca || objA0.update_address == 0x067c38 || objA0.update_address == 0x067cd2)
     {
@@ -24,7 +24,7 @@ function bool EggmanBlue.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
 					key = stringformat("eggman-laugh-blue-%02x", ((level.framecounter << 0x01 & 0x10) ? 1 : 0))
 				}
 			}
-			else 
+			else
 			{
 				if(objA0.animation.sprite == 0x02)
 				{
@@ -44,7 +44,7 @@ function bool EggmanBlue.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
 			}
 		}
     }
-	
+
 	//FBZ2 Second Boss
 	if (objA0.update_address == 0x067b96)
 	{
@@ -56,10 +56,10 @@ function bool EggmanBlue.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
 				u8 frame = (level.framecounter << 0x01 & 0x10) ? 1 : 0
 				if(EggmanBlue.showRegular())
 					key = stringformat("eggman-fbz-blue-%02x", (objA0.animation.sprite + frame * 0x04))
-				else 
+				else
 					key = stringformat("eggman-laugh-fbz-blue-%02x", frame)
 			}
-			else 
+			else
 			{
 				if(objA0.animation.sprite == 0x02)
 				{
@@ -79,7 +79,7 @@ function bool EggmanBlue.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
 			}
 		}
 	}
-	
+
 	//LRZ2 Boss
 	if (objA0.update_address == 0x079c1c)
 	{
@@ -92,7 +92,7 @@ function bool EggmanBlue.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
 			else
 				key = stringformat("eggman-laugh-lrz-blue-%02x", frame)
 		}
-		else 
+		else
 		{
 			if(objA0.animation.sprite == 0x10)
 			{
@@ -111,9 +111,9 @@ function bool EggmanBlue.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
 			return true
 		}
 	}
-	
+
 	//FBZ2 Mini Boss and DEZ2 Boss
-	if (objA0.update_address == 0x070068 || objA0.update_address == 0x07009a) 
+	if (objA0.update_address == 0x070068 || objA0.update_address == 0x07009a)
 	{
 		if(getMainCharacter() != CHARACTER_KNUCKLES || global.zone_act == 0x1700)
 		{
@@ -125,9 +125,9 @@ function bool EggmanBlue.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
 				else
 					key = stringformat("eggman-laugh-fbz-mini-blue-%02x", ((level.framecounter << 0x01 & 0x10) ? 1 : 0))
 			}
-			else 
+			else
 			{
-				if(objA0.animation.sprite == 0x02) 
+				if(objA0.animation.sprite == 0x02)
 				{
 					EggmanBlue.laughTimer = 0
 				}
@@ -145,7 +145,7 @@ function bool EggmanBlue.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
 			}
 		}
 	}
-	
+
 	//LBZ2 1st Boss
 	if(objA0.update_address == 0x073e0e)
 	{
@@ -157,7 +157,7 @@ function bool EggmanBlue.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
 			else
 				key = stringformat("eggman-laugh-blue-%02x", ((level.framecounter << 0x01 & 0x10) ? 1 : 0))
 		}
-		else 
+		else
 		{
 			if(objA0.animation.sprite == 0x02)
 			{
@@ -176,7 +176,7 @@ function bool EggmanBlue.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
 			return true
 		}
 	}
-		
+
 	//AIZ2 Boss Intro
 	if(objA0.update_address == 0x050700)
 	{
@@ -188,7 +188,7 @@ function bool EggmanBlue.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
 			return true
 		}
 	}
-	
+
 	//LRZ2 Boss Intro
 	if(objA0.update_address == 0x079002 || objA0.update_address == 0x079072)
 	{
@@ -205,16 +205,16 @@ function bool EggmanBlue.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
 			return true
 		}
 	}
-	
+
 	//Dr. Eggman outside the Eggmobile
-	if(objA0.update_address == 0x080e02 || objA0.update_address == 0x0700ea || objA0.update_address == 0x073d74 || objA0.update_address == 0x07f74c) 
+	if(objA0.update_address == 0x080e02 || objA0.update_address == 0x0700ea || objA0.update_address == 0x073d74 || objA0.update_address == 0x07f74c)
 	{
 		if(getMainCharacter() != CHARACTER_KNUCKLES || global.zone_act == 0x0b01 || global.zone_act == 0x1700 || global.zone_act == 0x0601)
 		{
 			u8 animationSprite = objA0.animation.sprite
-			
+
 			//For Misc Fixes and Tweaks Compability
-			s16 scaredConfig = EggmanBlue.getScaredConfig()	
+			s16 scaredConfig = EggmanBlue.getScaredConfig()
 			if(objA0.animation.sprite < 0x04 && scaredConfig > 0)
 			{
 				if(global.zone_act == 0x0401 && (scaredConfig == 1 || scaredConfig == 3))
@@ -226,7 +226,7 @@ function bool EggmanBlue.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
 					animationSprite += 0x04
 				}
 			}
-			
+
 			u64 key = stringformat("character-eggman-blue-%02x", animationSprite)
 			if(EggmanBlue.spritesType)
 			{
@@ -240,10 +240,10 @@ function bool EggmanBlue.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
 			}
 		}
 	}
-	
+
 	//Dr. Eggman outside the Eggmobile - single lost frame in LBZ2
 	//Some other sprites, like some explosions, use this update_address
-	if(objA0.update_address == 0x01abb6 && objA0.animation.sprite == 0x00 && global.zone_act == 0x0601) 
+	if(objA0.update_address == 0x01abb6 && objA0.animation.sprite == 0x00 && global.zone_act == 0x0601)
 	{
 		u64 key = "character-eggman-blue-03"
 		if(EggmanBlue.spritesType)
@@ -257,7 +257,7 @@ function bool EggmanBlue.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
 			return true
 		}
 	}
-	
+
 	//Bad Ending
 	if(objA0.update_address == 0x05f5b4)
 	{
@@ -273,7 +273,7 @@ function bool EggmanBlue.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
 			return true
 		}
 	}
-		
+
 	// Eggman in Savedata Screen
 	if(objA0.update_address == 0x00d782)
 	{
@@ -286,7 +286,7 @@ function bool EggmanBlue.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
 		{
 			//Try to render sprite from Misc Fixes & Tweaks
 			key = stringformat("robotnik_dataselect_%x%x", objA0.animation.sprite, u8[0xffffb0b1])
-		}		
+		}
 		if(Renderer.hasCustomSprite(key))
 		{
 			bool prioFlag = (objA0.sprite_attributes & 0x8000) != 0
@@ -302,7 +302,7 @@ function bool EggmanBlue.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
 			return true
 		}
 	}
-		
+
     if(objA0.update_address == 0x0837b2)
     {
 		u64 plateName = 0x00
@@ -317,19 +317,9 @@ function bool EggmanBlue.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
 			return true
 		}
     }
-	
+
 	//System.writeDisplayLine(stringformat("%x",objA0.update_address))
 	return false
-}
-
-function bool Standalone.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
-{
-	if(EggmanBlue.onWriteToSpriteTable(px, py,renderQueue))
-		return true
-	else if(base.Standalone.onWriteToSpriteTable(px, py, renderQueue))
-		return true
-	else
-		return false
 }
 
 function u64 Monitor.getIconSpriteKey(u8 type)
@@ -428,7 +418,7 @@ function void Character.Die()
 function void EggmanBlue.KnucklesTasedLaugh()
 {
 	//For HPZ
-	if(EggmanBlue.disableHurtLaugh != 1) 
+	if(EggmanBlue.disableHurtLaugh != 1)
 	{
 		EggmanBlue.laughTimer = 64
 	}

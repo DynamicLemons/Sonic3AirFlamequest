@@ -138,7 +138,11 @@ function bool FlameQuest.checkEasterEgg(u64 easterEggCode)
 // RGB Knux
 function void FlameQuest.applySecretRGBKnux()
 {
-	ZoneTimesMenu.drawString(0xc4d0, "RGB KNUX")
+	// ZoneTimesMenu.drawString(0xc4d0, "RGB KNUX")
+	// Show the player that RGB Knux exists
+	if(levelselect.characters < 3 && !FlameQuest.Secret.useRGBKnux)
+		levelselect.characters = 3
+
 	FlameQuest.Secret.useRGBKnux = true
 }
 

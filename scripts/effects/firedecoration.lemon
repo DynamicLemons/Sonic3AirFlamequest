@@ -14,23 +14,3 @@ function void fn02b928()
 	objA0.update_address = 0x02b962
 	fn02b962()
 }
-
-function bool Standalone.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
-{
-	// This function gets called once when rendering an object, even if it consists of multiple VDP sprites
-	//  -> That is in contrast to e.g. "Standalone.onDrawVdpSprite" which gets called for each VDP sprite
-	//  -> So if an object's sprites should be replaced with a new loaded graphics, this here is the place to go
-
-	u8 gameMode = global.game_mode & 0x7f
-	bool prioFlag = (objA0.sprite_attributes & 0x8000) != 0
-
-				// Sign
-		if (objA0.update_address == 0x02b962) && (objA0.subtype2c == 0x2b)
-		{
-			u8 anim = (level.framecounter >> 2) % 6
-				Renderer.drawCustomSprite(stringformat("fire_decoration_object_0%d", anim+1), px, py, 0x00, prioFlag ? SPRITE_FLAG_PRIO : 0, renderQueue+0x100, 0, 255)
-			return true
-		}
-
-    return base.Standalone.onWriteToSpriteTable(px, py, renderQueue)
-}
