@@ -1,0 +1,33 @@
+// Debug log but for numeric values
+
+#if !GAMEAPP
+function void debugLog(u8 value)
+{
+	debugLog(stringformat("%02x", value))
+}
+
+function void debugLog(s8 value)
+{
+	debugLog(stringformat("%02x", value))
+}
+
+function void debugLog(u16 value)
+{
+	debugLog(stringformat("%04x", value))
+}
+
+function void debugLog(s16 value)
+{
+	debugLog(stringformat("%04x", value))
+}
+
+function void debugLog(u32 value)
+{
+	debugLog(stringformat("%08x", value))
+}
+
+function void debugLog(s32 value)
+{
+	debugLog(stringformat("%08x", value))
+}
+#endif
