@@ -226,7 +226,10 @@ function void fn032a78()
 	objA0.sprite_priority = 0x80
 	objA0.mapping_offset = 0x227dbc
 	objA0.sprite_attributes = 0x42ea
-
+	
+	if (global.zone == 0x06)
+		objA0.box_size.y = 0x40
+		
 	if (competition_mode.active)
 	{
 		objA0.update_address = 0x032b8c
@@ -243,12 +246,27 @@ function void fn032a78()
 //# address-hook(0x032aae) end(0x032b8a)
 function void fn032aae()
 {
+	if (global.zone == 0x06) // oil in lbz
+	{
+		// usually covered by the renderhook, but this is a just in case thing
+		s16 px = objA0.position.x.u16
+		s16 py = objA0.position.y.u16
+		u16 renderQueue = 0xa000
+		
+		u8 flag = SPRITE_FLAG_WORLDSPACE
+		
+		u64 oilanimframe = ""
+		oilanimframe = stringformat("oil_surface_%d", (level.framecounter >> 4) % 3)
+		Renderer.drawCustomSprite(oilanimframe, px, py - 15, 0, flag, renderQueue)
+		Renderer.drawCustomSprite("oil_depths", px, py + 48, 0, flag, renderQueue+100)
+		Renderer.drawCustomSprite("oil_depths", px, py + 64, 0, flag, renderQueue+100)
+	}
 	if (debug_mode.state == 0)
 	{
 	#if STANDALONE
 		// Make the highest position where you can stand on the tar a little bit higher
 		// (call it personal preference, but this always bugged me)
-		u8 maxValue = 0x30
+		u8 maxValue = 0x34
 	#else
 		u8 maxValue = 0x30
 	#endif
