@@ -31,3 +31,71 @@ function void debugLog(s32 value)
 	debugLog(stringformat("%08x", value))
 }
 #endif
+
+// Binary string functions
+function string getBinaryString(u64 value, u64 maxLength)
+{
+	return getBinaryString(value, maxLength, true)
+}
+
+function string getBinaryString(u64 value, u8 maxLength, bool addSpaces)
+{
+	string returnString = ""
+	u8 valueLength = 8 // Length of the number in bits
+
+	// Calculate length of the value in bits
+	while(true)
+	{
+		if(pow(2, valueLength) > value || valueLength >= 64)
+		{
+			break
+		}
+		else
+		{
+			valueLength *= 2
+		}
+	}
+
+	for(u8 i = 0; i < maxLength; i++)
+	{
+		returnString = stringformat("%d%s", value & 0x01, returnString)
+
+		// Get the next bit
+		value >>= 1
+
+		// Break if the entire number's been output
+		if(value == 0x00 && i + 1 >= valueLength)
+			break
+
+		// Add spaces to output if enabled
+		if(i % 4 == 3 && i != maxLength - 1 && addSpaces)
+		{
+			returnString = stringformat(" %s", returnString)
+		}
+	}
+
+	return returnString
+}
+
+// These exist to (hopefully) work around issues with the scripting
+// engine regarding casted values (e.g. casting a u64 to u8 causes
+// the main function to spit out a 64-bit number above 0x80)
+function string getBinaryString(u8 value)
+{
+	return getBinaryString(value, 8, true)
+}
+
+function string getBinaryString(u16 value)
+{
+	return getBinaryString(value, 16, true)
+}
+
+function string getBinaryString(u32 value)
+{
+	return getBinaryString(value, 32, true)
+}
+
+function string getBinaryString(u64 value)
+{
+	return getBinaryString(value, 64, true)
+}
