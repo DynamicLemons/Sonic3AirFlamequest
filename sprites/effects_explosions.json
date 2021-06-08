@@ -1,0 +1,8 @@
+{
+	"boss_explosion_0x00":  { "File": "effects/boss_explosion/explosion.bmp", "Rect": "0,1,16,16", "Center": "8,8" },
+	"boss_explosion_0x01":  { "File": "effects/boss_explosion/explosion.bmp", "Rect": "17,1,24,24", "Center": "12,12" },
+	"boss_explosion_0x02":  { "File": "effects/boss_explosion/explosion.bmp", "Rect": "42,1,24,24", "Center": "12,12" },
+	"boss_explosion_0x03":  { "File": "effects/boss_explosion/explosion.bmp", "Rect": "67,1,24,24", "Center": "12,12" },
+	"boss_explosion_0x04":  { "File": "effects/boss_explosion/explosion.bmp", "Rect": "92,1,24,24", "Center": "12,13" },
+	"boss_explosion_0x05":  { "File": "effects/boss_explosion/explosion.bmp", "Rect": "117,0,24,16", "Center": "12,10" }
+}
