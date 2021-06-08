@@ -58,8 +58,9 @@
 	"dez1_layout": { "File": "../SonicFlameQuestProjDisam/Levels/DEZ/Layout/1.bin" },
 	"dez1_objects": { "File": "../SonicFlameQuestProjDisam/Levels/DEZ/Object Pos/1.bin" },
 	"dez1_rings": { "File": "../SonicFlameQuestProjDisam/Levels/DEZ/Ring Pos/1.bin" },
-
+	/*
 	"bonus1_layout": { "File": "../SonicFlameQuestProjDisam/Levels/Bonus/Layout/1.bin" },
 	"bonus1_objects": { "File": "../SonicFlameQuestProjDisam/Levels/Bonus/Object Pos/1.bin" },
 	"bonus1_rings": { "File": "../SonicFlameQuestProjDisam/Levels/Bonus/Ring Pos/1.bin" },
+	*/
 }
