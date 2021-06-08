@@ -1,6 +1,4 @@
 {
-	"levelselectsidebar": {"File" : "level_select_icons/SideBar.png", "Rect": "0,0,400,224"},
-
 	"flamequest_levelselect_icon_0x00": {"File" : "level_select_icons/LevelSelectHUD_0.png", "Rect": "0,0,80,56", "Center": "0,0"},
 	"flamequest_levelselect_icon_0x01": {"File" : "level_select_icons/LevelSelectHUD_0.png", "Rect": "0,0,80,56", "Center": "0,0"},
 
@@ -59,6 +57,7 @@
 
 	// Border
 	"flamequest_levelselect_icon_border": {"File": "level_select_icons/LevelSelectHUD_misc.png", "Rect": "0,0,82,58", "Center": "0,0"},
+
 	// Icons
 	"flamequest_levelselect_icon_c_button": {"File": "level_select_icons/LevelSelectHUD_misc.png", "Rect": "0,60,20,20", "Center": "0,0"},
 	"flamequest_levelselect_icon_equals": {"File": "level_select_icons/LevelSelectHUD_misc.png", "Rect": "20,60,8,8", "Center": "0,0"},
