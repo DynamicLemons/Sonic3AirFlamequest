@@ -8,7 +8,6 @@ include internal/?
 include music/?
 include rendering/?
 include levels/?
-include titlescreen/?
 include menus/?
 include specialstages/?
 include options/?
@@ -17,7 +16,9 @@ include credits/?
 include eastereggs/?
 include compatibility/?
 include audio
+include defines/?
 include utility/?
+include renderhooks
 
 
 // Load character palettes at the start of the game so that the level
@@ -27,8 +28,20 @@ function void Init()
 	// Run vanilla/Other mods' Init() functions
 	base.Init()
 
+	// Initialize variables (In a code block for editor folding)
+	// Since Init() gets called in multiple places in AIR (not just at
+	// the start), it might be worth locking some of these initializations
+	// behind a second global variable (e.g. for persistent level select background)
+	{
+		// Clear sound test history
+		FlameQuest.soundTestHistory = 0x00
+
+		// Initialize sound test background to default value
+		FlameQuest.LevelSelect.background = "flamequest_bg_level_select"
+	}
+
 	// Load palettes during initialization so the sprites don't appear
-	// blank in the menu
+	// blank in the menu, as well as for RGB Knux shenanigans
 	loadCharacterPalette(CHARACTER_SONIC, 0x802180 + 0x00, 0)
 	loadCharacterPalette(CHARACTER_TAILS, 0x802180 + 0x40, 0)
 	loadCharacterPalette(CHARACTER_KNUCKLES, 0x802180 + 0x80, 0)
@@ -37,16 +50,16 @@ function void Init()
 
 function void EntryFunctions.actSelect()
 {
-       System.setupCallFrame("GameModeControlLoop", "@EntryPoint")
-   System.setupCallFrame("LevelSelect")
+	System.setupCallFrame("GameModeControlLoop", "@EntryPoint")
+	System.setupCallFrame("LevelSelect")
 
-global.game_mode = 0x1c
+	global.game_mode = 0x1c
 }
 
 function void EntryFunctions.dataSelect()
 {
-   System.setupCallFrame("GameModeControlLoop", "@EntryPoint")
-   System.setupCallFrame("LevelSelect")
+	System.setupCallFrame("GameModeControlLoop", "@EntryPoint")
+	System.setupCallFrame("LevelSelect")
 
-global.game_mode = 0x1c
+	global.game_mode = 0x1c
 }

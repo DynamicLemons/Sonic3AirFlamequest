@@ -2,6 +2,13 @@
 // Copyright Team Flame Quest
 // 09/19/20
 
+/* ALGORITHM CREDITS (should probably add this guy to the credits)
+ * Nikolai Waldman (Article Author)
+ *
+ * Article Source:
+ * https://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
+ */
+
 /* HSL COLOR FORMAT
  *
  * u32 value:
@@ -17,12 +24,385 @@
  * This allows for the Saturation and Luminance to take on more values
  * (namely half-steps between percentages). E.g. 10.5% -> 21, 100% -> 200, 50% -> 100
  *
- * AIR's RGBA format is documented in the Oxygen handbook.
+ * Note that in most cases I've seen, HSL values don't usually contain decimals,
+ * so the extra precision here may be completely pointless.
+ *
+ * AIR's ABGR (RGBA but little-endian) format is documented in the Oxygen handbook.
 */
 
 
 // Function to convert RGB(A) -> HSL
-// Function to convert HSL -> RGB(A)
+function u32 DKoC.Util.abgrToHSL(u32 abgrColor)
+{
+	/* Some of the math here's a bit wonky due to the lack of floating-point
+	 * data types. For example, all the RGB values are multiplied by 10K before
+	 * dividing them by 255, and a lot of the values have been modified from
+	 * the original algorithm to match this. If you want an idea of what's going
+	 * on, check the original algorithm source.
+	*/
+
+	// Extract the R, G, B (& A) values from the color
+	u16 red 	= u32((abgrColor & 0x000000ff) * 10000) / 255
+	u16 green 	= u32(((abgrColor & 0x0000ff00) >> 8) * 10000) / 255
+	u16 blue 	= u32(((abgrColor & 0x00ff0000) >> 16) * 10000) / 255
+
+	// Alpha channel, not included in HSL format but extraction code left
+	// here just because
+	// u16 alpha 	= ((argbColor & 0xff000000) >> 24)
+
+	s16 hue
+	u16 saturation
+	u16 luminance
+
+	// Variables for calculation
+	u16 min = min(min(red, green), blue)
+	u16 max = max(max(red, green), blue)
+
+	// Calculate luminance
+	luminance = (min + max) / 2
+
+
+	// Saturation
+	if(min == max)
+	{
+		// If the min and max are the same, saturation is 0
+		saturation = 0
+	}
+	else
+	{
+		if(luminance <= 5000)
+		{
+			// Multiply by 200 to convert into my HSL format and
+			// avoid loss of accuracy
+			saturation = u32((max - min) * 200) / (max + min)
+		}
+		else
+		{
+			saturation = u32((max - min) * 200) / (20000 - max - min)
+		}
+	}
+
+	// Hue
+	u16 maxRGB = max(max(red, green), blue) // Maximum of the original RGB values
+
+	// If there's no saturation, set the hue to 0
+	if(saturation == 0)
+	{
+		hue = 0
+	}
+	// Red is the maximum
+	else if(maxRGB == red)
+	{
+		// Multiply by 100 for precision and conversion purposes
+		hue = s32(s16(green - blue) * 100) / (max - min)
+	}
+	// Green is maximum
+	else if(maxRGB == green)
+	{
+		hue = 200 + s32(s16(blue - red) * 100) / (max - min)
+	}
+	// By process of elimination, Blue is maximum
+	else
+	{
+		hue = 400 + s32(s16(red - green) * 100) / (max - min)
+	}
+
+	// If the hue is negative, convert it to a positive
+	if(hue < 0)
+	{
+		hue += 600
+	}
+
+	// Convert hue into degrees
+	hue *= 60
+
+	return u32(hue << 16) + (saturation << 8) + u8(luminance / 50)
+
+}
+
+// TODO: Clean up code (figure out what the temp vars are for and what to
+// to call them) and try and reduce the number of calculations (maybe
+// by finding a different algorithm?). Probably won't happen since this works
+
+// Function to convert HSL -> (A)BGR
+// Parameters
+//	 u32 hslColor - Color to convert (in DKoC format)
+// Returns color in AIR's (A)BGR format
+function u32 DKoC.Util.hslToABGR(u32 hslColor)
+{
+	// Separate HSL color into its components
+	u16 hue = 		(hslColor & 0xffff0000) >> 16
+	u16 saturation =(hslColor & 0x0000ff00) >> 8
+	u16 luminance = (hslColor & 0x000000ff)
+
+	// Convert from my HSL format to a more calculation-friendly one
+	hue = u32(hue * 10) / 36 // Convert hue to percentage out of 360 (done later in original algorithm)
+	saturation *= 50 // Multiply by 100 and divide by 2
+	luminance *= 50
+
+	// Variables needed in the future
+	u32 red
+	u32 green
+	u32 blue
+
+	// Temp variables
+	s32 tempRed
+	s32 tempGreen
+	s32 tempBlue
+	u32 tempOne	// Not exactly sure what these do, they're called this in the OG algorithm
+	u32 tempTwo
+
+	// No saturation, it's a shade of grey
+	if(saturation == 0)
+	{
+		// Find the value for red
+		red = u32(luminance * 255) / 10000
+
+		// R=G=B for shades of grey, set Green and Blue equal to red
+		green = red
+		blue = red
+	}
+	// There's saturation, perform the rest of the conversion
+	else
+	{
+		// If luminance is less than 50% (adjusted to 5K)
+		if(luminance < 5000)
+		{
+			tempOne = u32((luminance / 100) * (100 + (saturation / 100)))
+
+			// If tempOne is outside theoretical legal range, throw an error
+			// (invert condition since assert throws errors if false)
+			assert(!(tempOne > 10000), stringformat("temp1 calc invalid (first formula), (%04d, %04d, %04d)", hue, saturation, luminance))
+		}
+		else
+		{
+			tempOne = u32(luminance + saturation) - ((u32(luminance) * u32(saturation)) / 10000)
+
+			if(tempOne > 10000)
+			{
+				debugLog(stringformat("temp1 calc invalid (2nd formula), (%04d, %04d, %04d | %04d)", hue, saturation, luminance, tempOne))
+			}
+		}
+
+		// Second temp var
+		tempTwo = 2 * luminance - tempOne
+
+		// Set temp RGB values
+		tempRed = hue + 3333
+		tempGreen = hue
+		tempBlue = hue - 3333
+
+		// Values must be between 0 and 1
+		if(tempRed > 10000)
+			tempRed -= 10000
+
+		if(tempBlue < 0)
+			tempBlue += 10000
+
+		// Red
+		if(tempRed * 6 < 10000)
+		{
+			red = tempTwo + 6 * ((tempOne - tempTwo) * tempRed) / 10000
+		}
+		else if(tempRed * 2 < 10000)
+		{
+			red = tempOne
+		}
+		else if(tempRed * 3 < 20000)
+		{
+			red = tempTwo + 6 * ((tempOne - tempTwo) * (6666 - tempRed)) / 10000
+		}
+		else
+		{
+			red = tempTwo
+		}
+
+		// Green
+		if(tempGreen * 6 < 10000)
+		{
+			green = tempTwo + 6 * ((tempOne - tempTwo) * tempGreen) / 10000
+		}
+		else if(tempGreen * 2 < 10000)
+		{
+			green = tempOne
+		}
+		else if(tempGreen * 3 < 20000)
+		{
+			green = tempTwo + 6 * ((tempOne - tempTwo) * (6666 - tempGreen)) / 10000
+		}
+		else
+		{
+			green = tempTwo
+		}
+
+		// Blue
+		if(tempBlue * 6 < 10000)
+		{
+			blue = tempTwo + 6 * ((tempOne - tempTwo) * tempBlue) / 10000
+		}
+		else if(tempBlue * 2 < 10000)
+		{
+			blue = tempOne
+		}
+		else if(tempBlue * 3 < 20000)
+		{
+			blue = tempTwo + 6 * ((tempOne - tempTwo) * (6666 - tempBlue)) / 10000
+		}
+		else
+		{
+			blue = tempTwo
+		}
+
+		#if !GAMEAPP
+		u64 hslString = stringformat("H:%05d, S:%05d, L:%05d", hue, saturation, luminance)
+		u64 tempRGBString = stringformat("TR:%d, TG:%d, TB:%d", tempRed, tempGreen, tempBlue)
+		u64 rgbString = stringformat("R:%d G:%d B:%d", red, green, blue)
+		//debugLog(stringformat("%s | T1:%d T2:%d | %s | %s",hslString, tempOne, tempTwo, tempRGBString, rgbString))
+		#endif
+
+		// Final calculations
+		red = (red * 255) / 10000
+		green = (green * 255) / 10000
+		blue = (blue * 255) / 10000
+
+	}
+
+	// Casting to u8 probably isn't needed here, but I'm doing it anyway
+	// just to be sure
+	return 0xff000000 + u32(u8(blue) << 16) + u32(u8(green) << 8) + u8(red)
+}
+
+// Function to change luminance of an HSL color by a certain amount
+// Note that amount is in the DKoC HSL format, where luminance ranges from
+// 0 - 200 (instead of 0 - 100)
+// Parameters:
+//	 u32 hslColor - Color to modify (in DKoC HSL format)
+//	 s16 amount - amount to shift by (can be positive or negative), 1~200
+function u32 DKoC.Util.modifyHSLLuminance(u32 hslColor, s16 amount)
+{
+	// Extract HSL values
+	u32 hue = (hslColor & 0xffff0000) >> 16
+	u8 saturation = (hslColor & 0x0000ff00) >> 8
+	u8 luminance = hslColor & 0x0000000ff
+
+	// Apply luminance change
+	luminance = clamp(s16(luminance + amount), 0, 200)
+
+	/*
+	#if !GAMEAPP
+	if(saturation)
+		debugLog(stringformat("%08x | H: %04d S: %02d L: %02d",hslColor, hue, saturation, luminance))
+	#endif
+	*/
+
+	// Return modified color
+	return u32(hue << 16) + u32(saturation << 8) + luminance
+}
+
 // Function to hue shift HSL by a certain degree
-// Function to hue shift RGB(A) by a certain degree by calling ^
+function u32 DKoC.Util.shiftHSL(u32 hslColor, s16 degree)
+{
+	// Extract HSL values
+	u32 hue = (hslColor & 0xffff0000) >> 16
+	u8 saturation = (hslColor & 0x0000ff00) >> 8
+	u8 luminance = hslColor & 0x0000000ff
+
+	if(degree < 0)
+		degree += 360
+
+	hue = ((hue + degree * 100) % 36000)
+
+	return u32(hue << 16) + u32(saturation << 8) + luminance
+}
+
+// Function to hue shift RGB(A) by a certain degree by calling DKoC.Util.shiftHSL
+// Parameters
+//	 u32 rgbColor - Color to hue shift
+//	 s16 degree - Amount to shift color by in degrees (NOT in DKoC format)
+// Returns shifted color in ABGR format, keeping the alpha of the original color
+function u32 DKoC.Util.shiftABGR(u32 rgbColor, s16 degree)
+{
+	// Variables
+	u8 alpha
+	u32 hslColor
+	u32 returnRGBColor
+
+	// Since the HSL format doesn't have room for alpha, extract it
+	alpha = (rgbColor & 0xff000000) >> 24
+
+	// Convert to HSL and call shiftHSL
+	hslColor = DKoC.Util.abgrToHSL(rgbColor)
+	hslColor = DKoC.Util.shiftHSL(hslColor, degree)
+
+	// Convert back to RGB
+	returnRGBColor = DKoC.Util.hslToABGR(hslColor)
+
+	return u32(alpha << 24) + (returnRGBColor & 0x00ffffff)
+}
+
+// Function to unpack colors, either in AIR's extended format or the VDP's
+// color format
+// DEPRECATED, use unpackColor instead (this function essentially does the
+// same thing, but with full alpha instead of no alpha for unpacked colors.
+// If you need alpha, just add it to the ABGR color unpackColor returns)
+function u32 DKoC.Util.unpackColor(u16 color)
+{
+	// RGB
+	u8 red
+	u8 green
+	u8 blue
+
+	// Extended format
+	if(color & 0x8000)
+	{
+		blue = (color & 0x7c00) >> 7
+		green = (color & 0x03e0) >> 2
+		red = (color & 0x001f) << 3
+	}
+	// VDP Format
+	else
+	{
+		blue = (color & 0x0e00) >> 4
+		green = color & 0x00e0
+		red = (color & 0x000e) << 4
+	}
+
+	// Assume all colors have 100% opacity (which i've assumed to be 0xff)
+	return 0xff000000 + u32(blue << 16) + u32(green << 8) + red
+}
+
+// Function to pack colors, either to AIR's extended format or the VDP's
+// color format.
+// bool useVDPFormat
+	// Whether or not to pack into the VDP's color format.
+	// True = returns in VDP format
+	// False = returns in extended format
+function u16 DKoC.Util.packColor(u32 color, bool useVDPFormat)
+{
+	// Variables
+	u16 returnColor
+	// extract RGB Values
+	u8 blue = (color & 0x00ff0000) >> 16
+	u8 green = (color & 0x0000ff00) >> 8
+	u8 red = (color & 0x000000ff)
+
+	// Convert to VDP format
+	if(useVDPFormat)
+	{
+		assert(false, "VDP COLOR FORMAT NOT SUPPORTED YET")
+	}
+	// Convert to extended format
+	else
+	{
+		// Truncate RGB values to only 5 bits
+		blue &= 0xf8
+		green &= 0xf8
+		red &= 0xf8
+
+		returnColor = u16(blue << 7) + u16(green << 2) + u16(red >> 3)
+	}
+
+	return returnColor
+}
 // Function(s) to work directly on memory?
+

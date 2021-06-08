@@ -1,86 +1,91 @@
 {
+	"fbz_tiles":
+	{
+		"File": "fbz tiles.bin",
+		"RomInject": "0x195040"
+	},
 
-	"fbz tiles": 
-{
-	"File": "fbz tiles.bin",
-	"RomInject": "0x195040"
-},
+	"fbz_blocks":
+	{
+		"File": "fbz blocks.bin",
+		"RomInject": "0x194400"
+	},
 
-		"fbz blocks": 
-{
-	"File": "fbz blocks.bin",
-	"RomInject": "0x194400"
-},
+	"fbz_chunks":
+	{
+		"File": "fbz chunks.bin",
+		"RomInject": "0x01974a2"
+	},
 
-			"fbz chunks": 
-{
-	"File": "fbz chunks.bin",
-	"RomInject": "0x01974a2"
-},
-	"AIZ1 chunks": 
-{
-	"File": "AIZ1Collision.bin",
-	"RomInject": "0x3ABC40" 
-},
-	"AIZ2 chunks": 
-{
-	"File": "AIZ2Collision.bin",
-	"RomInject": "0x3b51e8" 
-},
-"mhz chunks 1":
-{
-	"File": " mhz primary chunks.bin",
-	"RomInject": "0x019D044"
-},
+	"AIZ1_chunks":
+	{
+		"File": "AIZ1Collision.bin",
+		"RomInject": "0x3ABC40"
+	},
 
-"mhz chunks 2":
-{
-	"File": "mhz secondary chunks.bin",
-	"RomInject": "0x019f8a6"
-},
+	"AIZ2_chunks":
+	{
+		"File": "AIZ2Collision.bin",
+		"RomInject": "0x3b51e8"
+	},
+
+	"mhz_chunks_1":
+	{
+		"File": " mhz primary chunks.bin",
+		"RomInject": "0x019D044"
+	},
+
+	"mhz_chunks_2":
+	{
+		"File": "mhz secondary chunks.bin",
+		"RomInject": "0x019f8a6"
+	},
+
 	"HCZ1Chunks":
-    {
-        "File": "HCZ1Chunks.bin",
-        "RomInject": "0x3BA2AA"
-},
-		"LBZ2Chunks":
-    {
-        "File": "LBZ2Collision.bin",
-        "RomInject": "0x3EAF04"
-    },
-"bonus stage tiles":
-    {
-        "File": "GSTiles.bin",
-        "RomInject": "0x01deb40"
-    },
+	{
+		"File": "HCZ1Chunks.bin",
+		"RomInject": "0x3BA2AA"
+	},
 
-        "blocks bonus pach":
-    {
-        "File": "GSBlocks.bin",
-        "RomInject": "0x01de770"
-    },
+	"LBZ2Chunks":
+	{
+		"File": "LBZ2Collision.bin",
+		"RomInject": "0x3EAF04"
+	},
 
-        "chunks bonus pach":
-    {
-      "File": "GSChunks.bin",
-      "RomInject": "0x01dfe92"
-    },
-	
-	    	"fbzindex":
+	"bonus_stage_tiles":
+	{
+		"File": "GSTiles.bin",
+		"RomInject": "0x01deb40"
+	},
+
+	"blocks_bonus_pach":
+	{
+		"File": "GSBlocks.bin",
+		"RomInject": "0x01de770"
+	},
+
+	"chunks_bonus_pach":
+	{
+	  "File": "GSChunks.bin",
+	  "RomInject": "0x01dfe92"
+	},
+
+	"fbzindex":
 	{
 		"File": "fbzanitileindex.bin",
-//		"RomInject": "0x28906"
+		// "RomInject": "0x28906"
 	},
-	
-	     	"fbzindex2":
+
+	"fbzindex2":
 	{
 		"File": "fbzanitileindex2.bin",
-//		"RomInject": "0x28906"
+		// "RomInject": "0x28906"
 	},
-	
-	     	"anitilebgfbz":
+
+	"anitilebgfbz":
 	{
 		"File": "fbz ani tiles.bin",
-//		"RomInject": "0x0B89C0"
-	},
+		// "RomInject": "0x0B89C0"
+	}
 }

@@ -189,7 +189,7 @@ function void RenderHUD()
 			if (getMainCharacter() == CHARACTER_SONIC)
 				characterName = "sonic"
 			else if (getMainCharacter() == CHARACTER_TAILS)
-				characterName = "tails"
+				characterName = (global.region_code & 0x80) ? "tails" : "miles"
 			else
 				characterName = "knuckles"
 			HUD.drawSprite(stringformat("hud_lives_icon_%s", characterName), baseX, 200, renderQueue)

@@ -1,3 +1,6 @@
+// Global Variables
+global u64 FlameQuest.LevelSelect.background
+
 // Main Level Select Update loop
 //# address-hook(0x007a74) end(0x007d20)
 //# translated(0x007d64) end(0x007d6a)
@@ -13,6 +16,7 @@ function void LevelSelect()
 
 	// Perform main update now
 	bool running = true
+
 	while (running)
 	{
 		global.frame_state = 0x16
@@ -23,6 +27,14 @@ function void LevelSelect()
 	@EntryPoint:
 
 		running = LevelSelect.innerUpdate()
+
+		#if !GAMEAPP
+		// Exit the menu in Oxygen
+		if(global.game_mode == 0x04)
+		{
+			running = false
+		}
+		#endif
 	}
 }
 
@@ -58,7 +70,7 @@ function void LevelSelect.init()
 	zeroMemory(0xffff0000, 0x460 * 2)
 
 	A3 = 0xffff0000
-        A1 = 0x0080e6
+	A1 = 0x0080e6
 	A5 = 0x0080c4
 	D0 = 0
 	D1.u16 = 0x10
@@ -92,43 +104,47 @@ function void LevelSelect.init()
 	u16[A2] = 0
 	A2 = A2 - 0x50
 	u16[A2] = 0x1a
-	u16[0xffff018a] = 0x11
-	u16[0xffff01da] = 0x12
 
-	u16[0xffff061c] = 0x30
-	u16[0xffff061e] = 0x2D
-	u16[0xffff0620] = 0x22
-	u16[0xffff0622] = 0x20
-	u16[0xffff0624] = 0x26
-	u16[0xffff0626] = 0x1e
-	u16[0xffff0628] = 0x29
-	u16[0xffff062a] = 0x00
-	u16[0xffff062c] = 0x30
-	u16[0xffff062e] = 0x31
-	u16[0xffff0630] = 0x1e
-	u16[0xffff0632] = 0x24
-	u16[0xffff0634] = 0x22
+	// Bunch of byte stuff in a code block for collapsability
+	{
+		u16[0xffff018a] = 0x11
+		u16[0xffff01da] = 0x12
+
+		u16[0xffff061c] = 0x30
+		u16[0xffff061e] = 0x2D
+		u16[0xffff0620] = 0x22
+		u16[0xffff0622] = 0x20
+		u16[0xffff0624] = 0x26
+		u16[0xffff0626] = 0x1e
+		u16[0xffff0628] = 0x29
+		u16[0xffff062a] = 0x00
+		u16[0xffff062c] = 0x30
+		u16[0xffff062e] = 0x31
+		u16[0xffff0630] = 0x1e
+		u16[0xffff0632] = 0x24
+		u16[0xffff0634] = 0x22
 
 
-	u16[0xffff0536] = 0x00
-	u16[0xffff0538] = 0x30
-	u16[0xffff053a] = 0x31
-	u16[0xffff053c] = 0x1e
-	u16[0xffff053e] = 0x24
-	u16[0xffff0540] = 0x22
+		u16[0xffff0536] = 0x00
+		u16[0xffff0538] = 0x30
+		u16[0xffff053a] = 0x31
+		u16[0xffff053c] = 0x1e
+		u16[0xffff053e] = 0x24
+		u16[0xffff0540] = 0x22
 
-	u16[0xffff043c] = 0x31
-	u16[0xffff043e] = 0x25
-	u16[0xffff0440] = 0x22
-	u16[0xffff0442] = 0x00
-	u16[0xffff0444] = 0x21
-	u16[0xffff0446] = 0x2C
-	u16[0xffff0448] = 0x2C
-	u16[0xffff044a] = 0x2A
-	u16[0xffff044c] = 0x30
-	u16[0xffff044e] = 0x21
-	u16[0xffff0450] = 0x1E
-	u16[0xffff0452] = 0x36
+		u16[0xffff043c] = 0x31
+		u16[0xffff043e] = 0x25
+		u16[0xffff0440] = 0x22
+		u16[0xffff0442] = 0x00
+		u16[0xffff0444] = 0x21
+		u16[0xffff0446] = 0x2C
+		u16[0xffff0448] = 0x2C
+		u16[0xffff044a] = 0x2A
+		u16[0xffff044c] = 0x30
+		u16[0xffff044e] = 0x21
+		u16[0xffff0450] = 0x1E
+		u16[0xffff0452] = 0x36
+	}
 
 	copyRectToVRAM(0xffff0000, 0xc000, 0x28, 0x1c)
 
@@ -141,7 +157,9 @@ function void LevelSelect.init()
 	u16[0xfffff7f0] = 0
 
 	A2 = 0x0081b0
-	LevelTilesAnim.Default()
+
+	// Don't load the SONIC/MILES background (for background shenanigans)
+	// LevelTilesAnim.Default()
 
 	Level.loadNonfadingPaletteData(0x04)
 
@@ -178,7 +196,7 @@ function void LevelSelect.init()
 	waitForNextFrame()
 
 	// Draw the background, characters, and sidebar
-	Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x20, 0, 0x1fff)
+	Renderer.drawCustomSprite(FlameQuest.LevelSelect.background, 0, 0, 0x20, 0, 0x1fff)
 	FlameQuest.LevelSelect.drawSidebar()
 
 	RenderSprites()
@@ -288,8 +306,19 @@ function bool LevelSelect.innerUpdate()
 		}
 	}
 
-	// Render sprites & custom background
-	Renderer.drawCustomSprite("level_select_bg", 0, 0, 0x20, 0, 0x1fff)
+	// In oxygen, display the sound test history
+	#if !GAMEAPP
+	debugLog(stringformat("History: 0x%08x%08x", (FlameQuest.soundTestHistory & 0xffffffff00000000) >> 32, FlameQuest.soundTestHistory & 0x00000000ffffffff))
+	#endif
+
+	// Handle RGB Knux stuff
+	if(FlameQuest.Secret.useRGBKnux)
+	{
+		FlameQuest.LevelSelect.updateRGBKnux()
+	}
+
+	// Render sprites & background
+	Renderer.drawCustomSprite(FlameQuest.LevelSelect.background, 0, 0, 0x20, 0, 0x1fff)
 	FlameQuest.LevelSelect.drawSidebar()
 
 	RenderSprites()
@@ -467,10 +496,38 @@ function void FlameQuest.LevelSelect.drawZoneIcons()
 	else
 	#endif
 	{
-		System.writeDisplayLine(stringformat("0x%02x | %s", levelselect.selection, zoneIconKey))
+		debugLog(stringformat("0x%02x | %s", levelselect.selection, zoneIconKey))
 	}
 }
 
+// Level Select version of RGB Knux code
+function void FlameQuest.LevelSelect.updateRGBKnux()
+{
+	for(u8 i = 1; i < 32; i++)
+	{
+		// Shift current color
+		u32[FlameQuest.RGB_KNUX_PALETTE + i * 4] = DKoC.Util.shiftHSL(u32[FlameQuest.RGB_KNUX_PALETTE + i * 4], 1)
+
+		// Convert color to RGB
+		u32 rgbColor = DKoC.Util.hslToABGR(u32[FlameQuest.RGB_KNUX_PALETTE + i * 4])
+		Renderer.setPaletteEntry(0x80 + i, rgbColor)
+	}
+
+	/*
+	// Shift temp color
+	tempHSLKnuxColor = DKoC.Util.shiftHSL(tempHSLKnuxColor, 1)
+
+	// Convert HSL color to RGB
+	rgbColor = DKoC.Util.hslToABGR(tempHSLKnuxColor)
+
+	Renderer.setPaletteEntry(0x82, rgbColor)
+
+	// u16[colorAddress] = DKoC.Util.packColor(rgbColor, false)
+	*/
+}
+
+// Separate the sound test code into its own function (in soundtest.lemon)
+// Also handles Level Select controls
 //# address-hook(0x007e64) end(0x007f1e)
 //# translated(0x007f46) end(0x007f60)
 function void fn007e64()
@@ -490,47 +547,30 @@ function void fn007e64()
 			--levelselect.selection
 			if (s16(levelselect.selection) < 0)
 				levelselect.selection = 0x20
+
+			playSound(0x5b)
 		}
 		if (control.pad1.state & CONTROL_DOWN)
 		{
 			++levelselect.selection
 			if (levelselect.selection > 0x20)
 				levelselect.selection = 0
+
+			playSound(0x5b)
 		}
 		return
 	}
 
 	if (levelselect.selection == 0x20)
 	{
-		// Sound test
-		if (control.pad1.pressed & CONTROL_LEFT)
-		{
-			if (levelselect.soundtest > 0)
-				--levelselect.soundtest
-		}
-		if (control.pad1.pressed & CONTROL_RIGHT)
-		{
-			levelselect.soundtest = (levelselect.soundtest + 1) & 0xff
-		}
-		if (control.pad1.pressed & CONTROL_A)
-		{
-			levelselect.soundtest = (levelselect.soundtest + 0x10) & 0xff
-		}
-
-		if (control.pad1.pressed & CONTROL_C)
-		{
-			playMusic(levelselect.soundtest)
-		}
-		if (control.pad1.pressed & CONTROL_B)
-		{
-			playMusic(0xe3)
-		}
+		FlameQuest.updateSoundTest()
 	}
 	else
 	{
 		if (control.pad1.pressed & (CONTROL_LEFT | CONTROL_RIGHT))
 		{
 			levelselect.selection = u8[0x007f22 + levelselect.selection]
+			playSound(0x5b)
 		}
 
 		if (control.pad1.pressed & CONTROL_C)
@@ -559,12 +599,18 @@ function void fn007e64()
 		FadeOutScreenBlocking()
 		A0 = backupA0
 
+		#if !GAMEAPP
+		global.game_mode = 0x04
+
+		#endif
+
 		// Do not fade out music in this case, Data Select music is meant to kept playing
 		Game.returnToMainMenu()
 		yieldExecution()
 	}
 #endif
 }
+
 
 //# translated(0x007d6c) end(0x007e62)
 function bool fn007d6c()
@@ -628,7 +674,8 @@ function bool fn007d6c()
 	global.rolling_demo = 0
 	player.next_life_score = 5000
 	u32[0xffffffc4] = 5000
-playSound(0xaf)
+
+	playSound(0xaf)
 
 	playSound(MUSIC_CTRL_FADEOUT)
 
@@ -719,49 +766,5 @@ function void ZoneTimesMenu.drawString(u32 vramAddress, u64 stringToDraw, u8 pal
 
 		setVRAM(vramAddress, characterToDraw)
 		vramAddress += 2
-	}
-}
-
-//# address-hook(0x007f62) end(0x008010)
-//# translated(0x008012) end(0x00803e)
-function void fn007f62()
-{
-	A4 = 0xffff0000
-	A5 = 0x008040
-	A3 = A5 + levelselect.selection * 4
-	D0 = u32(u8[A3]) * 0x50 + u8[A3 + 1]
-	A1 = A4 + D0.s16
-
-	D1 = u32(u8[A3]) * 0x80 + u8[A3 + 1]
-	D1.u16 += 0xc000
-	VDP.setupVRAMWrite(D1.u16)
-
-	for (u8 i = 0; i < 0x0f; ++i)
-	{
-		D0.u16 = u16[A1] + D3.u16
-		VDP.writeData16(D0.u16)
-		A1 += 2
-	}
-
-	A3 += 2
-	D0 = u8[A3]
-	if (D0.u8 != 0)
-	{
-		D0 = u32(D0.u16) * 0x50 + u8[A3 + 1]
-		A1 = A4 + D0.u16
-
-		D1 = 0xc000 + u8[A3] * 0x80 + u8[A3 + 1]
-		VDP.setupVRAMWrite(D1.u16)
-
-		D0.u16 = u16[A1] + D3.u16
-		VDP.writeData16(D0.u16)
-		A1 += 2
-	}
-
-	if (levelselect.selection == 0x20)
-	{
-		VDP.setupVRAMWrite(0xcb46)
-		LevelSelect.writeHexDigit(levelselect.soundtest >> 4,   D3.u16)
-		LevelSelect.writeHexDigit(levelselect.soundtest & 0x0f, D3.u16)
 	}
 }

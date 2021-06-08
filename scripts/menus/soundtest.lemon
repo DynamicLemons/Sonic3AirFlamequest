@@ -1,0 +1,164 @@
+// Manages stuff related to soundtest and the soundtest easter eggs
+
+// Global variables
+global u64 FlameQuest.soundTestHistory
+
+// Update the sound test. Idea: Add a text blurb in the sidebar that shows
+// which song is currently playing.
+function void FlameQuest.updateSoundTest()
+{
+	// Sound test controls
+	if (control.pad1.pressed & CONTROL_LEFT)
+	{
+		if (levelselect.soundtest > 0)
+			--levelselect.soundtest
+		playSound(0x5b)
+	}
+
+	if (control.pad1.pressed & CONTROL_RIGHT)
+	{
+		levelselect.soundtest = (levelselect.soundtest + 1) & 0xff
+		playSound(0x5b)
+	}
+
+	if (control.pad1.pressed & CONTROL_A)
+	{
+		levelselect.soundtest = (levelselect.soundtest + 0x10) & 0xff
+	}
+
+	// Play sound test sound
+	if (control.pad1.pressed & CONTROL_C)
+	{
+		// Update sound test history
+		FlameQuest.updateSoundTestHistory()
+
+		// If no easter egg's been activated, play the level sound
+		if(!FlameQuest.updateSoundTestEasterEggs())
+		{
+			playMusic(levelselect.soundtest)
+		}
+		// Play the ring sound when an easter egg's activated
+		else
+		{
+			playSound(SFX_RING_ALT)
+		}
+	}
+
+	if (control.pad1.pressed & CONTROL_B)
+	{
+		playMusic(0xe3)
+	}
+}
+
+// Update sound test history
+function void FlameQuest.updateSoundTestHistory()
+{
+	FlameQuest.soundTestHistory = u64(FlameQuest.soundTestHistory << 8) + u8(levelselect.soundtest)
+}
+
+// Check for easter eggs and apply their effects if entered correctly
+function bool FlameQuest.updateSoundTestEasterEggs()
+{
+	// Test for the secret and apply its effects if found
+	if(FlameQuest.checkEasterEgg(FlameQuest.SoundTest.RGB_KNUX_SECRET))
+	{
+		// Apply the RGB Knux easter egg effects, whatever they may be
+		FlameQuest.applySecretRGBKnux()
+		return true
+	}
+	else if(FlameQuest.checkEasterEgg(FlameQuest.SoundTest.MILES_THE_PROWER_SECRET))
+	{
+		FlameQuest.applySecretMilesThePrower()
+		return true
+	}
+	else if(FlameQuest.checkEasterEgg(FlameQuest.SoundTest.BLUESTONKS_SECRET))
+	{
+		FlameQuest.applySecretBluestonks()
+		return true
+	}
+	// Test for other secrets here
+	// else if( ... )
+
+	return false
+}
+
+// Test the soundTestHistory against an easter egg
+function bool FlameQuest.checkEasterEgg(u64 easterEggCode)
+{
+	// Variables
+	u8 i = 0 // Index
+	bool result = true // Result
+
+	// Store values in shared memory for easy testing
+	// Sound Test History
+	u32[FlameQuest.SOUNDTEST_HISTORY_TEMP] = FlameQuest.soundTestHistory >> 32
+	u32[FlameQuest.SOUNDTEST_HISTORY_TEMP + 4] = FlameQuest.soundTestHistory
+
+	// Easter Egg Code
+	u32[FlameQuest.SOUNDTEST_CODE_TEMP] = easterEggCode >> 32
+	u32[FlameQuest.SOUNDTEST_CODE_TEMP + 4] = easterEggCode
+
+	// Increment the index to the first non-0 digit in the Easter Egg Code
+	while(u8[FlameQuest.SOUNDTEST_CODE_TEMP + i] == 0x00)
+	{
+		i++
+	}
+
+	// Throw an error if the sound test code contains 1 or fewer digits
+	if(i == 0x08)
+		assert(false, "Sound test code only 1 digit")
+	else if(i > 0x08)
+		assert(false, "Sound test code contains no digits")
+
+	// Test the remaining bytes of the Easter Egg Code against the
+	// Sound test history
+	while(i < 8)
+	{
+		#if !GAMEAPP
+		debugLog(stringformat("%d: %02x | %02x", i, u8[FlameQuest.SOUNDTEST_HISTORY_TEMP + i], u8[FlameQuest.SOUNDTEST_CODE_TEMP + i]))
+		#endif
+		// If the current byte in the Sound Test History isn't the same
+		// as the byte in the Easter Egg Code, set the result to false
+		if(u8[FlameQuest.SOUNDTEST_HISTORY_TEMP + i] != u8[FlameQuest.SOUNDTEST_CODE_TEMP + i])
+		{
+			result = false
+			break
+		}
+
+		i++
+	}
+
+	return result
+}
+
+// Sound Test Easter Egg functions
+// Might wanna move these to their own .lemon, especially when the amount
+// of Sound Test easter eggs increases
+
+// RGB Knux
+function void FlameQuest.applySecretRGBKnux()
+{
+	// Show the player that RGB Knux exists
+	if(levelselect.characters < 3)
+		levelselect.characters = 3
+
+	ZoneTimesMenu.drawString(0xc4d0, "RGB KNUX")
+
+	FlameQuest.Secret.useRGBKnux = true
+}
+
+// Miles the Prower
+function void FlameQuest.applySecretMilesThePrower()
+{
+	FlameQuest.Secret.milesThePrower = true
+}
+
+// Bluestonks
+function void FlameQuest.applySecretBluestonks()
+{
+	FlameQuest.LevelSelect.background = "flamequest_bg_bluestonks"
+
+	// Load bluestonks palette directly into CRAM (BG uses line 2 by default)
+	System.loadExternalRawData("flamequest_level_select_bluestonks", 0xfffffc00 + 0x20 * 2)
+}
+
