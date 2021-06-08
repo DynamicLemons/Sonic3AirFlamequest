@@ -48,6 +48,7 @@
         "File": "LBZ2Collision.bin",
         "RomInject": "0x3EAF04"
     },
+/*
 "bonus stage tiles":
     {
         "File": "GSTiles.bin",
@@ -65,7 +66,7 @@
       "File": "GSChunks.bin",
       "RomInject": "0x01dfe92"
     },
-	
+*/
 	    	"fbzindex":
 	{
 		"File": "fbzanitileindex.bin",
