@@ -148,13 +148,41 @@ function bool Standalone.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
 	}
 
 	// Oil
-	if ((objA0.update_address == 0x032aae) && (global.zone == 0x06))
+	else if ((objA0.update_address == 0x032aae) && (global.zone == 0x06))
 	{
 		u64 oilSpriteKey = ""
 		oilSpriteKey = stringformat("oil_surface_%d", (level.framecounter >> 4) % 3)
 		Renderer.drawCustomSprite(oilSpriteKey, px, py - 15, 0, render_flag.WORLD, renderQueue)
 		Renderer.drawCustomSprite("oil_depths", px, py + 48, 0, render_flag.WORLD, renderQueue+100)
 		Renderer.drawCustomSprite("oil_depths", px, py + 64, 0, render_flag.WORLD, renderQueue+100)
+		return true
+	}
+
+	// Spilled ring
+	else if ((objA0.update_address == 0x01a64a || objA0.update_address == 0x01a662) && objA0.base_state == 0x02)
+	{
+		// Use smoother ring rotation
+		u16 animFrame = 0x00
+		u8 alpha = 255
+		u64 key = ""
+
+		// Hyper Ring
+		if (objA0.subtype2c == 0x01) // Render sprite based on if you have a Hyper Ring or not
+		{
+			animFrame = (FlameQuest.hyperRingProgress >> 8) % 8
+			alpha = min(255, u16(FlameQuest.hyperRingSpeed) * 10)
+			key = stringformat("hyper_ring_0%d", animFrame) // Hyper Ring
+		}
+		// Normal Ring
+		else
+		{
+			animFrame = (spilled_rings.progress >> 8) % 8
+			alpha = min(255, u16(spilled_rings.speed) * 10)
+			key = stringformat("ring_0%d", animFrame) // Ring
+		}
+
+
+		Renderer.drawCustomSprite(key, px, py, 0x00, prioFlag ? SPRITE_FLAG_PRIO : 0, renderQueue, 0, alpha)
 		return true
 	}
 

@@ -10,68 +10,68 @@
     "flamequest_bg_proper_english":	{ "File": "secrets/ew.png", "Rect": "0,0,400,224"},
 
 	// Zone Icons
-	"flamequest_levelselect_icon_0x00": {"File" : "level_select_icons/LevelSelectHUD_0.png", "Rect": "0,0,80,56", "Center": "0,0"},
-	"flamequest_levelselect_icon_0x01": {"File" : "level_select_icons/LevelSelectHUD_0.png", "Rect": "0,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x00": {"File" : "menus/level_select_icons/LevelSelectHUD_0.png", "Rect": "0,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x01": {"File" : "menus/level_select_icons/LevelSelectHUD_0.png", "Rect": "0,0,80,56", "Center": "0,0"},
 
-	"flamequest_levelselect_icon_0x02": {"File" : "level_select_icons/LevelSelectHUD_0.png", "Rect": "80,0,80,56", "Center": "0,0"},
-	"flamequest_levelselect_icon_0x03": {"File" : "level_select_icons/LevelSelectHUD_0.png", "Rect": "80,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x02": {"File" : "menus/level_select_icons/LevelSelectHUD_0.png", "Rect": "80,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x03": {"File" : "menus/level_select_icons/LevelSelectHUD_0.png", "Rect": "80,0,80,56", "Center": "0,0"},
 
-	"flamequest_levelselect_icon_0x04": {"File" : "level_select_icons/LevelSelectHUD_0.png", "Rect": "160,0,80,56", "Center": "0,0"},
-	"flamequest_levelselect_icon_0x05": {"File" : "level_select_icons/LevelSelectHUD_0.png", "Rect": "160,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x04": {"File" : "menus/level_select_icons/LevelSelectHUD_0.png", "Rect": "160,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x05": {"File" : "menus/level_select_icons/LevelSelectHUD_0.png", "Rect": "160,0,80,56", "Center": "0,0"},
 
-	"flamequest_levelselect_icon_0x06": {"File" : "level_select_icons/LevelSelectHUD_0_1.png", "Rect": "240,0,80,56", "Center": "0,0"},
-	"flamequest_levelselect_icon_0x07": {"File" : "level_select_icons/LevelSelectHUD_0_1.png", "Rect": "240,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x06": {"File" : "menus/level_select_icons/LevelSelectHUD_0_1.png", "Rect": "240,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x07": {"File" : "menus/level_select_icons/LevelSelectHUD_0_1.png", "Rect": "240,0,80,56", "Center": "0,0"},
 
-	"flamequest_levelselect_icon_0x08": {"File" : "level_select_icons/LevelSelectHUD_1.png", "Rect": "0,0,80,56", "Center": "0,0"},
-	"flamequest_levelselect_icon_0x09": {"File" : "level_select_icons/LevelSelectHUD_1.png", "Rect": "0,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x08": {"File" : "menus/level_select_icons/LevelSelectHUD_1.png", "Rect": "0,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x09": {"File" : "menus/level_select_icons/LevelSelectHUD_1.png", "Rect": "0,0,80,56", "Center": "0,0"},
 
-	"flamequest_levelselect_icon_0x0a": {"File" : "level_select_icons/LevelSelectHUD_1.png", "Rect": "80,0,80,56", "Center": "0,0"},
-	"flamequest_levelselect_icon_0x0b": {"File" : "level_select_icons/LevelSelectHUD_1.png", "Rect": "80,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x0a": {"File" : "menus/level_select_icons/LevelSelectHUD_1.png", "Rect": "80,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x0b": {"File" : "menus/level_select_icons/LevelSelectHUD_1.png", "Rect": "80,0,80,56", "Center": "0,0"},
 
-	"flamequest_levelselect_icon_0x0c": {"File" : "level_select_icons/LevelSelectHUD_1.png", "Rect": "160,0,80,56", "Center": "0,0"},
-	"flamequest_levelselect_icon_0x0d": {"File" : "level_select_icons/LevelSelectHUD_1.png", "Rect": "160,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x0c": {"File" : "menus/level_select_icons/LevelSelectHUD_1.png", "Rect": "160,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x0d": {"File" : "menus/level_select_icons/LevelSelectHUD_1.png", "Rect": "160,0,80,56", "Center": "0,0"},
 
-	"flamequest_levelselect_icon_0x0e": {"File" : "level_select_icons/LevelSelectHUD_1.png", "Rect": "240,0,80,56", "Center": "0,0"},
-	"flamequest_levelselect_icon_0x0f": {"File" : "level_select_icons/LevelSelectHUD_1.png", "Rect": "240,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x0e": {"File" : "menus/level_select_icons/LevelSelectHUD_1.png", "Rect": "240,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x0f": {"File" : "menus/level_select_icons/LevelSelectHUD_1.png", "Rect": "240,0,80,56", "Center": "0,0"},
 
-	"flamequest_levelselect_icon_0x10": {"File" : "level_select_icons/LevelSelectHUD_2.png", "Rect": "0,0,80,56", "Center": "0,0"},
-	"flamequest_levelselect_icon_0x11": {"File" : "level_select_icons/LevelSelectHUD_2.png", "Rect": "0,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x10": {"File" : "menus/level_select_icons/LevelSelectHUD_2.png", "Rect": "0,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x11": {"File" : "menus/level_select_icons/LevelSelectHUD_2.png", "Rect": "0,0,80,56", "Center": "0,0"},
 
-	"flamequest_levelselect_icon_0x12": {"File" : "level_select_icons/LevelSelectHUD_2.png", "Rect": "80,0,80,56", "Center": "0,0"},
-	"flamequest_levelselect_icon_0x13": {"File" : "level_select_icons/LevelSelectHUD_2.png", "Rect": "80,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x12": {"File" : "menus/level_select_icons/LevelSelectHUD_2.png", "Rect": "80,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x13": {"File" : "menus/level_select_icons/LevelSelectHUD_2.png", "Rect": "80,0,80,56", "Center": "0,0"},
 
-	"flamequest_levelselect_icon_0x14": {"File" : "level_select_icons/LevelSelectHUD_2_1.png", "Rect": "80,0,80,56", "Center": "0,0"},
-	"flamequest_levelselect_icon_0x15": {"File" : "level_select_icons/LevelSelectHUD_2.png", "Rect": "160,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x14": {"File" : "menus/level_select_icons/LevelSelectHUD_2_1.png", "Rect": "80,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x15": {"File" : "menus/level_select_icons/LevelSelectHUD_2.png", "Rect": "160,0,80,56", "Center": "0,0"},
 
-	"flamequest_levelselect_icon_0x16": {"File" : "level_select_icons/LevelSelectHUD_2.png", "Rect": "240,0,80,56", "Center": "0,0"},
-	"flamequest_levelselect_icon_0x17": {"File" : "level_select_icons/LevelSelectHUD_2.png", "Rect": "240,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x16": {"File" : "menus/level_select_icons/LevelSelectHUD_2.png", "Rect": "240,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x17": {"File" : "menus/level_select_icons/LevelSelectHUD_2.png", "Rect": "240,0,80,56", "Center": "0,0"},
 
-	"flamequest_levelselect_icon_0x18": {"File" : "level_select_icons/LevelSelectHUD_3.png", "Rect": "0,0,80,56", "Center": "0,0"},
-	"flamequest_levelselect_icon_0x19": {"File" : "level_select_icons/LevelSelectHUD_3.png", "Rect": "0,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x18": {"File" : "menus/level_select_icons/LevelSelectHUD_3.png", "Rect": "0,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x19": {"File" : "menus/level_select_icons/LevelSelectHUD_3.png", "Rect": "0,0,80,56", "Center": "0,0"},
 
-	"flamequest_levelselect_icon_0x1a": {"File" : "level_select_icons/LevelSelectHUD_3_1.png", "Rect": "80,0,80,56", "Center": "0,0"},
-	"flamequest_levelselect_icon_0x1b": {"File" : "level_select_icons/LevelSelectHUD_3.png", "Rect": "0,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x1a": {"File" : "menus/level_select_icons/LevelSelectHUD_3_1.png", "Rect": "80,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x1b": {"File" : "menus/level_select_icons/LevelSelectHUD_3.png", "Rect": "0,0,80,56", "Center": "0,0"},
 
-	"flamequest_levelselect_icon_0x1c": {"File" : "level_select_icons/LevelSelectHUD_3.png", "Rect": "160,0,80,56", "Center": "0,0"},
-	"flamequest_levelselect_icon_0x1d": {"File" : "level_select_icons/LevelSelectHUD_3.png", "Rect": "160,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x1c": {"File" : "menus/level_select_icons/LevelSelectHUD_3.png", "Rect": "160,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x1d": {"File" : "menus/level_select_icons/LevelSelectHUD_3.png", "Rect": "160,0,80,56", "Center": "0,0"},
 
-	"flamequest_levelselect_icon_0x1e": {"File" : "level_select_icons/LevelSelectHUD_3.png", "Rect": "240,0,80,56", "Center": "0,0"},
-	"flamequest_levelselect_icon_0x1f": {"File" : "level_select_icons/LevelSelectHUD_3.png", "Rect": "240,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x1e": {"File" : "menus/level_select_icons/LevelSelectHUD_3.png", "Rect": "240,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x1f": {"File" : "menus/level_select_icons/LevelSelectHUD_3.png", "Rect": "240,0,80,56", "Center": "0,0"},
 
-	"flamequest_levelselect_icon_0x20": {"File" : "level_select_icons/SoundTestIcons_0.png", "Rect": "80,0,80,56", "Center": "0,0"},
+	"flamequest_levelselect_icon_0x20": {"File" : "menus/level_select_icons/SoundTestIcons_0.png", "Rect": "80,0,80,56", "Center": "0,0"},
 
 	// Sound test character icons
-	// "flamequest_soundtest_icon_0x00": {"File" : "level_select_icons/SoundTestIcons_0.png", "Rect": "0,0,80,56", "Center": "0,0"}, 	// Sonic + Tails
-	"flamequest_soundtest_icon_0x01": {"File" : "level_select_icons/SoundTestIcons_0.png", "Rect": "80,0,80,56", "Center": "0,0"}, 		// Sonic
-	// "flamequest_soundtest_icon_0x02": {"File" : "level_select_icons/SoundTestIcons_0.png", "Rect": "160,0,80,56", "Center": "0,0"}, 	// Tails
-	// "flamequest_soundtest_icon_0x03": {"File" : "level_select_icons/SoundTestIcons_0.png", "Rect": "240,0,80,56", "Center": "0,0"},	// Knux
-	// "flamequest_soundtest_icon_0x04": {"File" : "level_select_icons/SoundTestIcons_1.png", "Rect": "0,0,80,56", "Center": "0,0"} 	// Knux + Tails
+	// "flamequest_soundtest_icon_0x00": {"File" : "menus/level_select_icons/SoundTestIcons_0.png", "Rect": "0,0,80,56", "Center": "0,0"}, 	// Sonic + Tails
+	"flamequest_soundtest_icon_0x01": {"File" : "menus/level_select_icons/SoundTestIcons_0.png", "Rect": "80,0,80,56", "Center": "0,0"}, 		// Sonic
+	// "flamequest_soundtest_icon_0x02": {"File" : "menus/level_select_icons/SoundTestIcons_0.png", "Rect": "160,0,80,56", "Center": "0,0"}, 	// Tails
+	// "flamequest_soundtest_icon_0x03": {"File" : "menus/level_select_icons/SoundTestIcons_0.png", "Rect": "240,0,80,56", "Center": "0,0"},	// Knux
+	// "flamequest_soundtest_icon_0x04": {"File" : "menus/level_select_icons/SoundTestIcons_1.png", "Rect": "0,0,80,56", "Center": "0,0"} 	// Knux + Tails
 
 	// Border
-	"flamequest_levelselect_icon_border": {"File": "level_select_icons/LevelSelectHUD_misc.png", "Rect": "0,0,82,58", "Center": "0,0"},
+	"flamequest_levelselect_icon_border": {"File": "menus/level_select_icons/LevelSelectHUD_misc.png", "Rect": "0,0,82,58", "Center": "0,0"},
 
 	// Icons
-	"flamequest_levelselect_icon_c_button": {"File": "level_select_icons/LevelSelectHUD_misc.png", "Rect": "0,60,20,20", "Center": "0,0"},
-	"flamequest_levelselect_icon_equals": {"File": "level_select_icons/LevelSelectHUD_misc.png", "Rect": "20,60,8,8", "Center": "0,0"},
-	"flamequest_levelselect_icon_arrow": {"File": "level_select_icons/LevelSelectHUD_misc.png", "Rect": "30,60,8,8", "Center": "0,0"}
+	"flamequest_levelselect_icon_c_button": {"File": "menus/level_select_icons/LevelSelectHUD_misc.png", "Rect": "0,60,20,20", "Center": "0,0"},
+	"flamequest_levelselect_icon_equals": {"File": "menus/level_select_icons/LevelSelectHUD_misc.png", "Rect": "20,60,8,8", "Center": "0,0"},
+	"flamequest_levelselect_icon_arrow": {"File": "menus/level_select_icons/LevelSelectHUD_misc.png", "Rect": "30,60,8,8", "Center": "0,0"}
 }
