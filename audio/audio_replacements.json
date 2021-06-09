@@ -11,11 +11,11 @@
 	// AIZ 1 FIRE
 	"01_fire":      { "File": "music/stage/1_aiz/aia1fire.ogg", "Type": "Music", "LoopStart":  "41156" },
 	"01_fire_fast":      { "File": "music/stage/1_aiz/aia1firef.ogg", "Type": "Music", "LoopStart":  "117599" },
-	
+
 	// AIZ 2
 	"02":      { "File": "music/stage/1_aiz/aia2.ogg", "Type": "Music", "LoopStart":  "141120" },
 	"02_fast":      { "File": "music/stage/1_aiz/aia2f.ogg", "Type": "Music", "LoopStart":  "35281" },
-	
+
 	// CNZ 1
 	"07":      { "File": "music/stage/4_cnz/BlazingCarnival1.ogg", "Type": "Music", "Loop": "1" },
 	"07_proto":      { "File": "music/stage/4_cnz/BlazingCarnival1.ogg", "Type": "Music", "Loop": "1" },
@@ -55,7 +55,7 @@
 	"1A_fast": { "File": "music/stage/e_ddz/DoomsdayF.ogg", "Type": "Music", "LoopStart": "400669" },
 
 	// Glowing Spheres bonus stage
-	"1B": { "File": "musicother/BonusStage.ogg", "Type": "Music", "Loop": "1" },
+	"1B": { "File": "music/other/BonusStage.ogg", "Type": "Music", "Loop": "1" },
 
 	// Competition Mode menu (Sonic 3 Prototype)
 	//It's already in the game, I have no idea why (I assume) Blue did this
