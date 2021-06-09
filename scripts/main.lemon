@@ -1,24 +1,21 @@
 // Includes
-include player/?
-include effects/?
 include bosses/?
-include objects/?
-include transitions/?
+include compatibility/?
+include defines/?
+include eastereggs/?
+include effects/?
 include internal/?
-include music/?
-include rendering/?
 include levels/?
 include menus/?
-include specialstages/?
+include objects/?
 include options/?
-include cutscenes/?
-include credits/?
-include eastereggs/?
-include compatibility/?
-include audio
-include defines/?
+include player/?
+include rendering/?
+include specialstages/?
+include transitions/?
 include utility/?
 
+include audio
 
 // Load character palettes at the start of the game so that the level
 // select functions properly.
