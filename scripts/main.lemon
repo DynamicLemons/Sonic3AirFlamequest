@@ -44,6 +44,7 @@ function void Init()
 
 }
 
+// These shouldn't be here
 function void EntryFunctions.actSelect()
 {
 	System.setupCallFrame("GameModeControlLoop", "@EntryPoint")

@@ -1,11 +1,7 @@
 {
-    "tailssoundtest":  { "File": "talshavenolisne.png", "Rect": "0,0,400,224"},
-    "spok":  { "File": "infite.png", "Rect": "0,0,400,224"},
-    "yalk":  { "File": "egg.png", "Rect": "0,0,400,224"},
-    "gill":  { "File": "gills.png", "Rect": "0,0,400,224"},
-    "missingu":  { "File": "ew.png", "Rect": "0,0,400,224"},
-    "jam":  { "File": "baech.png", "Rect": "0,0,400,224"},
-    "ded":  { "File": "beach.png", "Rect": "0,0,400,224"},
-    "blackfade":  { "File": "black.png", "Rect": "0,0,400,224"}
+    "tailssoundtest":  { "File": "secrets/talshavenolisne.png", "Rect": "0,0,400,224"},
+    "yalk":  { "File": "secrets/egg.png", "Rect": "0,0,400,224"},
+    "gill":  { "File": "secrets/gills.png", "Rect": "0,0,400,224"},
+    "missingu":  { "File": "secrets/ew.png", "Rect": "0,0,400,224"}
     //Maybe use https://cdn.discordapp.com/attachments/647910195338674215/727744905530703882/unknown.png?
 }

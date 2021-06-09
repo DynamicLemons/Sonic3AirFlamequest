@@ -1,4 +1,15 @@
 {
+	// Level Select Backgrounds (Including easter eggs)
+	"flamequest_bg_level_select":	{ "File": "menus/backgrounds/level_select_bg.bmp", "Rect": "0,0,400,224", "Center": "0,0" },
+	"flamequest_bg_bluestonks": 	{ "File": "menus/backgrounds/bluestonks.bmp", "Rect": "0, 0, 400, 224", "Center": "0,0"}
+
+	// Unused Level Select secret backgrounds
+	"flamequest_bg_you":  			{ "File": "secrets/talshavenolisne.png", "Rect": "0,0,400,224"},
+    "flamequest_bg_water_thy_egg":	{ "File": "secrets/egg.png", "Rect": "0,0,400,224"},
+    "flamequest_bg_gillian":  		{ "File": "secrets/gills.png", "Rect": "0,0,400,224"},
+    "flamequest_bg_proper_english":	{ "File": "secrets/ew.png", "Rect": "0,0,400,224"},
+
+	// Zone Icons
 	"flamequest_levelselect_icon_0x00": {"File" : "level_select_icons/LevelSelectHUD_0.png", "Rect": "0,0,80,56", "Center": "0,0"},
 	"flamequest_levelselect_icon_0x01": {"File" : "level_select_icons/LevelSelectHUD_0.png", "Rect": "0,0,80,56", "Center": "0,0"},
 
@@ -49,11 +60,12 @@
 
 	"flamequest_levelselect_icon_0x20": {"File" : "level_select_icons/SoundTestIcons_0.png", "Rect": "80,0,80,56", "Center": "0,0"},
 
-	// "flamequest_soundtest_icon_0x00": {"File" : "level_select_icons/SoundTestIcons_0.png", "Rect": "0,0,80,56", "Center": "0,0"}, // Sonic + Tails
-	"flamequest_soundtest_icon_0x01": {"File" : "level_select_icons/SoundTestIcons_0.png", "Rect": "80,0,80,56", "Center": "0,0"}, // Sonic
-	// "flamequest_soundtest_icon_0x02": {"File" : "level_select_icons/SoundTestIcons_0.png", "Rect": "160,0,80,56", "Center": "0,0"},
-	// "flamequest_soundtest_icon_0x03": {"File" : "level_select_icons/SoundTestIcons_0.png", "Rect": "240,0,80,56", "Center": "0,0"},
-	// "flamequest_soundtest_icon_0x04": {"File" : "level_select_icons/SoundTestIcons_1.png", "Rect": "0,0,80,56", "Center": "0,0"} // Knux + Tails
+	// Sound test character icons
+	// "flamequest_soundtest_icon_0x00": {"File" : "level_select_icons/SoundTestIcons_0.png", "Rect": "0,0,80,56", "Center": "0,0"}, 	// Sonic + Tails
+	"flamequest_soundtest_icon_0x01": {"File" : "level_select_icons/SoundTestIcons_0.png", "Rect": "80,0,80,56", "Center": "0,0"}, 		// Sonic
+	// "flamequest_soundtest_icon_0x02": {"File" : "level_select_icons/SoundTestIcons_0.png", "Rect": "160,0,80,56", "Center": "0,0"}, 	// Tails
+	// "flamequest_soundtest_icon_0x03": {"File" : "level_select_icons/SoundTestIcons_0.png", "Rect": "240,0,80,56", "Center": "0,0"},	// Knux
+	// "flamequest_soundtest_icon_0x04": {"File" : "level_select_icons/SoundTestIcons_1.png", "Rect": "0,0,80,56", "Center": "0,0"} 	// Knux + Tails
 
 	// Border
 	"flamequest_levelselect_icon_border": {"File": "level_select_icons/LevelSelectHUD_misc.png", "Rect": "0,0,82,58", "Center": "0,0"},

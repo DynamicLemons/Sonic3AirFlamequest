@@ -2,5 +2,9 @@
 	"oil_surface_0":  { "File": "objects/6_lbz/Oil.bmp", "Rect": "0,0,640,64", "Center": "320,32" },
 	"oil_surface_1":  { "File": "objects/6_lbz/Oil.bmp", "Rect": "0,64,640,64", "Center": "320,32" },
 	"oil_surface_2":  { "File": "objects/6_lbz/Oil.bmp", "Rect": "0,128,640,64", "Center": "320,32" },
-	"oil_depths":  { "File": "objects/6_lbz/Oil.bmp", "Rect": "0,160,640,32", "Center": "320,32" }
+	"oil_depths":  { "File": "objects/6_lbz/Oil.bmp", "Rect": "0,160,640,32", "Center": "320,32" },
+
+	// Pull switch
+	"pull_switch":  { "File": "objects/6_lbz/PullSwitch.bmp", "Rect": "0,0,48,152", "Center": "24,20" }
+
 }
