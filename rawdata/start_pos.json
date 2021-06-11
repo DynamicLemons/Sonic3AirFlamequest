@@ -14,10 +14,15 @@
 	"File": "./level starts/HCZ1.Start-sonic.bin",
 	"RomInject": "0x1E3C20"
 },
-	"LBZ1 Start-sonic": 
+	"LBZ2 Start-sonic": 
 {
 	"File": "./level starts/LBZ2.Start-sonic.bin",
 	"RomInject": "0x1E3C4C"
+},
+	"LBZ2 Start-knuckles": 
+{
+	"File": "./level starts/LBZ2.Start-knuckles.bin",
+	"RomInject": "0x1ED0C"
 },
 	"MGZ1 Start-sonic":
 {
