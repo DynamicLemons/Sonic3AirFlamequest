@@ -22,3 +22,20 @@ define u8 FlameQuest.Monitor.HYPER_RING = 0x36 // Hyper Ring monitor define
 // Stage
 
 global u8 LBZSmogValue // Capped at 255
+
+// Sage Logo
+
+define u8 Fq.SageMode = 1
+global u64 Fq.SageLogo.Screentime 
+global u64 Fq.SageLogo.logotimer
+global s64 Fq.SageLogo.flashtimer
+
+global u8 Fq.SageLogo.octspin
+global u8 Fq.SageLogo.logospinflag
+
+global u16 Fq.SageLogo.lettertrans
+global u16 Fq.SageLogo.texttrans
+
+global s32 Fq.SageLogo.yeartimer
+
+global u16 Fq.SageLogo.shapetime
