@@ -79,7 +79,6 @@ function void SpillRings()
 	{
 		base.SpillRings()
 	}
-
 }
 
 function void FlameQuest.spillHyperRings()
@@ -181,60 +180,8 @@ function void fn01a75c()
 	// Run Normal Ring logic
 	else
 	{
-		FlameQuest.updateSpilledRing()
+		base.fn01a75c()
 	}
-
-}
-
-// Function that updates spilled ring in normal gravity
-function void FlameQuest.updateSpilledRing()
-{
-	objA0.animation.sprite = spilled_rings.animframe
-	UpdateMovementStraightSimple()
-
-	if (objA0.position.y.u16 >= water.height.current)
-	{
-		//Underwater Velocity.
-		objA0.velocity.y += 0x14
-	}
-	else
-	{
-		objA0.velocity.y += 0x18
-	}
-
-	if (objA0.velocity.y >= 0)
-	{
-		D0.u8 = (global.framecounter + D7.u8) & 0x07
-		if (D0.u8 == 0)
-		{
-			if (objA0.render_flags & render_flag.VISIBLE)
-			{
-				fn00f994()
-				if (D1.s16 < 0)
-				{
-					objA0.position.y.u16 += D1.u16
-					objA0.velocity.y = (objA0.velocity.y >> 2) - objA0.velocity.y
-				}
-			}
-
-			if (spilled_rings.speed == 0)
-			{
-				// Time over for this ring
-				UnloadObject()
-				return
-			}
-
-			if (objA0.position.y.u16 > move_area.bottom.current + getScreenHeight())
-			{
-				UnloadObject()
-				return
-			}
-		}
-	}
-
-	AddAsDynamicObject()
-	objA0.position.x.u16 -= u16[0xffffeebc]
-	DrawObject()
 }
 
 // Function that updates spilled hyper ring in normal gravity
@@ -299,7 +246,7 @@ function void fn01a7e8()
 	}
 	else
 	{
-		FlameQuest.updateSpilledRingInverseGravity()
+		base.fn01a7e8()
 	}
 }
 
@@ -336,53 +283,6 @@ function void FlameQuest.updateSpilledHyperRingInverseGravity()
 			}
 
 			if ((FlameQuest.hyperRingSpeed == 0) || (objA0.position.y.u16 > move_area.bottom.current + getScreenHeight()))
-			{
-				UnloadObject()
-				return
-			}
-		}
-	}
-
-	AddAsDynamicObject()
-	D0.u16 = u16[0xffffeebc]
-	objA0.position.x.u16 -= D0.u16
-	DrawObject()
-}
-
-// Function that updates normal spilled rings in inverted gravity
-function void FlameQuest.updateSpilledRingInverseGravity()
-{
-	objA0.animation.sprite = spilled_rings.animframe
-	UpdateMovementStraight()
-
-
-	if (objA0.position.y.u16 >= water.height.current)
-	{
-		objA0.velocity.y += 0x14 // Water Physics
-	}
-	else
-	{
-		objA0.velocity.y += 0x18 // Land Physics
-	}
-
-	if (objA0.velocity.y >= 0)
-	{
-		D0.u8 = (global.framecounter + D7.u8) & 0x07
-		if (D0.u8 == 0)
-		{
-			if (objA0.render_flags & render_flag.VISIBLE)
-			{
-				fn00fca0()
-				if (D1.s16 < 0)
-				{
-					objA0.position.y.u16 -= D1.u16
-					D0.s16 = objA0.velocity.y >> 2
-					objA0.velocity.y -= D0.u16
-					objA0.velocity.y = -objA0.velocity.y
-				}
-			}
-
-			if ((spilled_rings.speed == 0) || (objA0.position.y.u16 > move_area.bottom.current + getScreenHeight()))
 			{
 				UnloadObject()
 				return
