@@ -159,36 +159,6 @@ function void Character.GettingHurt()
 	D0 = 0xffffffff
 }
 
-// TODO: Revamp the Hyper Ring system to spawn its own rings (with their
-// own values) rather than using normal spilled rings. (also involves SpillRings())
-//# address-hook(0x01a67a) end(0x01a6ac)
-function void fn01a67a() // Determine how many rings to spawn
-{
-	u16 maxRings
-
-	D6 = global.inv_gravity ? 0x01a662 : 0x01a64a // Update Address for spawned spilled rings
-	if (FlameQuest.hyperRingActive == 1)
-	{
-		maxRings = 8
-	}
-	else
-	{
-	#if STANDALONE
-		// Standalone uses a higher limit
-		maxRings = 48
-	#else
-		// Limit to 32 rings spilled
-		maxRings = 32
-	#endif
-	}
-
-	A1 = A0
-	D5 = (u8[A0 + 0x3f] == 0) ? ring_counter : u16[0xfffffed0]
-	D5.u16 = min(D5.u16, maxRings) - 1
-	D4.u16 = 0x288
-	SpillRings()
-}
-
 //# address-hook(0x01a6b6) end(0x01a734)
 //# translated(0x01a6ae) end(0x01a758)
 function void SpillRings()
@@ -212,7 +182,7 @@ function void FlameQuest.spillHyperRings()
 	u8 ringsLeftOver = ring_counter % 8 // Remaining rings that would otherwise be lost
 
 	// Spawn the spilled Hyper rings
-	while (D5.s16 >= 0)
+	for(u8 i = 0; i < 8; i++)
 	{
 		u32[A1] = D6
 		u8[A1 + 0x04] = (render_flag.WORLD | render_flag.VISIBLE) // Set render flags
@@ -266,15 +236,13 @@ function void FlameQuest.spillHyperRings()
 				}
 			}
 		}
+
 		objA1.velocity.x = D2.u16
 		objA1.velocity.y = D3.u16
 		D2.s16 = -D2.s16
 		D4.s16 = -D4.s16
 
-		// Next ring
-		--D5.s16
-		if (D5.s16 < 0)
-			break
+		//
 		if (!allocDynamicObjectAfterA0())
 			break
 	}
