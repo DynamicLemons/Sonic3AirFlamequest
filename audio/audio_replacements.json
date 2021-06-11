@@ -5,31 +5,31 @@
 	//----------------------------------------------//
 
 	// AIZ 1
-	"01":      { "File": "music/stage/1_aiz/aia1.ogg", "Type": "Music" },
-	"01_fast": { "File": "music/stage/1_aiz/aia1f.ogg", "Type": "Music" },
+	"01":      { "File": "music/stage/1_aiz/aiz_1.ogg", "Type": "Music" },
+	"01_fast": { "File": "music/stage/1_aiz/aiz_1_fast.ogg", "Type": "Music" },
 
 	// AIZ 1 FIRE
-	"01_fire":      { "File": "music/stage/1_aiz/aia1fire.ogg", "Type": "Music", "LoopStart":  "41156" },
-	"01_fire_fast":      { "File": "music/stage/1_aiz/aia1firef.ogg", "Type": "Music", "LoopStart":  "117599" },
+	"01_fire":      { "File": "music/stage/1_aiz/aiz_1_fire.ogg", "Type": "Music", "LoopStart":  "41156" },
+	"01_fire_fast":      { "File": "music/stage/1_aiz/aiz_1_fire_fast.ogg", "Type": "Music", "LoopStart":  "117599" },
 
 	// AIZ 2
-	"02":      { "File": "music/stage/1_aiz/aia2.ogg", "Type": "Music", "LoopStart":  "141120" },
-	"02_fast":      { "File": "music/stage/1_aiz/aia2f.ogg", "Type": "Music", "LoopStart":  "35281" },
+	"02":      { "File": "music/stage/1_aiz/aiz_2.ogg", "Type": "Music", "LoopStart":  "141120" },
+	"02_fast":      { "File": "music/stage/1_aiz/aiz_2_fast.ogg", "Type": "Music", "LoopStart":  "35281" },
 
 	// CNZ 1
 	"07":      { "File": "music/stage/4_cnz/BlazingCarnival1.ogg", "Type": "Music", "Loop": "1" },
 	"07_proto":      { "File": "music/stage/4_cnz/BlazingCarnival1.ogg", "Type": "Music", "Loop": "1" },
 
 	// FBZ 1
-	"09":      { "File": "music/stage/8_fbz/fba1.ogg", "Type": "Music", "LoopStart": "117590" },
-	"09_fast": { "File": "music/stage/8_fbz/fba1f.ogg", "Type": "Music", "LoopStart": "94074" },
+	"09":      { "File": "music/stage/8_fbz/fbz_1.ogg", "Type": "Music", "LoopStart": "117590" },
+	"09_fast": { "File": "music/stage/8_fbz/fbz_1_fast.ogg", "Type": "Music", "LoopStart": "94074" },
 
 	// FBZ 2
-	"0A":      { "File": "music/stage/8_fbz/fba2.ogg", "Type": "Music", "LoopStart": "1" },
-	"0A_fast": { "File": "music/stage/8_fbz/fba2f.ogg", "Type": "Music", "LoopStart": "1" },
+	"0A":      { "File": "music/stage/8_fbz/fbz_2.ogg", "Type": "Music", "LoopStart": "1" },
+	"0A_fast": { "File": "music/stage/8_fbz/fbz_2_fast.ogg", "Type": "Music", "LoopStart": "1" },
 
-	"0Aalt":      { "File": "music/stage/8_fbz/FlyingBattery2ALT.ogg", "Type": "Music", "LoopStart": "76101" },
-	"0Aalt_fast": { "File": "music/stage/8_fbz/FlyingBattery2FALT.ogg", "Type": "Music", "LoopStart": "76877" },
+	"0A_alt":      { "File": "music/stage/8_fbz/FlyingBattery2ALT.ogg", "Type": "Music", "LoopStart": "76101" },
+	"0A_alt_fast": { "File": "music/stage/8_fbz/FlyingBattery2FALT.ogg", "Type": "Music", "LoopStart": "76877" },
 
 	// ICZ 1
 	"0B":      { "File": "music/stage/5_icz/MeltingIceCap1.ogg", "Type": "Music", "Loop": "2542576" },
@@ -58,10 +58,6 @@
 	"1B": { "File": "music/other/BonusStage.ogg", "Type": "Music", "Loop": "1" },
 
 	"hyper_ring":  { "File": "sfx/other/HyperRing.ogg", "Type": "Sound" },
-
-	"3C":  { "File": "sfx/player/Roll.ogg", "Type": "Sound" },
-	"peelout_charge":  { "File": "sfx/player/PeelCharge.ogg", "Type": "Sound" },
-	"peelout_release": { "File": "sfx/player/PeelRelease.ogg", "Type": "Sound" },
 
 	// Title Screen
 	"25":  {"File": "music/other/titlescreenfq.ogg", "Type":  "Jingle"},
