@@ -64,9 +64,9 @@
 
 	"hyper_ring":  { "File": "sfx/other/HyperRing.ogg", "Type": "Sound" },
 
-	"3C":  { "File": "sfx/player/Roll.ogg", "Type": "Sound" },
-	"peelout_charge":  { "File": "sfx/player/PeelCharge.ogg", "Type": "Sound" },
-	"peelout_release": { "File": "sfx/player/PeelRelease.ogg", "Type": "Sound" },
+	//"3C":  { "File": "sfx/player/Roll.ogg", "Type": "Sound" },
+	//"peelout_charge":  { "File": "sfx/player/PeelCharge.ogg", "Type": "Sound" },
+	//"peelout_release": { "File": "sfx/player/PeelRelease.ogg", "Type": "Sound" },
 
 	// Title Screen
 	"25":  {"File": "music/other/titlescreenfq.ogg", "Type":  "Jingle"},
@@ -74,4 +74,7 @@
 
 	// Level Results
 	"29":  {"File":  "music/other/actcompletefq.ogg", "Type":  "Jingle", "ClearMusic":  "1"},
+	
+	// Sage awesome
+	"sagejingle": { "File": "music/sage/SAGE JINGLE WITHOUT TWINKLE.ogg", "Type": "Jingle" }
 }
