@@ -57,11 +57,6 @@
 	// Glowing Spheres bonus stage
 	"1B": { "File": "music/other/BonusStage.ogg", "Type": "Music", "Loop": "1" },
 
-	// Competition Mode menu (Sonic 3 Prototype)
-	//It's already in the game, I have no idea why (I assume) Blue did this
-	"2D": { "File": "music/other/CompMenu.ogg", "Type": "Music", "LoopStart": "426340" },
-	"2D_proto": { "File": "music/other/CompMenu.ogg", "Type": "Music", "LoopStart": "426340" },
-
 	"hyper_ring":  { "File": "sfx/other/HyperRing.ogg", "Type": "Sound" },
 
 	"3C":  { "File": "sfx/player/Roll.ogg", "Type": "Sound" },
