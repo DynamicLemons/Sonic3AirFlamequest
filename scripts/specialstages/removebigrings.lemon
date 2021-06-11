@@ -1,5 +1,0 @@
-//# address-hook(0x06166a) end(0x06167c)
-function void GiantRing.Init()
-{
-	UnloadObject()
-}
