@@ -87,8 +87,10 @@ function void FlameQuest.spillHyperRings()
 	u16 hyperRingValue = (ring_counter - (ring_counter % 8)) / 8
 	u8 ringsLeftOver = ring_counter % 8 // Remaining rings that would otherwise be lost
 
+	u8 numberOfHyperRings = (ring_counter > 8) ? 8 : ringsLeftOver
+
 	// Spawn the spilled Hyper rings
-	for(u8 i = 0; i < 8; i++)
+	for(u8 i = 0; i < numberOfHyperRings; i++)
 	{
 		u32[A1] = D6
 		u8[A1 + 0x04] = (render_flag.WORLD | render_flag.VISIBLE) // Set render flags
@@ -145,6 +147,13 @@ function void FlameQuest.spillHyperRings()
 
 		objA1.velocity.x = D2.u16
 		objA1.velocity.y = D3.u16
+
+		/*
+		// Reduce velocity of Hyper Rings
+		objA1.velocity.x /= 2
+		// objA1.velocity.y = (objA1.velocity.y / 2) + (objA1.velocity.y / 4)
+		*/
+
 		D2.s16 = -D2.s16
 		D4.s16 = -D4.s16
 
@@ -249,8 +258,7 @@ function void FlameQuest.updateSpilledHyperRingInverseGravity()
 	objA0.animation.sprite = FlameQuest.hyperRingAnimFrame
 	UpdateMovementStraight()
 
-	objA0.velocity.y += 0x16 // Land Physics
-
+	objA0.velocity.y += 0x16
 
 	if (objA0.velocity.y >= 0)
 	{
