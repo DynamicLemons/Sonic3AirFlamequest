@@ -12,6 +12,7 @@
 // Debug mode                                            //
 //-------------------------------------------------------//
 
+/*
 //# address-hook(0x092a0e) end(0x092a18)
 function void DebugMode.BaseUpdate()
 {
@@ -311,20 +312,21 @@ function bool updateDebugModeInput(bool playingAsTails)
 
 	if (playingAsTails && global.characters != CHARS_TAILS_ALONE)
 		return false
-if (DevToolsDebugGravitySwitch == 1)
-{
-	// Gravity toggle
-	if (control.pad1.pressed & CONTROL_A)
-	{
-		global.inv_gravity ^= 0x01
-		control.pad1.pressed &= ~CONTROL_A
 
-		#if STANDALONE
-			// Stop vertical movement to make things better controllable
-			s16[0xffffb01a] = 0
-		#endif
+	if (DevToolsDebugGravitySwitch == 1)
+	{
+		// Gravity toggle
+		if (control.pad1.pressed & CONTROL_A)
+		{
+			global.inv_gravity ^= 0x01
+			control.pad1.pressed &= ~CONTROL_A
+
+			#if STANDALONE
+				// Stop vertical movement to make things better controllable
+				s16[0xffffb01a] = 0
+			#endif
+		}
 	}
-}
 
 	// Object mode toggle
 	if (control.pad1.pressed & CONTROL_B)
@@ -346,3 +348,4 @@ if (DevToolsDebugGravitySwitch == 1)
 	}
 	return false
 }
+*/
