@@ -306,7 +306,7 @@ function void TitleScreen()
 		#if STANDALONE
 			// In S3AIR, there is no choice, sorry...
 			#if !GAMEAPP
-			if(Input.buttonDown(BUTTON_Y)
+			if(Input.buttonDown(BUTTON_Y))
 			{
 				global.game_mode = 0x1c
 			}
