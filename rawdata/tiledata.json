@@ -87,5 +87,18 @@
 	{
 		"File": "fbz ani tiles.bin",
 		// "RomInject": "0x0B89C0"
-	}
+	},
+
+	"cnz chunks":
+	{
+		"File": "cnz chunks.bin",
+		"RomInject": "0x3d0e96"
+	},
+
+
+	"cnz blocks":
+	{
+		"File": "cnz blocks.bin",
+		"RomInject": "0x03ccc34"
+	},
 }

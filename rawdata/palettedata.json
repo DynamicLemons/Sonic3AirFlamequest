@@ -149,26 +149,7 @@
 		"RomInject": "0x0A901C"
 	},
 
-		"cnz chunks":
-	{
-		"File": "cnz chunks.bin",
-		"RomInject": "0x3d0e96"
-	},
-
-
-	"cnz blocks":
-	{
-		"File": "cnz blocks.bin",
-		"RomInject": "0x03ccc34"
-	},
-
-	"lbz water":
-	{
-		"File": "Act 2 Water.bin",
-		"RomInject": "0x0A935C"
-	},
-
-		"lbz 1":
+	"lbz 1":
 	{
 		"File": "lbz1.bin",
 		"RomInject": "0xA929C"
@@ -227,7 +208,7 @@
 	// Level Select Background Palette
 	"level_select_palette":
 	{
-		"File" : "level_select_palette.bin",
+		"File" : "level_select/level_select_palette.bin",
 		"RomInject": "0xa8a7c"
 	},
 
@@ -256,30 +237,6 @@
 	{
 	    "File": "LRZ1.bin",
 		"RomInject": "0x0a967c"
-	},
-
-    "lrz rocks":
-	{
-		"File": "Act 1 Rock Placement.bin",
-		"RomInject": "0x0cAD06"
-	},
-	// Replaces Lava Reef Zone Act 2 Palettes
-	"PaletteLRZ2":
-	{
-		"File": "PaletteLRZ2.bin",
-		"RomInject": "0x0a96dc"
-	},
-
-	"PaletteLRZ2Boss":
-	{
-		"File": "PaletteLRZ2Boss.bin",
-		"RomInject": "0x0a9cdc"
-	},
-
-	"PaletteLRZ2BossFire":
-	{
-		"File": "PaletteLRZ2BossFire.bin",
-		"RomInject": "0x079726" // as seen in lrz_deatheggstarting.lemon
 	},
 
 	"PaletteDEZ1":
