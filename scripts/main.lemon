@@ -8,7 +8,6 @@ include internal/?
 include levels/?
 include menus/?
 include objects/?
-include options/?
 include player/?
 include rendering/?
 include specialstages/?
