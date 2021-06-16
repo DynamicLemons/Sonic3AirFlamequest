@@ -224,6 +224,9 @@ function void RenderHUD()
 	}
 }
 
+// TODO: Remove everything until the end of this file in favor of zone
+// Update scripts. (also TODO: Find zone update scripts, hopefully not through
+// an object)
 //# address-hook(0x00dd06) end(0x00de86)
 function void UpdateTimeAndHud()
 {
