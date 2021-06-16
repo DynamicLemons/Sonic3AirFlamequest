@@ -1,6 +1,6 @@
-// HUD script, also stores FBZ and LRZ gimmicks
+// HUD script, also stores FBZ and LRZ gimmicks (for now)
 
-define boss.remaining_hits		= u8[A0 + 0x29]
+define boss.remaining_hits	= u8[A0 + 0x29]
 global u8 bosshphealthbar = 0
 
 #if STANDALONE
@@ -26,6 +26,7 @@ function void HUD.drawRingDigit(u8 digit, u16 px, u16 py, u16 renderQueue)
 	}
 }
 
+// Fix number hud positioning
 function void HUD.drawNumber(u64 stringMask, u32 number, u16 px, u16 py, u16 renderQueue)
 {
 	while (true)
@@ -37,11 +38,6 @@ function void HUD.drawNumber(u64 stringMask, u32 number, u16 px, u16 py, u16 ren
 		if (number == 0)
 			break
 	}
-}
-
-function void HUD.drawSmallDigit(u8 digit, u16 px, u16 py, u16 renderQueue)
-{
-	Renderer.drawCustomSprite(stringformat("hud_smalldigit_%d", digit), px, py, 0, SPRITE_FLAG_PRIO, renderQueue)
 }
 #endif
 
@@ -84,6 +80,7 @@ function void RenderHUD()
 
 		if (!isBonusStage)
 		{
+			/*
 			if (BosstimeXTimer != 0)
 			{
 				--BosstimeXTimer
@@ -94,6 +91,7 @@ function void RenderHUD()
 			{
 				HUD.drawSprite(showtime, baseX + 0x90, baseY + 0x71, renderQueue)
 			}
+			*/
 
 			// Score
 			HUD.drawSprite("hud_text_score", baseX, baseY, renderQueue)
@@ -150,7 +148,7 @@ function void RenderHUD()
 			u16 py = (isBonusStage) ? baseY : baseY + 0x20
 			bool show = (ring_counter != 0 || (level.framecounter & 0x08))
 			HUD.drawSprite(show ? "hud_text_rings" : "hud_text_rings_red", baseX, py, renderQueue)
-			u64 hyperRinganimframe = "" 
+			u64 hyperRinganimframe = ""
 			hyperRinganimframe = stringformat("hud_hyper_ring_%d", (level.framecounter >> 4) % 8)
 			if (FlameQuest.hyperRingActive == 1)
 			{
