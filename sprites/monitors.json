@@ -16,5 +16,5 @@
 	"monitor_icon_tails":  { "File": "objects/items/monitors.bmp", "Rect": "80,32,16,16", "Center": "8,6" },
 	"monitor_icon_knuckles":  { "File": "objects/items/monitors.bmp", "Rect": "96,32,16,16", "Center": "8,6" },
 	"monitor_icon_static":  { "File": "objects/items/monitors.bmp", "Rect": "64,48,16,16", "Center": "8,6" },
-	"monitor_icon_robotnik":  { "File": "objects/items/monitors.bmp", "Rect": "80,48,16,16", "Center": "8,6" }
+	"monitor_icon_eggman":  { "File": "objects/items/monitors.bmp", "Rect": "80,48,16,16", "Center": "8,6" }
 }
