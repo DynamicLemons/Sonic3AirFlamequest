@@ -48,12 +48,10 @@ function void fn00db3c()
 	RenderHUD()
 }
 
+// Unfortunately, can't base. this due to font widths...
 //# address-hook(0x00db44) end(0x00dbb2)
 function void RenderHUD()
 {
-	//FlameQuest.badnikRingOffsetUpdate() // temporary, will be moved somewhere else later.
-
-	bosshphealthbar = boss.remaining_hits
 #if STANDALONE
 	if (DEBUG_DISABLE_HUD)
 		return
@@ -65,6 +63,7 @@ function void RenderHUD()
 		baseX += 8
 		global.level_started = baseX
 	}
+
 	baseX += 0x0f
 	s16 baseY = 0x08
 	u16 renderQueue = 0xe000
@@ -73,32 +72,19 @@ function void RenderHUD()
 #if STANDALONE
 	if (!debug_mode.state)
 	{
-		if (DevToolsFastForward == 1)
-		{
-			Game.startSkippableCutscene()
-		}
-
 		if (!isBonusStage)
 		{
-			/*
-			if (BosstimeXTimer != 0)
-			{
-				--BosstimeXTimer
-			}
-
-			u64 showtime = stringformat("showtime_0%d", ((global.framecounter / 4) & 0x03) + 1)
-			if (level.boss_encounter == 1) && (BosstimeXTimer != 0)
-			{
-				HUD.drawSprite(showtime, baseX + 0x90, baseY + 0x71, renderQueue)
-			}
-			*/
-
 			// Score
 			HUD.drawSprite("hud_text_score", baseX, baseY, renderQueue)
 			++renderQueue
 			HUD.drawNumber("hud_digit_%d", player.score * 10, baseX + 0x64, baseY, renderQueue)
 			++renderQueue
-			if (global.zone_act.apparent == 0x0401) && (DevToolsFBZ2TimeLimit == 1) && (camera.foreground.x.u16 < 0x2900)
+
+			// Draw the FBZ Time limit
+			// Probably going to remove this in favor of having the timer
+			// count down in FBZ instead of counting up (this would only
+			// be a visual thing, internally it'd still count upwards)
+			if (global.zone_act.apparent == 0x0401 && DevToolsFBZ2TimeLimit == 1 && camera.foreground.x.u16 < 0x2900)
 			{
 				if (level.boss_encounter == 0)
 				{
@@ -143,19 +129,20 @@ function void RenderHUD()
 			}
 		}
 
-		// Rings
+		// Rings & Hyper Ring icon
 		{
 			u16 py = (isBonusStage) ? baseY : baseY + 0x20
 			bool show = (ring_counter != 0 || (level.framecounter & 0x08))
 			HUD.drawSprite(show ? "hud_text_rings" : "hud_text_rings_red", baseX, py, renderQueue)
+			++renderQueue
+
 			u64 hyperRinganimframe = ""
 			hyperRinganimframe = stringformat("hud_hyper_ring_%d", (level.framecounter >> 4) % 8)
+
 			if (FlameQuest.hyperRingActive == 1)
 			{
 				HUD.drawSprite(hyperRinganimframe, baseX + 0x75, py, renderQueue)
 			}
-
-			++renderQueue
 
 			u16 px = baseX + 0x64
 			for (u32 value = ring_counter;;)
@@ -198,53 +185,6 @@ function void RenderHUD()
 			if (lives_counter >= 10)
 				HUD.drawDigit(u16((lives_counter / 10) % 10), baseX + 0x20, 202, renderQueue)
 			HUD.drawDigit(u16(lives_counter % 10), baseX + 0x2a, 202, renderQueue)
-		}
-
-		// Item display
-		{
-			// In order from left to right
-
-			// Shield
-			{
-				if (u8[0xffffb000 + 0x2b] & char.bonus.SHIELD_FIRE)
-				{
-					HUD.drawSprite("hud_item_display_shield_fire", getScreenWidth() - 32, 200, renderQueue)
-				}
-				else if (u8[0xffffb000 + 0x2b] & char.bonus.SHIELD_LIGHTNING)
-				{
-					HUD.drawSprite("hud_item_display_shield_lightning", getScreenWidth() - 32, 200, renderQueue)
-				}
-				else if (u8[0xffffb000 + 0x2b] & char.bonus.SHIELD_BUBBLE)
-				{
-					HUD.drawSprite("hud_item_display_shield_bubble", getScreenWidth() - 32, 200, renderQueue)
-				}
-				else if (u8[0xffffb000 + 0x2b] & char.bonus.ANY_SHIELD)
-				{
-					HUD.drawSprite("hud_item_display_shield_classic", getScreenWidth() - 32, 200, renderQueue)
-				}
-				else
-				{
-					HUD.drawSprite("hud_item_display_blank", getScreenWidth() - 32, 200, renderQueue)
-				}
-			}
-
-			//Speed shoes
-			if (u8[0xffffb000 + 0x2b] & char.bonus.SPEED_UP)
-				HUD.drawSprite("hud_item_display_speedshoes", getScreenWidth() - 32, 182, renderQueue)
-			else
-				HUD.drawSprite("hud_item_display_blank", getScreenWidth() - 32, 182, renderQueue)
-
-			//Invincibility
-			if (u8[0xffffb000 + 0x2b] & char.bonus.INVINCIBLE)
-				HUD.drawSprite("hud_item_display_invincible", getScreenWidth() - 32, 164, renderQueue)
-			else
-				HUD.drawSprite("hud_item_display_blank", getScreenWidth() - 32, 164, renderQueue)
-
-			// Super/Burning
-			if ((super.active) || (super.active.tails))
-				HUD.drawSprite("hud_item_display_super", getScreenWidth() - 32, 146, renderQueue)
-			else
-				HUD.drawSprite("hud_item_display_blank", getScreenWidth() - 32, 146, renderQueue)
 		}
 	}
 	else
