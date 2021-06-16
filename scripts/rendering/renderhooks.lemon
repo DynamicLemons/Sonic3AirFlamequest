@@ -119,7 +119,7 @@ function bool Standalone.onWriteToSpriteTable(s16 px, s16 py, u16 renderQueue)
 		return true
 	}
 
-	// Sign
+	// Fire decoration object thing (original comment: sign)
 	else if (objA0.update_address == 0x02b962 && objA0.subtype2c == 0x2b)
 	{
 		u8 anim = (level.framecounter >> 2) % 6
