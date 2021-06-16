@@ -1,7 +1,7 @@
 {
-	"ICZ2WaterLevel": 
+	"ICZ2WaterLevel":
 	{
 		"File": "ICZ2WaterLevel.bin",
 		"RomInject": "0x6d2c"
-	},
+	}
 }
