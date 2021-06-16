@@ -1,3 +1,4 @@
+// Add velocity & ring spill upon character death
 function void Character.Die_noSound()
 {
 	bool spilledRings = false
@@ -14,18 +15,19 @@ function void Character.Die_noSound()
 	char.groundspeed = 0
 	char.state = char.state.DIED
 
-		if (A0 == 0xffffb000) && (ring_counter != 0)
+	if (A0 == 0xffffb000 && ring_counter != 0)
+	{
+		// Create ring spill object
+		if (allocDynamicObjectStd())
 		{
-			// Create ring spill object
-			if (allocDynamicObjectStd())
-			{
-				objA1.update_address = 0x01a64a
-				objA1.position.x.u16 = char.position.x.u16
-				objA1.position.y.u16 = char.position.y.u16
-				u16[A1 + 0x3e] = A0.u16
-			}
-			spilledRings = true
+			objA1.update_address = 0x01a64a
+			objA1.position.x.u16 = char.position.x.u16
+			objA1.position.y.u16 = char.position.y.u16
+			u16[A1 + 0x3e] = A0.u16
 		}
+
+		spilledRings = true
+	}
 
 	u16[0xffffffce] = char.sprite_attributes
 	u8[A0 + 0x0a] |= 0x80
