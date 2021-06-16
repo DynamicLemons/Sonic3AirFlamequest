@@ -1,27 +1,34 @@
 {
-	/*
-	"LevelSelect":
+	// Changes "Lava Reef" to "Hidden Palace" for LRZ 3 & 4
+	// Might only be a tweak, the file's pretty small
+	"level_select_layout":
 	{
-		"File": "LSelect.bin",
-		"RomInject": "0x8155"
+		"File": "level_select_layout.bin",
+		"RomInject": "0x008155"
 	},
-	*/
 
-	"DataSelect1":
+	// Changes FBZ icon
+	// With DataSelect3, FBZ icon looks good
+	"data_select_icon_fbz":
 	{
-		"File": "DataSelect1.bin",
+		"File": "data_select_icon_fbz.bin",
 		"RomInject": "0x15cd62"
 	},
-	"DataSelect2":
+
+	// Changes FBZ palette
+	"data_select_palette_fbz":
 	{
-		"File": "DataSelect2.bin",
-		"RomInject": "0xcbb8"
-	},
-	"DataSelect3":
-	{
-		"File": "DataSelect3.bin",
+		"File": "data_select_palette_fbz.bin",
 		"RomInject": "0xcbf8"
 	},
+
+	// By itself, makes LBZ red
+	"data_select_palette_lbz":
+	{
+		"File": "data_select_palette_lbz.bin",
+		"RomInject": "0xcbb8"
+	},
+
 
 	"Title1":
 	{
