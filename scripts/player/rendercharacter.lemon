@@ -6,18 +6,18 @@
 	or https://www.gnu.org/licenses/gpl-3.0.en.html
 */
 
-function void Renderer.drawJumpballShine(u16 px, u16 py)
+function void Renderer.drawJumpballShine(u16 px, u16 py, u8 flags, u16 renderQueue)
 {
-	u64 jumpballshineanimcycle = ""  
+	u64 jumpballshineanimcycle = ""
 	if (VisualJumpballColours == 1)
 	{
 		jumpballshineanimcycle = stringformat("jumpball_effect_shine_modern_%d", (level.framecounter >> 2) % 8)
-		Renderer.drawCustomSprite(jumpballshineanimcycle, px, py, 0, SPRITE_FLAG_PRIO, 0xe000, RollRotationValue / 2, 0xffffffff, 0xf000)
+		Renderer.drawCustomSprite(jumpballshineanimcycle, px, py, 0, flags, renderQueue + 1, RollRotationValue / 2, 0xff)
 	}
 	else
 	{
 		jumpballshineanimcycle = stringformat("jumpball_effect_shine_classic_%d", (level.framecounter >> 2) % 8)
-		Renderer.drawCustomSprite(jumpballshineanimcycle, px, py, 0, SPRITE_FLAG_PRIO, 0xe000, 0, 0xffffffff, 0xf000)
+		Renderer.drawCustomSprite(jumpballshineanimcycle, px, py, 0, flags, renderQueue + 1, 0, 0xff)
 	}
 }
 
@@ -35,7 +35,7 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 	u8 angle = 0
 	u64 key = Standalone.getModdedAnimationSpriteKey(character, animationSpriteEx)
 	u8 rotationMode = 0
-	
+
 	if (char.animation.sprite >= 0x96 && char.animation.sprite <= 0x9a) && (character != CHARACTER_TAILS) && (A0 == 0xffffb000)
 	{
 		if (char.flags & char.flag.FACING_LEFT)
@@ -294,7 +294,7 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 		flags ^= SPRITE_FLAG_FLIP_X
 	}
 
-	u64 jumpballanimcycle = ""  
+	u64 jumpballanimcycle = ""
 	if (VisualJumpballColours == 1)
 	{
 		if (character == CHARACTER_SONIC)
@@ -318,16 +318,17 @@ function bool Standalone.drawCharacterSprite(u8 character, u8 variant, s16 px, s
 	}
 	else
 	{
-		if (char.animation.sprite >= 0x96 && char.animation.sprite <= 0x9a) && (character != CHARACTER_TAILS) && (A0 == 0xffffb000)
+		if ((char.animation.sprite >= 0x96 && char.animation.sprite <= 0x9a) && (character != CHARACTER_TAILS) && (A0 == 0xffffb000))
 		{
-			Renderer.drawJumpballShine(px, py)
+			Renderer.drawJumpballShine(px, py, flags & 0xfe, renderQueue)
+
 			if (level.framecounter & 0x01)
 			{
 				Renderer.drawCustomSprite(jumpballanimcycle, px, py, atex, flags, renderQueue, 0, 255)
 			}
 			else
 			{
-				Renderer.drawCustomSprite(key, px, py, atex, flags, renderQueue, RollRotationValue, 255)
+				Renderer.drawCustomSprite(key, px, py, atex, flags & 0xfe, renderQueue, RollRotationValue, 255)
 			}
 		}
 		else
