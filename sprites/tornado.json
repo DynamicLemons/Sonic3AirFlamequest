@@ -1,4 +1,0 @@
-{
-	"Tornado_Plane":  { "File": "tornado.bmp", "Rect": "0,0,112,64", "Center": "8,8" },
-	"Tornado_Head":  { "File": "tornado.bmp", "Rect": "0,64,48,16", "Center": "8,8" }
-}
