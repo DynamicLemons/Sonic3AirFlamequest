@@ -1,13 +1,13 @@
 {
 	"AIZ1_chunks":
 	{
-		"File": "../Development/SonicFlameQuestProjDisasm/Levels/AIZ/Chunks/Act 1.bin",
+		"File": "../Development/s3fq_disasm/Levels/AIZ/Chunks/Act 1.bin",
 		"RomInject": "0x3ABC40"
 	},
 
 	"AIZ2_chunks":
 	{
-		"File": "../Development/SonicFlameQuestProjDisasm/Levels/AIZ/Chunks/Act 2.bin",
+		"File": "../Development/s3fq_disasm/Levels/AIZ/Chunks/Act 2.bin",
 		"RomInject": "0x3b51e8"
 	},
 
