@@ -1,4 +1,22 @@
 {
+	"AIZ1_chunks":
+	{
+		"File": "../Development/SonicFlameQuestProjDisasm/Levels/AIZ/Chunks/Act 1.bin",
+		"RomInject": "0x3ABC40"
+	},
+
+	"AIZ2_chunks":
+	{
+		"File": "../Development/SonicFlameQuestProjDisasm/Levels/AIZ/Chunks/Act 2.bin",
+		"RomInject": "0x3b51e8"
+	},
+
+	"HCZ1Chunks":
+	{
+		"File": "HCZ1Chunks.bin",
+		"RomInject": "0x3BA2AA"
+	},
+
 	"fbz_tiles":
 	{
 		"File": "fbz tiles.bin",
@@ -17,18 +35,6 @@
 		"RomInject": "0x01974a2"
 	},
 
-	"AIZ1_chunks":
-	{
-		"File": "AIZ1Collision.bin",
-		"RomInject": "0x3ABC40"
-	},
-
-	"AIZ2_chunks":
-	{
-		"File": "AIZ2Collision.bin",
-		"RomInject": "0x3b51e8"
-	},
-
 	"mhz_chunks_1":
 	{
 		"File": " mhz primary chunks.bin",
@@ -39,12 +45,6 @@
 	{
 		"File": "mhz secondary chunks.bin",
 		"RomInject": "0x019f8a6"
-	},
-
-	"HCZ1Chunks":
-	{
-		"File": "HCZ1Chunks.bin",
-		"RomInject": "0x3BA2AA"
 	},
 
 	"LBZ2Chunks":
