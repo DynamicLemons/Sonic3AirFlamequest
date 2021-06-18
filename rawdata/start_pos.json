@@ -1,37 +1,37 @@
 {
 	"AIZ1 Start-sonic":
-{
-	"File": "./level starts/AIZ1.Start-sonic.bin",
-	"RomInject": "0x1E3C18"
-},
+	{
+		"File": "./level starts/AIZ1.Start-sonic.bin",
+		"RomInject": "0x1E3C18"
+	},
 	"AIZ2 Start-sonic":
-{
-	"File": "./level starts/AIZ2.Start-sonic.bin",
-	"RomInject": "0x1E3C1C"
-},
+	{
+		"File": "./level starts/AIZ2.Start-sonic.bin",
+		"RomInject": "0x1E3C1C"
+	},
 	"HCZ1 Start-sonic":
-{
-	"File": "./level starts/HCZ1.Start-sonic.bin",
-	"RomInject": "0x1E3C20"
-},
+	{
+		"File": "./level starts/HCZ1.Start-sonic.bin",
+		"RomInject": "0x1E3C20"
+	},
 	"LBZ2 Start-sonic": 
-{
-	"File": "./level starts/LBZ2.Start-sonic.bin",
-	"RomInject": "0x1E3C4C"
-},
+	{
+		"File": "./level starts/LBZ2.Start-sonic.bin",
+		"RomInject": "0x1E3C4C"
+	},
 	"LBZ2 Start-knuckles": 
-{
-	"File": "./level starts/LBZ2.Start-knuckles.bin",
-	"RomInject": "0x1ED0C"
-},
+	{
+		"File": "./level starts/LBZ2.Start-knuckles.bin",
+		"RomInject": "0x1ED0C"
+	},
 	"MGZ1 Start-sonic":
-{
-	"File": "./level starts/MGZ1.Start-sonic.bin",
-	"RomInject": "0x2BB47"
-},
+	{
+		"File": "./level starts/MGZ1.Start-sonic.bin",
+		"RomInject": "0x1E3C28"
+	},
 	"MGZ2 Start-sonic": 
-{
-	"File": "./level starts/MGZ2.Start-sonic.bin",
-	"RomInject": "0x1E3C2C"
-},
+	{
+		"File": "./level starts/MGZ2.Start-sonic.bin",
+		"RomInject": "0x1E3C2C"
+	},
 }
