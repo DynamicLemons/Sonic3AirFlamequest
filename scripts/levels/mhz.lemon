@@ -37,8 +37,8 @@ function void UpdateLevelTiles.MHZ1()
 	
 	u64 mhz1fire = stringformat("mhz1_fire_0%d", ((global.framecounter / 4) & 0x03) + 1)
 	D0.u8 = (global.framecounter.low & 0x3F)
-	//Renderer.drawCustomSprite("mhz_smoke_1", getScreenExtend() - 40 - D0.u8, - D0.u8, 0x00, 0, 0x1100)
-	//Renderer.drawCustomSprite(mhz1fire, getScreenExtend() - 40, 0, 0x00, 0, 0x1100)
+	Renderer.drawCustomSprite("mhz_smoke_1", getScreenExtend() - 40 - D0.u8, - D0.u8, 0x00, 0, 0x1100)
+	Renderer.drawCustomSprite(mhz1fire, getScreenExtend() - 40, 0, 0x00, 0, 0x1100)
 	LoadTileContentDefault()
 }
 
@@ -48,9 +48,9 @@ function void UpdateLevelTiles.MHZ2()
 	u64 mhz1fire = stringformat("mhz1_fire_0%d", ((global.framecounter / 4) & 0x03) + 1)
 	u64 mhz2fire = stringformat("mhz2_fire_0%d", ((global.framecounter / 4) & 0x03) + 1)
 	D0.u8 = (global.framecounter.low & 0x3F) * 2
-	//Renderer.drawCustomSprite(mhz1fire, getScreenExtend() - 40, 0, 0x00, 0, 0x1100)
-	//Renderer.drawCustomSprite("mhz_smoke_2", getScreenExtend() - 40 - D0.u8, - D0.u8, 0x00, 0, 0x1100)
-	//Renderer.drawCustomSprite(mhz2fire, getScreenExtend() - 40, 0, 0x00, 0, 0x1100)
+	Renderer.drawCustomSprite(mhz1fire, getScreenExtend() - 40, 0, 0x00, 0, 0x1100)
+	Renderer.drawCustomSprite("mhz_smoke_2", getScreenExtend() - 40 - D0.u8, - D0.u8, 0x00, 0, 0x1100)
+	Renderer.drawCustomSprite(mhz2fire, getScreenExtend() - 40, 0, 0x00, 0, 0x1100)
 	camera.foreground.x.u16 += camera.screenshake.offset
 	call 0x054d9c + s16[0xffffeec0]
 }
