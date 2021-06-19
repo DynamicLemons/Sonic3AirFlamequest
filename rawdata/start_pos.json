@@ -1,32 +1,40 @@
 {
-	"AIZ1 Start-sonic":
-{
-	"File": "./level starts/AIZ1.Start-sonic.bin",
-	"RomInject": "0x1E3C18"
-},
-	"AIZ2 Start-sonic":
-{
-	"File": "./level starts/AIZ2.Start-sonic.bin",
-	"RomInject": "0x1E3C1C"
-},
-	"HCZ1 Start-sonic":
-{
-	"File": "./level starts/HCZ1.Start-sonic.bin",
-	"RomInject": "0x1E3C20"
-},
-	"LBZ1 Start-sonic": 
-{
-	"File": "./level starts/LBZ2.Start-sonic.bin",
-	"RomInject": "0x1E3C4C"
-},
-	"MGZ1 Start-sonic":
-{
-	"File": "./level starts/MGZ1.Start-sonic.bin",
-	"RomInject": "0x2BB47"
-},
-	"MGZ2 Start-sonic": 
-{
-	"File": "./level starts/MGZ2.Start-sonic.bin",
-	"RomInject": "0x1E3C2C"
-},
+	// Note: It looks like the RomInject goes up by 0x04 each time the act
+	// changes, might be possible to extrapolate to other levels (not sure where
+	// FBZ would fall in terms of order here)
+	"aiz1_startpos_sonic":
+	{
+		"File": "../Development/s3fq_disasm/Levels/AIZ/Start Location/Sonic/1.bin",
+		"RomInject": "0x1E3C18"
+	},
+
+	"aiz2_startpos_sonic":
+	{
+		"File": "../Development/s3fq_disasm/Levels/AIZ/Start Location/Sonic/2.bin",
+		"RomInject": "0x1E3C1C"
+	},
+
+	"hcz1_startpos_sonic":
+	{
+		"File": "../Development/s3fq_disasm/Levels/HCZ/Start Location/Sonic/1.bin",
+		"RomInject": "0x1E3C20"
+	},
+
+	"mgz1_startpos_sonic":
+	{
+		"File": "../Development/s3fq_disasm/Levels/MGZ/Start Location/Sonic/1.bin",
+		"RomInject": "0x1E3C28"
+	},
+
+	"mgz2_startpos_sonic":
+	{
+		"File": "../Development/s3fq_disasm/Levels/MGZ/Start Location/Sonic/2.bin",
+		"RomInject": "0x1E3C2C"
+	},
+
+	"lbz2_startpos_sonic":
+	{
+		"File": "../Development/s3fq_disasm/Levels/LBZ/Start Location/Sonic/2.bin",
+		"RomInject": "0x1E3C4C"
+	}
 }
