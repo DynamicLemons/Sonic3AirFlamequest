@@ -1,17 +1,17 @@
 {
-	"AIZ1_chunks":
+	"aiz1_chunks":
 	{
 		"File": "../Development/s3fq_disasm/Levels/AIZ/Chunks/Act 1.bin",
 		"RomInject": "0x3ABC40"
 	},
 
-	"AIZ2_chunks":
+	"aiz2_chunks":
 	{
 		"File": "../Development/s3fq_disasm/Levels/AIZ/Chunks/Act 2.bin",
 		"RomInject": "0x3b51e8"
 	},
 
-	"HCZ1Chunks":
+	"hcz1_chunks":
 	{
 		"File": "HCZ1Chunks.bin",
 		"RomInject": "0x3BA2AA"
@@ -35,21 +35,21 @@
 		"RomInject": "0x01974a2"
 	},
 
-	"mhz_chunks_1":
+	"mhz_chunks_primary":
 	{
-		"File": " mhz primary chunks.bin",
+		"File": "../Development/s3fq_disasm/Levels/MHZ/Chunks/Primary.bin",
 		"RomInject": "0x019D044"
 	},
 
-	"mhz_chunks_2":
+	"mhz_chunks_secondary":
 	{
-		"File": "mhz secondary chunks.bin",
+		"File": "../Development/s3fq_disasm/Levels/MHZ/Chunks/Secondary.bin",
 		"RomInject": "0x019f8a6"
 	},
 
-	"LBZ2Chunks":
+	"lbz_chunks_act_2":
 	{
-		"File": "LBZ2Collision.bin",
+		"File": "../Development/s3fq_disasm/Levels/LBZ/Chunks/Act 2.bin",
 		"RomInject": "0x3EAF04"
 	},
 
@@ -99,5 +99,5 @@
 	{
 		"File": "cnz blocks.bin",
 		"RomInject": "0x03ccc34"
-	},
+	}
 }
