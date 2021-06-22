@@ -1,131 +1,131 @@
 {
-	"PaletteALZ":
+	"alz_palette":
 	{
 		"File": "palettes/ALZ.bin",
 		"RomInject": "0xA99DC"
 	},
 
-	"PaletteBPZ":
+	"bpz_palette":
 	{
 		"File": "palettes/BPZ.bin",
 		"RomInject": "0xA9A3C"
 	},
 
-	"PaletteCGZ":
+	"cgz_palette":
 	{
 		"File": "palettes/CGZ.bin",
 		"RomInject": "0xA9AFC"
 	},
 
-	"PaletteDPZ":
+	"dpz_palette":
 	{
 		"File": "palettes/DPZ.bin",
 		"RomInject": "0xA9A9C"
 	},
 
-	"PaletteEMZ":
+	"emz_palette":
 	{
 		"File": "palettes/EMZ.bin",
 		"RomInject": "0xA9B5C"
 	},
 
-	"fbz palette":
+	"fbz2_palette":
 	{
 		"File": "palettes/FBZ2.bin",
 		"RomInject": "0xA909C"
 	},
 
-	"PaletteAIZ1":
+	"aiz1_palette":
 	{
 		"File": "palettes/AIZ1.bin",
 		"RomInject": "0x0A8B7C"
 	},
 
-	"PaletteAIZ1Water":
+	"aiz1_palette_water":
 	{
 		"File": "palettes/AIZ1Water.bin",
 		"RomInject": "0xA8C9C"
 	},
 
-	"PaletteAIZ2":
+	"aiz2_palette":
 	{
 		"File": "palettes/AIZ2.bin",
 		"RomInject": "0x0A8BDC"
 	},
 
-	"PaletteAIZ2Water":
+	"aiz2_palette_water":
 	{
 		"File": "palettes/AIZ2Water.bin",
 		"RomInject": "0xA8D1C"
 	},
 
-	"PaletteHCZ1":
+	"hcz1_palette":
 	{
 		"File": "palettes/HCZ1.bin",
 		"RomInject": "0xA8D9C"
 	},
 
-	"HCZ1Waterfall":
-	{
-		"File": "palettes/HCZ1Waterfall.bin",
-		"RomInject": "0x2D0E"
-	},
-
-	"PaletteHCZ2":
-	{
-		"File": "palettes/HCZ1.bin",
-		"RomInject": "0xA8DFC"
-	},
-
-	"PaletteHCZ1Water":
+	"hcz1_palette_water":
 	{
 		"File": "palettes/HCZ1Water.bin",
 		"RomInject": "0xA8E5C"
 	},
 
-	"PaletteHCZ2Water":
+	"hcz1_palette_waterfall": // Might just be all palette cycles, should be renamed if so
+	{
+		"File": "palettes/HCZ1Waterfall.bin",
+		"RomInject": "0x2D0E"
+	},
+
+	"hcz2_palette":
+	{
+		"File": "palettes/HCZ1.bin",
+		"RomInject": "0xA8DFC"
+	},
+
+	"hcz2_palette_water":
 	{
 		"File": "palettes/HCZ1Water.bin",
 		"RomInject": "0xA8EDC"
 	},
 
-	"PaletteMGZ":
+	"mgz_palette":
 	{
 		"File": "palettes/MGZ.bin",
 		"RomInject": "0xA8F5C"
 	},
 
-	"PaletteICZ1":
+	"icz1_palette":
 	{
 		"File": "palettes/ICZ1.bin",
 		"RomInject": "0x0A915C"
 	},
 
-	"PaletteICZ2":
+	"icz2_palette":
 	{
 		"File": "palettes/ICZ2.bin",
 		"RomInject": "0x0A91BC"
 	},
 
-	"PaletteICZWater":
+	"icz_palette_water":
 	{
 		"File": "palettes/ICZWater.bin",
 		"RomInject": "0x0A921C"
 	},
 
-	"fbz 2 palette":
+	"fbz2_palette":
 	{
 		"File": "palettes/FBZ2.bin",
 		"RomInject": "0x0A90FC"
 	},
 
-	"fbz_indoors":
+	"fbz_palette_indoors":
 	{
 		"File": "palettes/FBZ BG Indoors.bin",
 		"RomInject": "0x052DC0"
 	},
 
-	"fbz_sky":
+	"fbz_palette_sky":
 	{
 		"File": "palettes/FBZ BG Outdoors.bin",
 		"RomInject": "0x052DD0"
@@ -155,45 +155,43 @@
 		"RomInject": "0xA929C"
 	},
 
-
 	"lbz 2":
 	{
 		"File": "palettes/lbz2.bin",
 		"RomInject": "0x0A92FC"
 	},
 
-
-	"PaletteSOZ1":
+	"soz1_palette":
 	{
 		"File": "palettes/SOZ1.bin",
 		"RomInject": "0x0a94fc"
 	},
 
-	"PaletteSOZ2Light":
+	"soz2_palette_light":
 	{
 		"File": "palettes/SOZ2.bin",
 		"RomInject": "0x0A955C"
 	},
 
-	"PaletteSOZ2Dim":
+	"soz2_palette_dim":
 	{
 		"File": "palettes/SOZ2.bin",
 		"RomInject": "0x0A95BC"
 	},
 
-	"PaletteSOZ2Dark":
+	"soz2_palette_dark":
 	{
 		"File": "palettes/SOZ2.bin",
 		"RomInject": "0x0A961C"
 	},
 
-	"PaletteLRZ1":
+	"lrz1_palette":
 	{
 		"File": "palettes/LRZ1.bin",
 		"RomInject": "0xA967C"
 	},
 
-	"PaletteLRZ2":
+	"lrz2_palette":
 	{
 		"File": "palettes/LRZ2.bin",
 		"RomInject": "0xA96DC"
@@ -213,30 +211,23 @@
 	},
 
 	// Replaces Mushroom Hill Zone Act 1 Palette
-	"PaletteMHZ1":
+	"mhz1_palette":
 	{
 		"File": "palettes/MHZ1.bin",
 		"RomInject": "0x0a943c"
 	},
 
 	// Replaces Mushroom Hill Zone Act 2 Palettes
-	"PaletteMHZ2Autumn":
+	"mhz2_palette_autumn":
 	{
 		"File": "palettes/MHZAct 2 Gold.bin",
 		"RomInject": "0x0550fe"
 	},
 
-	"PaletteMHZ2Winter":
+	"mhz2_palette_winter":
 	{
 		"File": "palettes/MHZ2.bin",
 		"RomInject": "0x0a949c"
-	},
-
-	// Replaces Lava Reef Zone Act 1 Palette
-	"PaletteLRZ1":
-	{
-	    "File": "palettes/LRZ1.bin",
-		"RomInject": "0x0a967c"
 	},
 
 	"PaletteDEZ1":

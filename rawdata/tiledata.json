@@ -19,19 +19,19 @@
 
 	"fbz_tiles":
 	{
-		"File": "fbz tiles.bin",
+		"File": "fbz_tiles.bin",
 		"RomInject": "0x195040"
 	},
 
 	"fbz_blocks":
 	{
-		"File": "fbz blocks.bin",
+		"File": "fbz_blocks.bin",
 		"RomInject": "0x194400"
 	},
 
 	"fbz_chunks":
 	{
-		"File": "fbz chunks.bin",
+		"File": "fbz_chunks.bin",
 		"RomInject": "0x01974a2"
 	},
 
@@ -67,25 +67,25 @@
 
 	"chunks_bonus_pach":
 	{
-	  "File": "GSChunks.bin",
-	  "RomInject": "0x01dfe92"
+		"File": "GSChunks.bin",
+		"RomInject": "0x01dfe92"
 	},
 
-	"fbzindex":
+	"fbz_index":
 	{
-		"File": "fbzanitileindex.bin",
+		"File": "fbz_ani_tile_index.bin"
 		// "RomInject": "0x28906"
 	},
 
-	"fbzindex2":
+	"fbz_index_2":
 	{
-		"File": "fbzanitileindex2.bin",
+		"File": "fbz_ani_tile_index_2.bin"
 		// "RomInject": "0x28906"
 	},
 
-	"anitilebgfbz":
+	"fbz_ani_tiles_bg":
 	{
-		"File": "fbz ani tiles.bin",
+		"File": "fbz_ani_tiles.bin"
 		// "RomInject": "0x0B89C0"
 	},
 
