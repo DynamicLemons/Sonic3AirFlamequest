@@ -10,16 +10,17 @@ function void Character.updateUprightOnGround()
 		tails.carrying = 0
 		tails.catch_timeout = 0
 	}
-if (GameplayCDSpindash == 0)
-{
-	if (Character.UpdateSpindashCD())
-		return
-}
-else
-{
-	if (Character.UpdateSpindash())
-		return
-}
+
+	if (GameplayCDSpindash == 0)
+	{
+		if (Character.UpdateSpindashCD())
+			return
+	}
+	else
+	{
+		if (Character.UpdateSpindash())
+			return
+	}
 
 #if STANDALONE
 	if (char.character == CHARACTER_SONIC)
@@ -81,89 +82,76 @@ function bool Character.UpdateSpindashCD()
 	{
 		if (input_state & CONTROL_DOWN)
 		{
-			if ((abs(char.groundspeed) >= 0x0370))
+			if ((abs(char.groundspeed) >= 0x0370) && (level.framecounter.low & 0x03))
 			{
-			if (level.framecounter.low & 0x03)
-{
-			Audio.playAudio("peelout_charge_loop", AudioContext.CONTEXT_SOUND)
-}
+				Audio.playAudio("peelout_charge_loop", AudioContext.CONTEXT_SOUND)
 			}
 			if (char.spindash_charge >= 0x1) && (char.state == char.state.ROLLING)
 			{
 				char.state = char.state.ROLLING
 				// Release spindash!
-			char.hitbox_extends.y = 14
-			char.hitbox_extends.x = 7
+				char.hitbox_extends.y = 14
+				char.hitbox_extends.x = 7
 			}
 			// Update spindash
 			{
-						if (char.flags & char.flag.FACING_LEFT)
-		{
-				if (super.active) || (super.active.tails)
+				if (char.flags & char.flag.FACING_LEFT)
 				{
-					char.groundspeed = char.groundspeed - 0x30
+					if (super.active) || (super.active.tails)
+						char.groundspeed = char.groundspeed - 0x30
+					else
+						char.groundspeed = char.groundspeed - 0x15
+
 					if (char.spindash < 0x50)
 					{
 						if (char.spindash >= 0x200)
 						{
-						char.spindash_charge++
+							char.spindash_charge++
 						}
 					}
 				}
-				else
-				{
-					char.groundspeed = char.groundspeed - 0x15
-					if (char.spindash < 0x50)
-					{
-						if (char.spindash >= 0x200)
-						{
-						char.spindash_charge++
-						}
-					}
-				}
-		}
 		else
 		{
-							if (super.active) || (super.active.tails)
-				{
-					char.groundspeed = char.groundspeed + 0x30
-					if (char.spindash < 0x50)
-					{
-						if (char.spindash >= 0x200)
-						{
-						char.spindash_charge++
-						}
-					}
-				}
-				else
-				{
-					char.groundspeed = char.groundspeed + 0x15
-					if (char.spindash < 0x50)
-					{
-						if (char.spindash >= 0x200)
-						{
-						char.spindash_charge++
-						}
-					}
-				}
-		}
-			}
-		}
-		else
-		{
-			if (SettingCDSpindash != 0) 
+			if (super.active) || (super.active.tails)
 			{
-				releaseSpindashCD()
+				char.groundspeed = char.groundspeed + 0x30
+				if (char.spindash < 0x50)
+				{
+					if (char.spindash >= 0x200)
+					{
+					char.spindash_charge++
+					}
+				}
 			}
 			else
 			{
-				releaseSpindashCD()
+				char.groundspeed = char.groundspeed + 0x15
+				if (char.spindash < 0x50)
+				{
+					if (char.spindash >= 0x200)
+					{
+					char.spindash_charge++
+					}
+				}
 			}
 		}
+		}
+	}
+	else
+	{
+		if (SettingCDSpindash != 0) 
+		{
+			releaseSpindashCD()
+		}
+		else
+		{
+			releaseSpindashCD()
+		}
+	}
 
 		// Center camera y-offset again
 		centerCameraYOffset()
-	}
+}
 
 	Character.CheckAgainstMoveBorders()
 	Character.UpdateRotationOnGround()
@@ -197,14 +185,15 @@ function void releaseSpindashCD()
 			baseAddress = (super.active.tails) ? 0x015320 : 0x01530e
 			dy = 1
 		}
+
 		D0 = u16(char.spindash_charge >> 8) * 2
 		if (char.groundspeed <= 0x600)
 		{
-		char.groundspeed = char.groundspeed * 2
+			char.groundspeed = char.groundspeed * 2
 		}
 		else
 		{
-        char.groundspeed = 0x600 * 2
+			char.groundspeed = 0x600 * 2
 		}
 
 		char.position.y.u16 += (global.inv_gravity) ? -dy : dy
@@ -215,10 +204,7 @@ function void releaseSpindashCD()
 		// Camera delay
 		if (A0 == 0xffffb000)
 		{
-		#if STANDALONE
-			// This does not hurt
 			ClearPositionBackup()
-		#endif
 			camera.locktime.player1 = D0.u16
 		}
 		else

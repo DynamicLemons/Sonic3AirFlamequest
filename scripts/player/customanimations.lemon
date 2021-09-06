@@ -72,7 +72,7 @@ function void Character.UpdateNormalState.Sonic()
 function void Character.UpdateNormalState.Tails()
 {
 	base.Character.UpdateNormalState.Tails()
-	if (abs(char.groundspeed) >= 0x0a00)
+	if ((abs(char.groundspeed) >= 0x0a00) && (A0 == 0xffffb000))
 	{
 		FastAfterImages = 30
 	}
@@ -90,7 +90,7 @@ function void Character.UpdateNormalState.Knuckles()
 
 	if (abs(char.groundspeed) >= 0x0a00)
 	{
-		FastAfterImages = 1
+		FastAfterImages = 30
 	}
 	else
 	{
