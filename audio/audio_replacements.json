@@ -10,11 +10,11 @@
 
 	// AIZ 1 FIRE
 	"01_fire":      { "File": "music/stage/1_aiz/aia1fire.ogg", "Type": "Music", "LoopStart":  "41156" },
-	"01_fire_fast":      { "File": "music/stage/1_aiz/aia1firef.ogg", "Type": "Music", "LoopStart":  "117599" },
+	"01_fire_fast":      { "File": "music/stage/1_aiz/aia1firef.ogg", "Type": "Music", "LoopStart":  "35280" },
 	
 	// AIZ 2
 	"02":      { "File": "music/stage/1_aiz/aia2.ogg", "Type": "Music", "LoopStart":  "141120" },
-	"02_fast":      { "File": "music/stage/1_aiz/aia2f.ogg", "Type": "Music", "LoopStart":  "35281" },
+	"02_fast":      { "File": "music/stage/1_aiz/aia2f.ogg", "Type": "Music", "LoopStart":  "117607" },
 	
 	// CNZ 1
 	"07":      { "File": "music/stage/4_cnz/BlazingCarnival1.ogg", "Type": "Music", "Loop": "1" },
@@ -30,6 +30,14 @@
 
 	"0Aalt":      { "File": "music/stage/8_fbz/FlyingBattery2ALT.ogg", "Type": "Music", "LoopStart": "76101" },
 	"0Aalt_fast": { "File": "music/stage/8_fbz/FlyingBattery2FALT.ogg", "Type": "Music", "LoopStart": "76877" },
+
+	// MHZ 1
+	"0F":      { "File": "music/stage/7_mhz/mha1.ogg", "Type": "Music", "LoopStart": "117605" },
+	"0F_fast": { "File": "music/stage/7_mhz/mha1f.ogg", "Type": "Music", "LoopStart": "94082" },
+
+	// MHZ 2
+	"10":      { "File": "music/stage/7_mhz/mha2.ogg", "Type": "Music", "LoopStart": "846724" },
+	"10_fast": { "File": "music/stage/7_mhz/mha2f.ogg", "Type": "Music", "LoopStart": "705401" },
 
 	// ICZ 1
 	"0B":      { "File": "music/stage/5_icz/MeltingIceCap1.ogg", "Type": "Music", "Loop": "2542576" },
